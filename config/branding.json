@@ -1,0 +1,44 @@
+{
+  "company": {
+    "name": "YourCompany",
+    "tagline": "Built with purpose. Engineered for impact.",
+    "description": "A fictional company created for academic purposes in the Planspiel course at TU Chemnitz.",
+    "founded": 2025,
+    "website": "https://yourcompany.example.com"
+  },
+  "branding": {
+    "logo_url": "https://via.placeholder.com/200x100?text=YourCompany",
+    "favicon_url": "https://via.placeholder.com/32x32?text=Y",
+    "colors": {
+      "primary": "#1d7874",
+      "secondary": "#34a853",
+      "accent": "#fbbc04",
+      "dark": "#202124",
+      "light": "#f8f9fa",
+      "text": "#202124",
+      "text_light": "#5f6368"
+    }
+  },
+  "contact": {
+    "email": "hello@yourcompany.example.com",
+    "phone": "+49 (0) 371 531-0",
+    "address": {
+      "street": "Reichenhainer Straße 70",
+      "city": "Chemnitz",
+      "postal_code": "09107",
+      "country": "Germany"
+    },
+    "social_media": {
+      "linkedin": "https://linkedin.com",
+      "github": "https://github.com",
+      "twitter": "https://twitter.com"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "owner": "YourCompany Team",
+      "responsible": "Contact Email"
+    },
+    "disclaimer": "This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2025/26). Any resemblance to real companies or organizations is purely coincidental."
+  }
+}

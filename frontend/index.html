@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Website - Planspiel Course</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img id="logo-img" src="placeholder.png" alt="Company Logo" class="logo-img">
+                    <span id="company-name">YourCompany</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#vision">Vision & Mission</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1 id="hero-title">Welcome to Our Company</h1>
+            <p id="hero-subtitle">Built with purpose. Engineered for impact.</p>
+            <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+    </header>
+
+    <!-- About Us Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="section-content">
+                <p id="company-desc">We are a forward-thinking company dedicated to innovation and excellence. Our team brings together diverse expertise to deliver solutions that drive real impact in the market.</p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>Founded</h3>
+                        <p id="founded-year">2025</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Team Members</h3>
+                        <p id="team-count">0</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Active Projects</h3>
+                        <p id="project-count">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section id="vision" class="section alternate">
+        <div class="container">
+            <h2>Vision & Mission</h2>
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <h3>📍 Our Vision</h3>
+                    <p>To be a leading innovator in our industry, transforming ideas into sustainable solutions that create lasting value for our clients and society.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>🎯 Our Mission</h3>
+                    <p>To deliver exceptional services through collaborative partnerships, cutting-edge technology, and a commitment to continuous improvement and excellence.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>💡 Our Values</h3>
+                    <p>Integrity, Innovation, Collaboration, and Impact. We believe in doing the right thing, pushing boundaries, and working together to create meaningful change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2>Services & Expertise</h2>
+            <div class="services-grid" id="services-container">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section alternate">
+        <div class="container">
+            <h2>Meet the Team</h2>
+            <div class="team-grid" id="team-container">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>Projects & Solutions</h2>
+            <div class="projects-grid" id="projects-container">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section alternate">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-details" id="contact-details">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" name="subject" placeholder="Subject" required>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <p id="footer-company-name">YourCompany</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#impressum">Impressum</a></li>
+                        <li><a href="#gdpr">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links" id="social-links">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> <span id="footer-year-company">YourCompany</span>. All rights reserved.</p>
+                <p id="academic-disclaimer" class="disclaimer"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Impressum Modal -->
+    <div id="impressum-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Impressum / Legal Notice</h2>
+            <div id="impressum-content"></div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Privacy Policy & GDPR Compliance</h2>
+            <div id="privacy-content"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
