@@ -9,7 +9,8 @@
     "vision": "To be the trusted partner in digital transformation, delivering innovative solutions that create lasting value and sustainable growth"
   },
   "branding": {
-    "logo_url": "logo.svg",
+    "logo_url": "logo.png",
+    "logo_icon": "logo.svg",
     "favicon_url": "logo.svg",
     "colors": {
       "primary": "#00D9FF",

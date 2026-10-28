@@ -47,11 +47,36 @@ function applyConfiguration(config) {
         document.title = `${config.company.name} | Planspiel Course`;
     }
 
-    // Update logo (navbar + hero)
+    // Navbar uses the compact icon; hero uses the full lockup
+    if (config.branding?.logo_icon) {
+        document.getElementById('logo-img').src = config.branding.logo_icon;
+    }
     if (config.branding?.logo_url) {
-        document.getElementById('logo-img').src = config.branding.logo_url;
         const heroLogo = document.getElementById('hero-logo');
-        if (heroLogo) heroLogo.src = config.branding.logo_url;
+        const heroTitle = document.getElementById('hero-title');
+        if (heroLogo) {
+            const iconSrc = config.branding.logo_icon || 'logo.svg';
+            // If the hero logo is the full PNG lockup (brain + "DENKBYTE"),
+            // hide the duplicate text headline. If it falls back to the SVG
+            // icon (no wordmark), keep the headline visible.
+            const applyHeroLogoState = () => {
+                const isLockup = /\.png($|\?)/i.test(heroLogo.currentSrc || heroLogo.src);
+                heroLogo.classList.toggle('is-lockup', isLockup);
+                if (heroTitle) heroTitle.classList.toggle('visually-hidden', isLockup);
+            };
+            heroLogo.addEventListener('load', applyHeroLogoState);
+            heroLogo.addEventListener('error', () => {
+                // PNG not present yet → fall back to the SVG brain icon
+                if (!heroLogo.src.endsWith(iconSrc)) heroLogo.src = iconSrc;
+            });
+            if (heroLogo.getAttribute('src') !== config.branding.logo_url) {
+                heroLogo.src = config.branding.logo_url;
+            } else if (heroLogo.complete) {
+                // Resolved before listeners attached
+                if (heroLogo.naturalWidth > 0) applyHeroLogoState();
+                else if (!heroLogo.src.endsWith(iconSrc)) heroLogo.src = iconSrc;
+            }
+        }
     }
 
     // Update contact information
