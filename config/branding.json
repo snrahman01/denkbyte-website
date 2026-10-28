@@ -1,7 +1,7 @@
 {
   "company": {
     "name": "DenkByte",
-    "tagline": "Think it. Byte it. Build it.",
+    "tagline": "Built with purpose. Engineered for impact.",
     "description": "DenkByte is a forward-thinking technology solutions company specializing in intelligent systems, data analytics, and digital transformation. We combine creative thinking (\"Denk\") with cutting-edge technology (\"Byte\") to deliver innovative solutions that drive real-world impact.",
     "founded": 2024,
     "website": "https://denkbyte.tech",
@@ -9,17 +9,16 @@
     "vision": "To be the trusted partner in digital transformation, delivering innovative solutions that create lasting value and sustainable growth"
   },
   "branding": {
-    "logo_url": "logo.png",
-    "logo_icon": "logo.svg",
+    "logo_url": "logo.svg",
     "favicon_url": "logo.svg",
     "colors": {
-      "primary": "#00D9FF",
-      "secondary": "#2CD98A",
-      "accent": "#7DF9FF",
-      "dark": "#05080C",
-      "light": "#0A0F16",
-      "text": "#E8EEF4",
-      "text_light": "#93A1B0"
+      "primary": "#1d7874",
+      "secondary": "#34a853",
+      "accent": "#fbbc04",
+      "dark": "#202124",
+      "light": "#f8f9fa",
+      "text": "#202124",
+      "text_light": "#5f6368"
     }
   },
   "contact": {
