@@ -1,26 +1,28 @@
 {
   "company": {
-    "name": "YourCompany",
+    "name": "DenkByte",
     "tagline": "Built with purpose. Engineered for impact.",
-    "description": "A fictional company created for academic purposes in the Planspiel course at TU Chemnitz.",
-    "founded": 2025,
-    "website": "https://yourcompany.example.com"
+    "description": "DenkByte is a forward-thinking technology solutions company specializing in intelligent systems, data analytics, and digital transformation. We combine creative thinking (\"Denk\") with cutting-edge technology (\"Byte\") to deliver innovative solutions that drive real-world impact.",
+    "founded": 2024,
+    "website": "https://denkbyte.tech",
+    "mission": "Empowering businesses through intelligent technology and data-driven insights",
+    "vision": "To be the trusted partner in digital transformation, delivering innovative solutions that create lasting value and sustainable growth"
   },
   "branding": {
-    "logo_url": "https://via.placeholder.com/200x100?text=YourCompany",
-    "favicon_url": "https://via.placeholder.com/32x32?text=Y",
+    "logo_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%232C3E50' width='200' height='200'/%3E%3Ctext x='50%' y='50%' font-size='60' font-weight='bold' fill='%2334A853' text-anchor='middle' dominant-baseline='middle' font-family='Arial'%3EDB%3C/text%3E%3C/svg%3E",
+    "favicon_url": "https://via.placeholder.com/32x32?text=DB&bg=2C3E50&fc=34A853",
     "colors": {
-      "primary": "#1d7874",
-      "secondary": "#34a853",
-      "accent": "#fbbc04",
-      "dark": "#202124",
-      "light": "#f8f9fa",
-      "text": "#202124",
-      "text_light": "#5f6368"
+      "primary": "#2C3E50",
+      "secondary": "#34A853",
+      "accent": "#00D9FF",
+      "dark": "#1A252F",
+      "light": "#F0F4F8",
+      "text": "#1A252F",
+      "text_light": "#4A5F7F"
     }
   },
   "contact": {
-    "email": "hello@yourcompany.example.com",
+    "email": "hello@denkbyte.tech",
     "phone": "+49 (0) 371 531-0",
     "address": {
       "street": "Reichenhainer Straße 70",
@@ -29,15 +31,15 @@
       "country": "Germany"
     },
     "social_media": {
-      "linkedin": "https://linkedin.com",
-      "github": "https://github.com",
-      "twitter": "https://twitter.com"
+      "linkedin": "https://linkedin.com/company/denkbyte",
+      "github": "https://github.com/denkbyte",
+      "twitter": "https://twitter.com/denkbyte_tech"
     }
   },
   "legal": {
     "impressum": {
-      "owner": "YourCompany Team",
-      "responsible": "Contact Email"
+      "owner": "DenkByte GmbH",
+      "responsible": "Management Team"
     },
     "disclaimer": "This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2025/26). Any resemblance to real companies or organizations is purely coincidental."
   }

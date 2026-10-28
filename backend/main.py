@@ -62,57 +62,109 @@ class Service(BaseModel):
 TEAM_MEMBERS = [
     {
         "id": 1,
-        "name": "Team Member 1",
-        "role": "Co-Founder & CEO",
-        "bio": "Visionary leader with 10+ years of experience.",
-        "email": "member1@yourcompany.example.com"
+        "name": "Dr. Marcus Adler",
+        "role": "Founder & CEO",
+        "bio": "PhD in Computer Science with 15+ years in tech innovation. Strategic visionary driving DenkByte's mission to transform digital landscapes. Expert in AI strategy and enterprise solutions.",
+        "email": "marcus.adler@denkbyte.tech"
     },
     {
         "id": 2,
-        "name": "Team Member 2",
-        "role": "CTO",
-        "bio": "Tech expert specializing in cloud solutions.",
-        "email": "member2@yourcompany.example.com"
+        "name": "Sarah Hoffmann",
+        "role": "CTO & Co-Founder",
+        "bio": "Cloud architect and full-stack engineer. Passionate about scalable systems and cutting-edge technologies. Previously led tech at leading fintech startup with 50+ team members.",
+        "email": "sarah.hoffmann@denkbyte.tech"
+    },
+    {
+        "id": 3,
+        "name": "Klaus Weber",
+        "role": "Head of Data Science",
+        "bio": "Machine learning specialist with expertise in predictive analytics and AI. M.Sc. in Data Science from TU Munich. Published researcher in neural networks and deep learning.",
+        "email": "klaus.weber@denkbyte.tech"
+    },
+    {
+        "id": 4,
+        "name": "Anna Fischer",
+        "role": "Head of Client Solutions",
+        "bio": "Enterprise consultant with strong background in business process optimization. Brings 8+ years of experience in strategic implementations across automotive and manufacturing sectors.",
+        "email": "anna.fischer@denkbyte.tech"
+    },
+    {
+        "id": 5,
+        "name": "Thomas Müller",
+        "role": "Senior Full-Stack Engineer",
+        "bio": "Open-source enthusiast and full-stack developer. Specializes in building scalable web applications and microservices. Active contributor to major tech communities.",
+        "email": "thomas.mueller@denkbyte.tech"
     }
 ]
 
 PROJECTS = [
     {
         "id": 1,
-        "title": "Project Alpha",
-        "description": "Innovative solution for market optimization.",
-        "technologies": ["Python", "FastAPI", "PostgreSQL"],
+        "title": "IntelliFlow™ - AI-Powered Process Automation",
+        "description": "Enterprise automation platform leveraging machine learning to optimize business workflows. Reduces manual processes by up to 70% while improving accuracy. Used by Fortune 500 companies in manufacturing and logistics.",
+        "technologies": ["Python", "TensorFlow", "Kubernetes", "PostgreSQL", "React"],
         "status": "active"
     },
     {
         "id": 2,
-        "title": "Project Beta",
-        "description": "AI-driven analytics platform.",
-        "technologies": ["Python", "TensorFlow", "Vue.js"],
+        "title": "DataVault - Secure Analytics Hub",
+        "description": "Comprehensive data analytics and business intelligence platform with advanced security features. Enables real-time insights from multi-source data lakes with GDPR compliance.",
+        "technologies": ["Python", "Apache Spark", "Elasticsearch", "Vue.js", "AWS"],
+        "status": "active"
+    },
+    {
+        "id": 3,
+        "title": "PredictNext - Predictive Analytics Engine",
+        "description": "Advanced forecasting and predictive analytics solution for supply chain optimization. Combines ML models with domain expertise to deliver 92% prediction accuracy.",
+        "technologies": ["Python", "PyTorch", "FastAPI", "PostgreSQL", "Docker"],
+        "status": "active"
+    },
+    {
+        "id": 4,
+        "title": "CloudSync - Enterprise Integration Platform",
+        "description": "Next-generation cloud integration platform enabling seamless data flow across enterprise systems. Currently in final beta testing with select enterprise clients.",
+        "technologies": ["Node.js", "GraphQL", "Microservices", "Kubernetes", "Azure"],
         "status": "in_development"
+    },
+    {
+        "id": 5,
+        "title": "InsightDash - Real-Time Dashboard Framework",
+        "description": "Modern dashboard framework for real-time monitoring and visualization. Used internally and by partners for critical system monitoring.",
+        "technologies": ["Vue.js", "D3.js", "WebSocket", "Python", "Redis"],
+        "status": "active"
     }
 ]
 
 SERVICES = [
     {
-        "title": "Consulting",
-        "description": "Strategic business consulting for digital transformation.",
-        "icon": "💼"
+        "title": "AI & Automation Consulting",
+        "description": "Strategic guidance on AI implementation, automation opportunities, and digital transformation. Help identify high-impact use cases and build implementation roadmaps.",
+        "icon": "🤖"
     },
     {
-        "title": "Development",
-        "description": "Custom software development with modern tech stack.",
+        "title": "Custom Software Development",
+        "description": "Bespoke solutions tailored to your business needs. From cloud-native applications to enterprise systems, we build scalable, secure, and maintainable software.",
         "icon": "💻"
     },
     {
-        "title": "Analytics",
-        "description": "Data-driven insights and business intelligence solutions.",
+        "title": "Data Analytics & BI",
+        "description": "Transform raw data into actionable insights. Advanced analytics, predictive modeling, and business intelligence solutions that drive informed decision-making.",
         "icon": "📊"
     },
     {
-        "title": "Optimization",
-        "description": "Process optimization and efficiency improvements.",
+        "title": "Cloud Infrastructure",
+        "description": "Secure, scalable cloud solutions on AWS, Azure, or GCP. Architecture design, migration, optimization, and managed services for optimal performance.",
+        "icon": "☁️"
+    },
+    {
+        "title": "Performance Optimization",
+        "description": "Enhance system efficiency and reduce operational costs. Code optimization, database tuning, infrastructure scaling, and architecture improvements.",
         "icon": "⚡"
+    },
+    {
+        "title": "Security & Compliance",
+        "description": "Robust security frameworks ensuring data protection and regulatory compliance. GDPR, ISO 27001, and industry-specific compliance implementations.",
+        "icon": "🔒"
     }
 ]
 

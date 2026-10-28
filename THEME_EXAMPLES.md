@@ -6,7 +6,20 @@ No code changes needed! Just edit `config/branding.json` and refresh the page.
 
 Copy and paste any of these into `config/branding.json` → `branding.colors`
 
-### Theme 1: Modern Green (Default)
+### Theme 1: DenkByte Professional Tech (Default)
+```json
+"colors": {
+  "primary": "#2C3E50",
+  "secondary": "#34A853",
+  "accent": "#00D9FF",
+  "dark": "#1A252F",
+  "light": "#F0F4F8",
+  "text": "#1A252F",
+  "text_light": "#4A5F7F"
+}
+```
+
+### Theme 2: Modern Green
 ```json
 "colors": {
   "primary": "#1d7874",
@@ -113,6 +126,30 @@ Copy and paste any of these into `config/branding.json` → `branding.colors`
 ---
 
 ## 🏢 Company-Specific Examples
+
+### DenkByte - Professional Tech Solutions (Current)
+```json
+{
+  "company": {
+    "name": "DenkByte",
+    "tagline": "Built with purpose. Engineered for impact.",
+    "description": "DenkByte is a forward-thinking technology solutions company specializing in intelligent systems, data analytics, and digital transformation. We combine creative thinking (\"Denk\") with cutting-edge technology (\"Byte\") to deliver innovative solutions that drive real-world impact.",
+    "founded": 2024
+  },
+  "branding": {
+    "logo_url": "https://denkbyte.tech/logo.svg",
+    "colors": {
+      "primary": "#2C3E50",
+      "secondary": "#34A853",
+      "accent": "#00D9FF",
+      "dark": "#1A252F",
+      "light": "#F0F4F8",
+      "text": "#1A252F",
+      "text_light": "#4A5F7F"
+    }
+  }
+}
+```
 
 ### Tech Startup
 ```json
