@@ -47,9 +47,28 @@ function applyConfiguration(config) {
         document.title = `${config.company.name} | Planspiel Course`;
     }
 
-    // Update logo
+    // Update logo (graceful fallback to SVG if the PNG isn't present yet)
     if (config.branding?.logo_url) {
-        document.getElementById('logo-img').src = config.branding.logo_url;
+        const navLogo = document.getElementById('logo-img');
+        const nameSpan = document.getElementById('company-name');
+        const fallback = 'logo.svg';
+        const applyLogoState = () => {
+            // The PNG lockup already contains the "DenkByte" wordmark,
+            // so hide the separate text when it's the one showing.
+            const isLockup = /\.png($|\?)/i.test(navLogo.currentSrc || navLogo.src);
+            navLogo.classList.toggle('is-lockup', isLockup);
+            if (nameSpan) nameSpan.style.display = isLockup ? 'none' : '';
+        };
+        navLogo.addEventListener('load', applyLogoState);
+        navLogo.addEventListener('error', () => {
+            if (!navLogo.src.endsWith(fallback)) navLogo.src = fallback;
+        });
+        if (navLogo.getAttribute('src') !== config.branding.logo_url) {
+            navLogo.src = config.branding.logo_url;
+        } else if (navLogo.complete) {
+            if (navLogo.naturalWidth > 0) applyLogoState();
+            else if (!navLogo.src.endsWith(fallback)) navLogo.src = fallback;
+        }
     }
 
     // Update contact information

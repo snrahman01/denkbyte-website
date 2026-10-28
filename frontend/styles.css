@@ -116,6 +116,11 @@ body {
     width: auto;
 }
 
+/* Full brand lockup (mark + wordmark) needs more height to be legible */
+.logo-img.is-lockup {
+    height: 52px;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
