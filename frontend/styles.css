@@ -411,24 +411,43 @@ body {
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-md);
     text-align: center;
-    transition: transform var(--transition-base);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    display: flex;
+    flex-direction: column;
 }
 
 .team-member:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .team-member-avatar {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    margin: 0 auto var(--spacing-md);
+    font-size: 3.2rem;
+    margin: 0 auto var(--spacing-sm);
     color: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    border: 3px solid var(--color-accent);
+}
+
+.hero-badge {
+    display: inline-block;
+    align-self: center;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
+    color: var(--color-dark);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: var(--spacing-sm);
 }
 
 .team-member h3 {
@@ -438,21 +457,51 @@ body {
 
 .team-member .role {
     color: var(--color-secondary);
-    font-weight: 500;
-    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-sm);
+}
+
+.team-member .superpower {
+    color: var(--color-text);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-bottom: var(--spacing-sm);
+    opacity: 0.85;
 }
 
 .team-member p {
     color: var(--color-text-light);
     font-size: var(--font-size-sm);
     margin-bottom: var(--spacing-md);
+    line-height: 1.6;
 }
 
-.team-member-email {
+.member-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: var(--spacing-sm);
+}
+
+.member-socials a {
     color: var(--color-primary);
     text-decoration: none;
-    font-size: var(--font-size-sm);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border: 1px solid var(--color-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--color-light);
+    transition: all var(--transition-fast);
+}
+
+.member-socials a:hover {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
 }
 
 /* ====================================

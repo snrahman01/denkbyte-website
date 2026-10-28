@@ -46,92 +46,136 @@ class Team(BaseModel):
     role: str
     bio: Optional[str] = None
     email: Optional[str] = None
-
-class Project(BaseModel):
-    title: str
-    description: str
-    technologies: list[str]
-    status: str = "active"
+    superhero: Optional[str] = None
+    superpower: Optional[str] = None
+    avatar: Optional[str] = None
+    github: Optional[str] = None
+    gitlab: Optional[str] = None
+    linkedin: Optional[str] = None
 
 class Service(BaseModel):
     title: str
     description: str
     icon: Optional[str] = None
 
-# Sample data - replace with database later
+# DenkByte Team - Planspiel WS 2025/26
 TEAM_MEMBERS = [
     {
         "id": 1,
-        "name": "Dr. Marcus Adler",
-        "role": "Founder & CEO",
-        "bio": "PhD in Computer Science with 15+ years in tech innovation. Strategic visionary driving DenkByte's mission to transform digital landscapes. Expert in AI strategy and enterprise solutions.",
-        "email": "marcus.adler@denkbyte.tech"
+        "name": "Ayush Aryan",
+        "role": "Software Engineer",
+        "superhero": "Iron Man",
+        "superpower": "Engineering ingenuity — builds powerful systems from the ground up",
+        "avatar": "🦾",
+        "bio": "Software Engineer crafting robust, scalable solutions. Turns complex requirements into clean, maintainable code.",
+        "email": "ayush2574@gmail.com",
+        "github": "https://github.com/aryan2574",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/ayar-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/ayusharyandev/"
     },
     {
         "id": 2,
-        "name": "Sarah Hoffmann",
-        "role": "CTO & Co-Founder",
-        "bio": "Cloud architect and full-stack engineer. Passionate about scalable systems and cutting-edge technologies. Previously led tech at leading fintech startup with 50+ team members.",
-        "email": "sarah.hoffmann@denkbyte.tech"
+        "name": "Nishtha Bhagyawant",
+        "role": "AI Engineer",
+        "superhero": "Vision",
+        "superpower": "Synthetic intelligence — sees patterns humans miss",
+        "avatar": "🤖",
+        "bio": "AI Engineer building intelligent systems that learn and adapt. Passionate about applied machine learning and automation.",
+        "email": "nishthabhagyawant@gmail.com",
+        "github": "https://github.com/NishthaB1409",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/nbha-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/nishtha-bhagyawant-507b721b9/"
     },
     {
         "id": 3,
-        "name": "Klaus Weber",
-        "role": "Head of Data Science",
-        "bio": "Machine learning specialist with expertise in predictive analytics and AI. M.Sc. in Data Science from TU Munich. Published researcher in neural networks and deep learning.",
-        "email": "klaus.weber@denkbyte.tech"
+        "name": "Kashish Madan",
+        "role": "Frontend / UI/UX Engineer",
+        "superhero": "Scarlet Witch",
+        "superpower": "Reality-shaping — bends pixels into beautiful experiences",
+        "avatar": "✨",
+        "bio": "Frontend & UI/UX Engineer designing intuitive, human-centered interfaces. Bridges the gap between users and technology.",
+        "email": "kashishmadan0902@gmail.com",
+        "github": "https://github.com/kashishmadaann",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/kamad-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/madan-kashish"
     },
     {
         "id": 4,
-        "name": "Anna Fischer",
-        "role": "Head of Client Solutions",
-        "bio": "Enterprise consultant with strong background in business process optimization. Brings 8+ years of experience in strategic implementations across automotive and manufacturing sectors.",
-        "email": "anna.fischer@denkbyte.tech"
+        "name": "Meeta Dave",
+        "role": "ML Engineer / Product Owner",
+        "superhero": "Professor X",
+        "superpower": "Strategic vision — guides the team and the mind of the product",
+        "avatar": "🧠",
+        "bio": "ML Engineer and Product Owner balancing technical depth with product strategy. Keeps the team aligned toward a shared vision.",
+        "email": "davemeeta12@gmail.com",
+        "github": "https://github.com/davemeeta",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/dmee-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/meetadave/"
     },
     {
         "id": 5,
-        "name": "Thomas Müller",
-        "role": "Senior Full-Stack Engineer",
-        "bio": "Open-source enthusiast and full-stack developer. Specializes in building scalable web applications and microservices. Active contributor to major tech communities.",
-        "email": "thomas.mueller@denkbyte.tech"
-    }
-]
-
-PROJECTS = [
-    {
-        "id": 1,
-        "title": "IntelliFlow™ - AI-Powered Process Automation",
-        "description": "Enterprise automation platform leveraging machine learning to optimize business workflows. Reduces manual processes by up to 70% while improving accuracy. Used by Fortune 500 companies in manufacturing and logistics.",
-        "technologies": ["Python", "TensorFlow", "Kubernetes", "PostgreSQL", "React"],
-        "status": "active"
+        "name": "Rohini Mane",
+        "role": "Data Engineer",
+        "superhero": "Oracle",
+        "superpower": "Master of data — turns raw information into actionable knowledge",
+        "avatar": "🔮",
+        "bio": "Data Engineer building reliable pipelines and data foundations. Ensures clean, accessible data powers every decision.",
+        "email": "ruhiimane7844@gmail.com",
+        "github": "https://github.com/RuhiMane",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/rohma-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/ruhi-mane-042613335/"
     },
     {
-        "id": 2,
-        "title": "DataVault - Secure Analytics Hub",
-        "description": "Comprehensive data analytics and business intelligence platform with advanced security features. Enables real-time insights from multi-source data lakes with GDPR compliance.",
-        "technologies": ["Python", "Apache Spark", "Elasticsearch", "Vue.js", "AWS"],
-        "status": "active"
+        "id": 6,
+        "name": "Pranav Malap",
+        "role": "Software Engineer",
+        "superhero": "Spider-Man",
+        "superpower": "Agile & versatile — swings across the full stack with ease",
+        "avatar": "🕸️",
+        "bio": "Software Engineer with a knack for solving tricky problems quickly. Adaptable across the stack and always ready to help.",
+        "email": "pranavmalap.de@gmail.com",
+        "github": "https://github.com/pranavmalap",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/malap-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/pranavmalap"
     },
     {
-        "id": 3,
-        "title": "PredictNext - Predictive Analytics Engine",
-        "description": "Advanced forecasting and predictive analytics solution for supply chain optimization. Combines ML models with domain expertise to deliver 92% prediction accuracy.",
-        "technologies": ["Python", "PyTorch", "FastAPI", "PostgreSQL", "Docker"],
-        "status": "active"
+        "id": 7,
+        "name": "Abhishek Dombe",
+        "role": "Backend Engineer",
+        "superhero": "Hulk",
+        "superpower": "Raw power — handles the heavy lifting on the backend",
+        "avatar": "💪",
+        "bio": "Backend Engineer building the powerful core that keeps everything running. Thrives on performance and reliability.",
+        "email": "abhidombe1111@gmail.com",
+        "github": "https://github.com/abhishekdombe",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/doab-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/abhishek-dombe-0508a61a5"
     },
     {
-        "id": 4,
-        "title": "CloudSync - Enterprise Integration Platform",
-        "description": "Next-generation cloud integration platform enabling seamless data flow across enterprise systems. Currently in final beta testing with select enterprise clients.",
-        "technologies": ["Node.js", "GraphQL", "Microservices", "Kubernetes", "Azure"],
-        "status": "in_development"
+        "id": 8,
+        "name": "Yashwanth Thalka",
+        "role": "Integration, Backend & Deployment Engineer",
+        "superhero": "Doctor Strange",
+        "superpower": "Master of connections — links systems and opens deployment portals",
+        "avatar": "🌀",
+        "bio": "Integration, Backend & Deployment Engineer connecting services and shipping them to production. Keeps the pipeline flowing smoothly.",
+        "email": "thalkayashwanth084@gmail.com",
+        "github": "https://github.com/Yashwanth2424",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/yath-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/thalka-yashwanth"
     },
     {
-        "id": 5,
-        "title": "InsightDash - Real-Time Dashboard Framework",
-        "description": "Modern dashboard framework for real-time monitoring and visualization. Used internally and by partners for critical system monitoring.",
-        "technologies": ["Vue.js", "D3.js", "WebSocket", "Python", "Redis"],
-        "status": "active"
+        "id": 9,
+        "name": "Syeda Nargis Rahman",
+        "role": "Backend Engineer",
+        "superhero": "Ms. Marvel (Kamala Khan)",
+        "superpower": "Resilient & resourceful — stretches to meet any challenge",
+        "avatar": "🌙",
+        "bio": "Backend Engineer designing solid APIs and services. Detail-oriented and dedicated to building dependable foundations.",
+        "email": "nargis.rhmn@gmail.com",
+        "github": "https://github.com/snrahman01",
+        "gitlab": "https://gitlab.hrz.tu-chemnitz.de/rsye-at-tu-chemnitz.de",
+        "linkedin": "https://www.linkedin.com/in/syeda-nargis-rahman-51148b205/"
     }
 ]
 
@@ -217,30 +261,6 @@ async def add_team_member(member: Team):
     }
     TEAM_MEMBERS.append(new_member)
     return new_member
-
-@app.get("/api/projects")
-async def get_projects():
-    """Get all projects"""
-    return PROJECTS
-
-@app.get("/api/projects/{project_id}")
-async def get_project(project_id: int):
-    """Get specific project"""
-    project = next((p for p in PROJECTS if p["id"] == project_id), None)
-    if not project:
-        raise HTTPException(status_code=404, detail="Project not found")
-    return project
-
-@app.post("/api/projects")
-async def add_project(project: Project):
-    """Add a new project"""
-    new_id = max([p["id"] for p in PROJECTS], default=0) + 1
-    new_project = {
-        "id": new_id,
-        **project.dict()
-    }
-    PROJECTS.append(new_project)
-    return new_project
 
 @app.get("/api/services")
 async def get_services():

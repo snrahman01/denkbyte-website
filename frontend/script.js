@@ -70,19 +70,16 @@ function applyConfiguration(config) {
 // Load all content from API
 async function loadContent() {
     try {
-        const [services, team, projects] = await Promise.all([
+        const [services, team] = await Promise.all([
             fetch(`${API_BASE_URL}/services`).then(r => r.json()),
-            fetch(`${API_BASE_URL}/team`).then(r => r.json()),
-            fetch(`${API_BASE_URL}/projects`).then(r => r.json())
+            fetch(`${API_BASE_URL}/team`).then(r => r.json())
         ]);
 
         renderServices(services);
         renderTeam(team);
-        renderProjects(projects);
 
         // Update counters
         document.getElementById('team-count').textContent = team.length;
-        document.getElementById('project-count').textContent = projects.length;
     } catch (error) {
         console.error('Error loading content:', error);
     }
@@ -105,27 +102,17 @@ function renderTeam(members) {
     const container = document.getElementById('team-container');
     container.innerHTML = members.map(member => `
         <div class="team-member">
-            <div class="team-member-avatar">${getInitials(member.name)}</div>
+            <div class="team-member-avatar">${member.avatar || getInitials(member.name)}</div>
+            ${member.superhero ? `<div class="hero-badge">⚡ ${member.superhero}</div>` : ''}
             <h3>${member.name}</h3>
             <div class="role">${member.role}</div>
+            ${member.superpower ? `<p class="superpower">${member.superpower}</p>` : ''}
             <p>${member.bio || 'Dedicated team member.'}</p>
-            ${member.email ? `<a href="mailto:${member.email}" class="team-member-email">${member.email}</a>` : ''}
-        </div>
-    `).join('');
-}
-
-// Render projects
-function renderProjects(projects) {
-    const container = document.getElementById('projects-container');
-    container.innerHTML = projects.map(project => `
-        <div class="project-card">
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <div>
-                <span class="project-status ${project.status}">${formatStatus(project.status)}</span>
-            </div>
-            <div class="project-tech">
-                ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+            <div class="member-socials">
+                ${member.github ? `<a href="${member.github}" target="_blank" rel="noopener noreferrer" title="GitHub">GitHub</a>` : ''}
+                ${member.gitlab ? `<a href="${member.gitlab}" target="_blank" rel="noopener noreferrer" title="GitLab">GitLab</a>` : ''}
+                ${member.linkedin ? `<a href="${member.linkedin}" target="_blank" rel="noopener noreferrer" title="LinkedIn">LinkedIn</a>` : ''}
+                ${member.email ? `<a href="mailto:${member.email}" title="Email">Email</a>` : ''}
             </div>
         </div>
     `).join('');
@@ -373,13 +360,6 @@ function getInitials(name) {
         .join('')
         .toUpperCase()
         .slice(0, 2);
-}
-
-function formatStatus(status) {
-    return status
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
 }
 
 function setYear() {
