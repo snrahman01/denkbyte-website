@@ -58,7 +58,7 @@ class Service(BaseModel):
     description: str
     icon: Optional[str] = None
 
-# DenkByte Team - Planspiel WS 2025/26
+# DenkByte Team - Planspiel WS 2026/27
 TEAM_MEMBERS = [
     {
         "id": 1,

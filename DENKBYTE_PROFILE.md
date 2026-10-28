@@ -9,7 +9,7 @@ real-world impact.
 
 **Founded**: 2024
 **Location**: Chemnitz, Germany
-**Context**: Fictional company created for the Planspiel course at TU Chemnitz (WS 2025/26)
+**Context**: Fictional company created for the Planspiel course at TU Chemnitz (WS 2026/27)
 **Team Size**: 9 members
 
 **Tagline**: *Built with purpose. Engineered for impact.*
@@ -97,5 +97,5 @@ The name **DenkByte** combines:
 ---
 
 *This profile represents DenkByte, a fictional company created for the Planspiel course
-at TU Chemnitz (WS 2025/26). Team members are real course participants; the company,
+at TU Chemnitz (WS 2026/27). Team members are real course participants; the company,
 services, and branding are fictional and for academic purposes only.*

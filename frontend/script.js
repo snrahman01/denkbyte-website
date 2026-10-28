@@ -40,16 +40,18 @@ function applyConfiguration(config) {
         document.getElementById('company-name').textContent = config.company.name;
         document.getElementById('footer-company-name').textContent = config.company.name;
         document.getElementById('footer-year-company').textContent = config.company.name;
-        document.getElementById('hero-title').textContent = `Welcome to ${config.company.name}`;
+        document.getElementById('hero-title').textContent = config.company.name;
         document.getElementById('hero-subtitle').textContent = config.company.tagline;
         document.getElementById('company-desc').textContent = config.company.description;
         document.getElementById('founded-year').textContent = config.company.founded;
         document.title = `${config.company.name} | Planspiel Course`;
     }
 
-    // Update logo
+    // Update logo (navbar + hero)
     if (config.branding?.logo_url) {
         document.getElementById('logo-img').src = config.branding.logo_url;
+        const heroLogo = document.getElementById('hero-logo');
+        if (heroLogo) heroLogo.src = config.branding.logo_url;
     }
 
     // Update contact information
@@ -212,7 +214,7 @@ async function loadLegalContent(config) {
             </p>
 
             <h3>Disclaimer</h3>
-            <p><strong>Academic Purpose:</strong> This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2025/26). All content is fictional and for demonstration purposes only.</p>
+            <p><strong>Academic Purpose:</strong> This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). All content is fictional and for demonstration purposes only.</p>
 
             <h3>Liability for Content</h3>
             <p>The contents of this website have been compiled with meticulous care. However, the operator does not assume any liability for the topicality, correctness, completeness or quality of the information provided.</p>

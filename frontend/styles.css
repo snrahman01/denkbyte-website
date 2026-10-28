@@ -146,57 +146,216 @@ body {
 }
 
 /* ====================================
-   HERO SECTION - Tech Professional
+   HERO SECTION - Creative Tech
    ==================================== */
 .hero {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1A252F 50%, var(--color-secondary) 100%);
+    background: radial-gradient(circle at 50% -20%, #22506b 0%, var(--color-primary) 35%, #16202b 100%);
     color: white;
-    padding: 6rem var(--spacing-md);
+    padding: 5.5rem var(--spacing-md) 6rem;
     text-align: center;
     position: relative;
     overflow: hidden;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero::before {
-    content: '';
+/* Animated background layer */
+.hero-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        radial-gradient(circle at 20% 50%, rgba(52, 168, 83, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
 }
 
-.hero .container {
+.hero-grid {
+    position: absolute;
+    inset: -2px;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 75%);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.5;
+    animation: floatBlob 14s ease-in-out infinite;
+}
+
+.blob-1 {
+    width: 380px;
+    height: 380px;
+    background: var(--color-secondary);
+    top: -80px;
+    left: -60px;
+}
+
+.blob-2 {
+    width: 320px;
+    height: 320px;
+    background: var(--color-accent);
+    bottom: -90px;
+    right: -50px;
+    animation-delay: -7s;
+}
+
+.code-chip {
+    position: absolute;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.18);
+    font-weight: 600;
+    animation: floatChip 10s ease-in-out infinite;
+    user-select: none;
+}
+
+.chip-1 { top: 18%; left: 12%; font-size: 1.6rem; }
+.chip-2 { top: 30%; right: 14%; font-size: 1.9rem; animation-delay: -2s; }
+.chip-3 { bottom: 24%; left: 16%; animation-delay: -4s; }
+.chip-4 { top: 60%; right: 20%; font-size: 1.3rem; animation-delay: -6s; }
+.chip-5 { bottom: 30%; right: 10%; font-size: 1.5rem; animation-delay: -3s; }
+
+.hero-inner {
     position: relative;
     z-index: 1;
 }
 
-.hero h1 {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-md);
-    animation: fadeInUp 0.8s ease;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+.hero-eyebrow {
+    display: inline-block;
+    background: rgba(0, 217, 255, 0.12);
+    border: 1px solid rgba(0, 217, 255, 0.35);
+    color: #8be9ff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: var(--spacing-lg);
+    animation: fadeInUp 0.7s ease;
 }
 
-.hero p {
+.hero-logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.25));
+    animation: fadeInUp 0.7s ease 0.05s backwards, floatLogo 5s ease-in-out infinite 0.7s;
+}
+
+.hero h1 {
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    background: linear-gradient(120deg, #ffffff 0%, #b8f0d4 50%, #8be9ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 0.7s ease 0.1s backwards;
+}
+
+.hero-tagline {
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: #ffffff;
+    animation: fadeInUp 0.7s ease 0.2s backwards;
+}
+
+.hero-desc {
     font-size: var(--font-size-lg);
+    max-width: 620px;
+    margin: 0 auto var(--spacing-lg);
+    opacity: 0.82;
+    line-height: 1.7;
+    animation: fadeInUp 0.7s ease 0.3s backwards;
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: var(--spacing-lg);
-    animation: fadeInUp 0.8s ease 0.2s backwards;
-    opacity: 0.95;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    animation: fadeInUp 0.7s ease 0.4s backwards;
 }
 
 .hero .btn {
-    animation: fadeInUp 0.8s ease 0.4s backwards;
     font-weight: 600;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2rem;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.hero-pills {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.7s ease 0.5s backwards;
+}
+
+.hero-pills span {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(6px);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.scroll-cue {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.6rem;
+    text-decoration: none;
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes floatBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.08); }
+}
+
+@keyframes floatChip {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-18px) rotate(3deg); }
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .blob, .code-chip, .hero-logo, .scroll-cue { animation: none; }
 }
 
 @keyframes fadeInUp {

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Website - Planspiel Course</title>
+    <title>DenkByte | Planspiel Course</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +13,7 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <img id="logo-img" src="placeholder.png" alt="Company Logo" class="logo-img">
+                    <img id="logo-img" src="logo.svg" alt="DenkByte logo" class="logo-img">
                     <span id="company-name">YourCompany</span>
                 </div>
                 <ul class="nav-menu">
@@ -28,11 +29,34 @@
 
     <!-- Hero Section -->
     <header class="hero">
-        <div class="container">
-            <h1 id="hero-title">Welcome to Our Company</h1>
-            <p id="hero-subtitle">Built with purpose. Engineered for impact.</p>
-            <a href="#contact" class="btn btn-primary">Get Started</a>
+        <div class="hero-bg" aria-hidden="true">
+            <span class="blob blob-1"></span>
+            <span class="blob blob-2"></span>
+            <div class="hero-grid"></div>
+            <span class="code-chip chip-1">&lt;/&gt;</span>
+            <span class="code-chip chip-2">{ }</span>
+            <span class="code-chip chip-3">01001</span>
+            <span class="code-chip chip-4">def()</span>
+            <span class="code-chip chip-5">AI</span>
         </div>
+        <div class="container hero-inner">
+            <span class="hero-eyebrow">⚡ Technology Solutions · Est. 2024</span>
+            <img id="hero-logo" class="hero-logo" src="logo.svg" alt="DenkByte logo">
+            <h1 id="hero-title">DenkByte</h1>
+            <p id="hero-subtitle" class="hero-tagline">Think it. Byte it. Build it.</p>
+            <p class="hero-desc">Intelligent systems, data analytics, and digital transformation — engineered for real-world impact.</p>
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-primary">Explore Our Services</a>
+                <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+            </div>
+            <div class="hero-pills">
+                <span>🤖 AI &amp; Automation</span>
+                <span>☁️ Cloud</span>
+                <span>📊 Data Analytics</span>
+                <span>🔒 Security</span>
+            </div>
+        </div>
+        <a href="#about" class="scroll-cue" aria-label="Scroll to content">▾</a>
     </header>
 
     <!-- About Us Section -->
