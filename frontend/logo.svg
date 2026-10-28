@@ -1,54 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="DenkByte logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230" role="img" aria-label="DenkByte logo">
   <defs>
-    <linearGradient id="db-chip" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2C3E50"/>
-      <stop offset="1" stop-color="#34A853"/>
+    <radialGradient id="brainFill" cx="50%" cy="42%" r="65%">
+      <stop offset="0" stop-color="#0E3A47"/>
+      <stop offset="1" stop-color="#061820"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="1" stop-color="#2CD98A"/>
     </linearGradient>
-    <linearGradient id="db-spark" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#34A853"/>
-      <stop offset="1" stop-color="#00D9FF"/>
-    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+
+    <!-- brain lobe cluster -->
+    <g id="brain-lobes">
+      <circle cx="120" cy="66" r="22"/>
+      <circle cx="92"  cy="74" r="20"/>
+      <circle cx="148" cy="74" r="20"/>
+      <circle cx="74"  cy="96" r="20"/>
+      <circle cx="166" cy="96" r="20"/>
+      <circle cx="120" cy="94" r="27"/>
+      <circle cx="88"  cy="116" r="19"/>
+      <circle cx="152" cy="116" r="19"/>
+      <circle cx="120" cy="122" r="24"/>
+      <circle cx="104" cy="136" r="17"/>
+      <circle cx="136" cy="136" r="17"/>
+      <circle cx="112" cy="150" r="12"/>
+      <circle cx="128" cy="150" r="12"/>
+    </g>
   </defs>
 
-  <!-- microchip pins -->
-  <g fill="#1A252F">
-    <rect x="8"  y="40" width="9" height="8" rx="2"/>
-    <rect x="8"  y="56" width="9" height="8" rx="2"/>
-    <rect x="8"  y="72" width="9" height="8" rx="2"/>
-    <rect x="103" y="40" width="9" height="8" rx="2"/>
-    <rect x="103" y="56" width="9" height="8" rx="2"/>
-    <rect x="103" y="72" width="9" height="8" rx="2"/>
-    <rect x="40" y="8"   width="8" height="9" rx="2"/>
-    <rect x="56" y="8"   width="8" height="9" rx="2"/>
-    <rect x="72" y="8"   width="8" height="9" rx="2"/>
-    <rect x="40" y="103" width="8" height="9" rx="2"/>
-    <rect x="56" y="103" width="8" height="9" rx="2"/>
-    <rect x="72" y="103" width="8" height="9" rx="2"/>
+  <!-- orbiting binary rings (behind + front halves share one layer for simplicity) -->
+  <g filter="url(#glow)" fill="none" stroke="url(#ring)" stroke-linecap="round">
+    <ellipse cx="120" cy="112" rx="112" ry="40" transform="rotate(-22 120 112)"
+             stroke-width="3" stroke-dasharray="3 11" opacity="0.95"/>
+    <ellipse cx="120" cy="112" rx="112" ry="40" transform="rotate(24 120 112)"
+             stroke-width="3" stroke-dasharray="3 11" opacity="0.8"/>
+    <ellipse cx="120" cy="112" rx="104" ry="30" transform="rotate(4 120 112)"
+             stroke-width="2" stroke-dasharray="2 12" opacity="0.5"/>
   </g>
 
-  <!-- chip body -->
-  <rect x="16" y="16" width="88" height="88" rx="24" fill="url(#db-chip)"/>
-  <rect x="16" y="16" width="88" height="88" rx="24" fill="none" stroke="#00D9FF" stroke-opacity="0.35" stroke-width="2"/>
-
-  <!-- neural "thought" tree (Denk) -->
-  <g stroke="url(#db-spark)" stroke-width="5" stroke-linecap="round" fill="none">
-    <path d="M60 88 L60 58"/>
-    <path d="M60 64 L42 44"/>
-    <path d="M60 64 L78 44"/>
-    <path d="M60 58 L60 34"/>
-    <path d="M42 44 L34 32"/>
-    <path d="M78 44 L86 32"/>
+  <!-- binary digits along the orbits -->
+  <g fill="#7DF9FF" font-family="monospace" font-size="12" font-weight="700" opacity="0.85">
+    <text x="30" y="96">1</text>
+    <text x="48" y="70">0</text>
+    <text x="196" y="150">0</text>
+    <text x="206" y="120">1</text>
+    <text x="150" y="40">1</text>
+    <text x="78" y="186">0</text>
+    <text x="128" y="196">1</text>
+    <text x="36" y="150">1</text>
   </g>
 
-  <!-- nodes -->
-  <circle cx="60" cy="88" r="7.5" fill="#ffffff"/>
-  <circle cx="60" cy="34" r="6" fill="#00D9FF"/>
-  <circle cx="42" cy="44" r="4.5" fill="#00D9FF"/>
-  <circle cx="78" cy="44" r="4.5" fill="#00D9FF"/>
-  <circle cx="34" cy="32" r="4" fill="#ffffff"/>
-  <circle cx="86" cy="32" r="4" fill="#ffffff"/>
+  <!-- glow halo behind brain -->
+  <use href="#brain-lobes" fill="#00E5FF" filter="url(#softglow)" opacity="0.35"/>
 
-  <!-- byte dots -->
-  <circle cx="40" cy="80" r="2.6" fill="#ffffff" opacity="0.7"/>
-  <circle cx="80" cy="80" r="2.6" fill="#ffffff" opacity="0.7"/>
+  <!-- brain body -->
+  <use href="#brain-lobes" fill="url(#brainFill)" stroke="#00E5FF" stroke-width="1.4" opacity="0.98"/>
+
+  <!-- brain folds + fissure -->
+  <g fill="none" stroke="#39E6FF" stroke-width="2.4" stroke-linecap="round" filter="url(#glow)" opacity="0.9">
+    <path d="M120 50 C116 80 124 104 120 150"/>
+    <path d="M96 76 C84 90 98 102 84 114"/>
+    <path d="M100 112 C90 122 106 130 96 142"/>
+    <path d="M144 76 C156 90 142 102 156 114"/>
+    <path d="M140 112 C150 122 134 130 144 142"/>
+    <path d="M120 150 L120 178"/>
+  </g>
 </svg>
