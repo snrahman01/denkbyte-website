@@ -1,5 +1,7 @@
-// Configuration
-const API_BASE_URL = 'http://localhost:8000/api';
+// Content is served from static JSON files in /data so the site can be hosted
+// on any static host (Netlify) with no backend. The FastAPI backend remains
+// available for local development / the REST-API requirement.
+const DATA_BASE = 'data';
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load configuration from API
 async function loadConfiguration() {
     try {
-        const response = await fetch(`${API_BASE_URL}/config`, { cache: 'no-store' });
+        const response = await fetch(`${DATA_BASE}/config.json`, { cache: 'no-store' });
         const config = await response.json();
         applyConfiguration(config);
         return config;
@@ -91,8 +93,8 @@ function applyConfiguration(config) {
 async function loadContent() {
     try {
         const [services, team] = await Promise.all([
-            fetch(`${API_BASE_URL}/services`, { cache: 'no-store' }).then(r => r.json()),
-            fetch(`${API_BASE_URL}/team`, { cache: 'no-store' }).then(r => r.json())
+            fetch(`${DATA_BASE}/services.json`, { cache: 'no-store' }).then(r => r.json()),
+            fetch(`${DATA_BASE}/team.json`, { cache: 'no-store' }).then(r => r.json())
         ]);
 
         renderServices(services);
@@ -357,30 +359,28 @@ function setupEventListeners() {
 async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const form = e.target;
     const statusDiv = document.getElementById('form-status');
 
     try {
-        const response = await fetch(`${API_BASE_URL}/contact`, {
+        // Netlify Forms: POST url-encoded data (including form-name) to the site root
+        const response = await fetch('/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form)).toString()
         });
 
         if (response.ok) {
             statusDiv.textContent = '✓ Message sent successfully! We\'ll get back to you soon.';
             statusDiv.classList.add('success');
             statusDiv.classList.remove('error');
-            e.target.reset();
+            form.reset();
         } else {
             throw new Error('Failed to send message');
         }
     } catch (error) {
         console.error('Error submitting form:', error);
-        statusDiv.textContent = '✗ Error sending message. Please try again.';
+        statusDiv.textContent = '✗ Message sending works once deployed to Netlify. Please try again there.';
         statusDiv.classList.add('error');
         statusDiv.classList.remove('success');
     }

@@ -127,7 +127,11 @@
                         <!-- Dynamically populated -->
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form">
+                <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="contact">
+                    <p class="visually-hidden" aria-hidden="true">
+                        <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field"></label>
+                    </p>
                     <label for="cf-name" class="visually-hidden">Your Name</label>
                     <input type="text" id="cf-name" name="name" placeholder="Your Name" required>
                     <label for="cf-email" class="visually-hidden">Your Email</label>

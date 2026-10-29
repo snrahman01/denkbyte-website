@@ -1,0 +1,17 @@
+# Netlify configuration for the DenkByte static site.
+# The site is plain static files (no build step); we just publish the frontend folder.
+
+[build]
+  publish = "frontend"
+  command = ""
+
+# Sensible caching: HTML/JSON always revalidate so content updates show immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "no-cache"
