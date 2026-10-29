@@ -42,7 +42,8 @@ function applyConfiguration(config) {
         document.getElementById('footer-year-company').textContent = config.company.name;
         document.getElementById('hero-title').textContent = `Welcome to ${config.company.name}`;
         document.getElementById('hero-subtitle').textContent = config.company.tagline;
-        document.getElementById('company-desc').textContent = config.company.description;
+        // About Us copy is authored directly in index.html (formatted HTML),
+        // so we intentionally don't overwrite #company-desc from config here.
         document.getElementById('founded-year').textContent = config.company.founded;
         document.title = `${config.company.name} | Planspiel Course`;
     }
