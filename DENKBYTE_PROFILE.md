@@ -30,7 +30,7 @@ Each team member has a superhero alter-ego that reflects their role on the team.
 | 6 | Pranav Malap | Software Engineer | 🕸️ Spider-Man |
 | 7 | Abhishek Dombe | Backend Engineer | 💪 Hulk |
 | 8 | Yashwanth Thalka | Integration, Backend & Deployment Engineer | 🌀 Doctor Strange |
-| 9 | Syeda Nargis Rahman | Backend Engineer | 🌙 Ms. Marvel (Kamala Khan) |
+| 9 | Syeda Nargis Rahman | Backend Engineer | 🌙 Ms. Marvel |
 
 ### Contact & Social Links
 

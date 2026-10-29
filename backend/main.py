@@ -168,7 +168,7 @@ TEAM_MEMBERS = [
         "id": 9,
         "name": "Syeda Nargis Rahman",
         "role": "Backend Engineer",
-        "superhero": "Ms. Marvel (Kamala Khan)",
+        "superhero": "Ms. Marvel",
         "superpower": "Resilient & resourceful — stretches to meet any challenge",
         "avatar": "🌙",
         "bio": "Backend Engineer designing solid APIs and services. Detail-oriented and dedicated to building dependable foundations.",
