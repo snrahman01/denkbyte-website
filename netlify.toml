@@ -1,8 +1,8 @@
 # Netlify configuration for the DenkByte static site.
-# The site is plain static files (no build step); we just publish the frontend folder.
+# Plain static files at the repo root (no build step), so we publish the root.
 
 [build]
-  publish = "frontend"
+  publish = "."
   command = ""
 
 # Sensible caching: HTML/JSON always revalidate so content updates show immediately.

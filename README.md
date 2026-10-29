@@ -9,7 +9,7 @@ TU Chemnitz (WS 2026/27). DenkByte is a fictional company created for academic p
 ## Tech
 
 - Plain **HTML + CSS + JavaScript** (no framework, no build step)
-- Content loaded from static JSON in `frontend/data/`
+- Content loaded from static JSON in `data/`
 - Contact form via **Netlify Forms**
 - Hosted free on **Netlify**
 
@@ -17,19 +17,18 @@ TU Chemnitz (WS 2026/27). DenkByte is a fictional company created for academic p
 
 ```
 denkbyte-website/
-├── frontend/
-│   ├── index.html          # the page
-│   ├── styles.css          # theme + layout (CSS variables for easy theming)
-│   ├── script.js           # loads data, renders team/services, nav, modals
-│   ├── logo.png / logo.svg # brand logo
-│   └── data/
-│       ├── config.json     # company name, colors, contact, legal text
-│       ├── team.json       # team members
-│       └── services.json   # services offered
-├── netlify.toml            # Netlify publish config (publishes frontend/)
-├── NETLIFY_DEPLOY.md       # deployment steps
-├── THEME_EXAMPLES.md       # alternative color palettes
-└── DENKBYTE_PROFILE.md     # company/team profile reference
+├── index.html          # the page (at repo root)
+├── styles.css          # theme + layout (CSS variables for easy theming)
+├── script.js           # loads data, renders team/services, nav, modals
+├── logo.png / logo.svg # brand logo
+├── data/
+│   ├── config.json     # company name, colors, contact, legal text
+│   ├── team.json       # team members
+│   └── services.json   # services offered
+├── netlify.toml        # Netlify publish config (publishes repo root)
+├── NETLIFY_DEPLOY.md   # deployment steps
+├── THEME_EXAMPLES.md   # alternative color palettes
+└── DENKBYTE_PROFILE.md # company/team profile reference
 ```
 
 ## Run locally
@@ -37,14 +36,13 @@ denkbyte-website/
 The page fetches JSON, so open it through a local web server (not `file://`):
 
 ```bash
-cd frontend
 python3 -m http.server 3000
 # then open http://localhost:3000
 ```
 
 ## Edit content
 
-All content is in `frontend/data/`:
+All content is in `data/`:
 
 - **Company name, tagline, colors, contact, legal** → `config.json`
   (colors apply automatically via CSS variables — see `THEME_EXAMPLES.md`)
@@ -55,8 +53,8 @@ No rebuild needed — edit the JSON and refresh.
 
 ## Deploy
 
-See **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** — drag-and-drop the `frontend` folder to
-Netlify, or connect the GitHub repo for auto-deploys.
+See **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** — connect the GitHub repo for auto-deploys,
+or drag-and-drop the whole project folder to Netlify.
 
 ## Course compliance
 
