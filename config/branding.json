@@ -12,13 +12,13 @@
     "logo_url": "logo.png",
     "favicon_url": "logo.png",
     "colors": {
-      "primary": "#1d7874",
-      "secondary": "#34a853",
-      "accent": "#fbbc04",
-      "dark": "#202124",
+      "primary": "#16213E",
+      "secondary": "#E8730C",
+      "accent": "#F5A623",
+      "dark": "#0F1829",
       "light": "#f8f9fa",
-      "text": "#202124",
-      "text_light": "#5f6368"
+      "text": "#16213E",
+      "text_light": "#6B7280"
     }
   },
   "contact": {
