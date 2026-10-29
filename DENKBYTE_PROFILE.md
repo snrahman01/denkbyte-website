@@ -7,7 +7,7 @@ data analytics, and digital transformation. We combine creative thinking ("Denk"
 with cutting-edge technology ("Byte") to deliver innovative solutions that drive
 real-world impact.
 
-**Founded**: 2024
+**Founded**: 2026
 **Location**: Chemnitz, Germany
 **Context**: Fictional company created for the Planspiel course at TU Chemnitz (WS 2026/27)
 **Team Size**: 9 members
