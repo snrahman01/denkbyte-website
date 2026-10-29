@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load configuration from API
 async function loadConfiguration() {
     try {
-        const response = await fetch(`${API_BASE_URL}/config`);
+        const response = await fetch(`${API_BASE_URL}/config`, { cache: 'no-store' });
         const config = await response.json();
         applyConfiguration(config);
         return config;
@@ -91,8 +91,8 @@ function applyConfiguration(config) {
 async function loadContent() {
     try {
         const [services, team] = await Promise.all([
-            fetch(`${API_BASE_URL}/services`).then(r => r.json()),
-            fetch(`${API_BASE_URL}/team`).then(r => r.json())
+            fetch(`${API_BASE_URL}/services`, { cache: 'no-store' }).then(r => r.json()),
+            fetch(`${API_BASE_URL}/team`, { cache: 'no-store' }).then(r => r.json())
         ]);
 
         renderServices(services);
