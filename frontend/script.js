@@ -127,13 +127,6 @@ function renderTeam(members) {
             <h3>${member.name}</h3>
             <div class="role">${member.role}</div>
             ${member.superpower ? `<p class="superpower">${member.superpower}</p>` : ''}
-            <p>${member.bio || 'Dedicated team member.'}</p>
-            <div class="member-socials">
-                ${member.github ? `<a href="${member.github}" target="_blank" rel="noopener noreferrer" title="GitHub">GitHub</a>` : ''}
-                ${member.gitlab ? `<a href="${member.gitlab}" target="_blank" rel="noopener noreferrer" title="GitLab">GitLab</a>` : ''}
-                ${member.linkedin ? `<a href="${member.linkedin}" target="_blank" rel="noopener noreferrer" title="LinkedIn">LinkedIn</a>` : ''}
-                ${member.email ? `<a href="mailto:${member.email}" title="Email">Email</a>` : ''}
-            </div>
         </div>
     `;
     const cards = members.map(card).join('');

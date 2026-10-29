@@ -892,7 +892,7 @@ body {
     width: 250px;
     margin-right: var(--spacing-md);
     margin-bottom: 0;
-    padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+    padding: var(--spacing-md);
 }
 
 /* Compact marquee card tweaks */
@@ -920,7 +920,7 @@ body {
 }
 
 .team-track .team-member .superpower {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0;
     font-size: 0.74rem;
 }
 

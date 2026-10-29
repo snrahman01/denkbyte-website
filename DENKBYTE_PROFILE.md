@@ -24,7 +24,7 @@ Each team member has a superhero alter-ego that reflects their role on the team.
 |---|------|------|-----------|
 | 1 | Ayush Aryan | Software Engineer | 🦾 Iron Man |
 | 2 | Nishtha Bhagyawant | AI Engineer | 🤖 Vision |
-| 3 | Kashish Madan | Frontend / UI/UX Engineer | ✨ Scarlet Witch |
+| 3 | Kashish Madan | Frontend / UI/UX Engineer | ✨ Green Lantern |
 | 4 | Meeta Dave | ML Engineer / Product Owner | 🧠 Professor X |
 | 5 | Rohini Mane | Data Engineer | 🔮 Oracle |
 | 6 | Pranav Malap | Software Engineer | 🕸️ Spider-Man |
