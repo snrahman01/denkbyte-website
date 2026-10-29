@@ -283,6 +283,15 @@ body {
     color: var(--color-primary);
 }
 
+.section-subtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+    font-style: italic;
+    margin-top: calc(-1 * var(--spacing-md));
+    margin-bottom: var(--spacing-xs);
+}
+
 .section-content {
     max-width: 800px;
     margin: 0 auto;
