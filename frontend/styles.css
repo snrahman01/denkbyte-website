@@ -857,3 +857,50 @@ body {
     color: white;
     border-color: var(--color-primary);
 }
+
+/* ====================================
+   TEAM AUTO-SCROLLING MARQUEE
+   ==================================== */
+.team-hint {
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    margin-top: calc(-1 * var(--spacing-md));
+}
+
+.team-marquee {
+    overflow: hidden;
+    width: 100%;
+    padding: var(--spacing-md) 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.team-track {
+    display: flex;
+    width: max-content;
+    animation: teamScroll 50s linear infinite;
+}
+
+/* Pause when the visitor hovers so they can read / click links */
+.team-marquee:hover .team-track {
+    animation-play-state: paused;
+}
+
+.team-track .team-member {
+    flex: 0 0 280px;
+    width: 280px;
+    margin-right: var(--spacing-md);
+    margin-bottom: 0;
+}
+
+@keyframes teamScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Accessibility: no auto-motion, allow manual horizontal scroll instead */
+@media (prefers-reduced-motion: reduce) {
+    .team-track { animation: none; }
+    .team-marquee { overflow-x: auto; }
+}

@@ -117,10 +117,10 @@ function renderServices(services) {
     `).join('');
 }
 
-// Render team members
+// Render team members (as an auto-scrolling marquee)
 function renderTeam(members) {
     const container = document.getElementById('team-container');
-    container.innerHTML = members.map(member => `
+    const card = member => `
         <div class="team-member">
             <div class="team-member-avatar">${member.avatar || getInitials(member.name)}</div>
             ${member.superhero ? `<div class="hero-badge">⚡ ${member.superhero}</div>` : ''}
@@ -135,7 +135,10 @@ function renderTeam(members) {
                 ${member.email ? `<a href="mailto:${member.email}" title="Email">Email</a>` : ''}
             </div>
         </div>
-    `).join('');
+    `;
+    const cards = members.map(card).join('');
+    // Duplicate the set so the horizontal scroll loops seamlessly
+    container.innerHTML = cards + cards;
 }
 
 // Load contact information
