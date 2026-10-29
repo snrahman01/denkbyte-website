@@ -298,22 +298,79 @@ body {
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Brand gradient accent bar across the top */
+.vision-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
 }
 
 .vision-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
+}
+
+.vision-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.08), rgba(232, 115, 12, 0.14));
 }
 
 .vision-card h3 {
     color: var(--color-primary);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
 }
 
 .vision-card p {
     color: var(--color-text-light);
     line-height: 1.8;
+}
+
+/* Core Values list */
+.values-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: var(--spacing-xs);
+}
+
+.values-list li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+}
+
+.values-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+}
+
+.values-list li strong {
+    color: var(--color-primary);
 }
 
 /* ====================================
