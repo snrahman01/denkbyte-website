@@ -16,7 +16,8 @@
                     <img id="logo-img" src="logo.png" alt="DenkByte logo" class="logo-img">
                     <span id="company-name">YourCompany</span>
                 </div>
-                <ul class="nav-menu">
+                <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
+                <ul class="nav-menu" id="nav-menu">
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#vision">Vision & Mission</a></li>
                     <li><a href="#services">Services</a></li>
@@ -126,12 +127,16 @@
                     </div>
                 </div>
                 <form class="contact-form" id="contact-form">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="text" name="subject" placeholder="Subject" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <label for="cf-name" class="visually-hidden">Your Name</label>
+                    <input type="text" id="cf-name" name="name" placeholder="Your Name" required>
+                    <label for="cf-email" class="visually-hidden">Your Email</label>
+                    <input type="email" id="cf-email" name="email" placeholder="Your Email" required>
+                    <label for="cf-subject" class="visually-hidden">Subject</label>
+                    <input type="text" id="cf-subject" name="subject" placeholder="Subject" required>
+                    <label for="cf-message" class="visually-hidden">Your Message</label>
+                    <textarea id="cf-message" name="message" placeholder="Your Message" rows="5" required></textarea>
                     <button type="submit" class="btn btn-primary">Send Message</button>
-                    <div id="form-status"></div>
+                    <div id="form-status" role="status" aria-live="polite"></div>
                 </form>
             </div>
         </div>

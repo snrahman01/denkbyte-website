@@ -289,6 +289,27 @@ async function loadLegalContent(config) {
 
 // Setup event listeners
 function setupEventListeners() {
+    // Mobile navigation toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            const open = navMenu.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            navToggle.textContent = open ? '✕' : '☰';
+        });
+        // Close the menu after tapping a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Open menu');
+                navToggle.textContent = '☰';
+            });
+        });
+    }
+
     // Contact form submission
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
