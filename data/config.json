@@ -1,1 +1,46 @@
-{"company":{"name":"DenkByte","tagline":"Built with purpose. Engineered for impact.","description":"DenkByte is an innovative technology company focused on developing smart, creative, and future-ready digital solutions. Our name combines \"Denk\" (German for \"think\") and \"Byte\" (representing technology), reflecting our passion for turning ideas into impactful digital experiences. Driven by a collaborative team of technology enthusiasts, we specialize in AI-powered solutions, web and mobile application development, and intelligent software systems.","founded":2026,"website":"https://denkbyte.tech","mission":"Empowering businesses through intelligent technology and data-driven insights","vision":"To be the trusted partner in digital transformation, delivering innovative solutions that create lasting value and sustainable growth"},"branding":{"logo_url":"logo.png","favicon_url":"logo.png","colors":{"primary":"#16213E","secondary":"#E8730C","accent":"#F5A623","dark":"#0F1829","light":"#f8f9fa","text":"#16213E","text_light":"#6B7280"}},"contact":{"email":"hello@denkbyte.tech","phone":"+49 (0) 371 531-0","address":{"street":"Reichenhainer Straße 70","city":"Chemnitz","postal_code":"09107","country":"Germany"},"social_media":{"linkedin":"https://linkedin.com/company/denkbyte","github":"https://github.com/denkbyte","twitter":"https://twitter.com/denkbyte_tech"}},"legal":{"impressum":{"owner":"DenkByte GmbH","responsible":"Management Team"},"disclaimer":"This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). Any resemblance to real companies or organizations is purely coincidental."}}
+{
+  "company": {
+    "name": "DenkByte",
+    "tagline": "Built with purpose. Engineered for impact.",
+    "description": "DenkByte is an innovative technology company focused on developing smart, creative, and future-ready digital solutions. Our name combines \"Denk\" (German for \"think\") and \"Byte\" (representing technology), reflecting our passion for turning ideas into impactful digital experiences. Driven by a collaborative team of technology enthusiasts, we specialize in AI-powered solutions, web and mobile application development, and intelligent software systems.",
+    "founded": 2026,
+    "website": "https://denkbyte.tech",
+    "mission": "Empowering businesses through intelligent technology and data-driven insights",
+    "vision": "To be the trusted partner in digital transformation, delivering innovative solutions that create lasting value and sustainable growth"
+  },
+  "branding": {
+    "logo_url": "logo.png",
+    "favicon_url": "favicon.png",
+    "colors": {
+      "primary": "#16213E",
+      "secondary": "#E8730C",
+      "accent": "#F5A623",
+      "dark": "#1A1A1A",
+      "light": "#FAFAF7",
+      "text": "#1A1A1A",
+      "text_light": "rgba(26, 26, 26, 0.68)"
+    }
+  },
+  "contact": {
+    "email": "hello@denkbyte.tech",
+    "phone": "+49 (0) 371 531-0",
+    "address": {
+      "street": "Reichenhainer Straße 70",
+      "city": "Chemnitz",
+      "postal_code": "09107",
+      "country": "Germany"
+    },
+    "social_media": {
+      "linkedin": "https://linkedin.com/company/denkbyte",
+      "github": "https://github.com/denkbyte",
+      "twitter": "https://twitter.com/denkbyte_tech"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "owner": "DenkByte GmbH",
+      "responsible": "Management Team"
+    },
+    "disclaimer": "This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). Any resemblance to real companies or organizations is purely coincidental."
+  }
+}

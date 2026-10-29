@@ -4,59 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DenkByte | Planspiel Course</title>
-    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <meta name="description" content="DenkByte — built with purpose, engineered for impact. AI, software, data and cloud from Chemnitz.">
+    <meta name="theme-color" content="#FAFAF7">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Decide before first paint whether the intro plays (once per session, never with reduced motion) -->
+    <script>
+        (function () {
+            var d = document.documentElement;
+            d.classList.add('js');
+            try {
+                var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!reduced && !sessionStorage.getItem('denkbyte:intro-seen')) {
+                    d.classList.add('intro-play', 'is-locked');
+                    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+                }
+            } catch (e) { /* storage blocked: just show the site */ }
+        })();
+    </script>
+
+    <!-- Fonts: Clash Display (chunky grotesk), Space Grotesk (body), Fraunces (serif accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,800;1,9..144,300;1,9..144,400;1,9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <img id="logo-img" src="logo.png" alt="DenkByte logo" class="logo-img">
-                    <span id="company-name">YourCompany</span>
-                </div>
-                <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#vision">Vision & Mission</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
+    <!-- ============ INTRO PRELOADER (5.0s) ============ -->
+    <div class="intro" id="intro">
+        <div class="intro-bg" aria-hidden="true">
+            <div class="intro-ray"></div>
+            <div class="intro-ray"></div>
+            <div class="intro-ray"></div>
+            <div class="intro-ray"></div>
+            <div class="intro-plane"></div>
         </div>
+        <svg class="intro-svg" id="intro-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+        <img class="intro-logo" id="intro-logo" src="logo.png" alt="" aria-hidden="true">
+        <div class="intro-black" aria-hidden="true"></div>
+        <button class="intro-skip" id="intro-skip" type="button">skip intro →</button>
+    </div>
+
+    <!-- Global overlays -->
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="navbar" id="navbar">
+        <a href="#top" class="logo" aria-label="DenkByte home">
+            <img class="logo-img" src="logo.png" alt="DenkByte" width="143" height="40">
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+            <span></span><span></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#about">about</a></li>
+            <li><a href="#vision">vision</a></li>
+            <li><a href="#services">services</a></li>
+            <li><a href="#team">team</a></li>
+            <li><a href="#contact" class="nav-cta magnetic">say hi 👋</a></li>
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <h1 id="hero-title">Welcome to Our Company</h1>
-            <p id="hero-subtitle">Built with purpose. Engineered for impact.</p>
-            <a href="#contact" class="btn btn-primary">Get Started</a>
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="top">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <h1 class="hero-title" id="hero-title">
+            <span class="hero-line hero-line--1"><span>Built with purpose</span></span>
+            <span class="hero-line hero-line--2"><span>DenkByte</span></span>
+            <span class="hero-line hero-line--3"><span>engineered for impact.</span></span>
+        </h1>
+        <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary magnetic">let's talk <span aria-hidden="true">→</span></a>
+            <a href="#services" class="btn btn-ghost magnetic">what we do</a>
         </div>
+
+        <div class="hero-corner hero-corner--left" id="social-links" aria-label="Social links"></div>
+        <div class="hero-corner hero-corner--right">
+            <span class="corner-dot" aria-hidden="true"></span>
+            <span>chemnitz, de</span>
+            <span class="corner-time" id="corner-time">--:--</span>
+        </div>
+        <a href="#they-say" class="scroll-ind" aria-label="Scroll down">
+            <span class="scroll-ind-label">scroll</span>
+            <span class="scroll-ind-line"><span></span></span>
+        </a>
     </header>
 
-    <!-- About Us Section -->
-    <section id="about" class="section">
+    <!-- ============ THEY SAY (pinned scroll story) ============ -->
+    <section class="they-say" id="they-say" aria-label="It takes 7 seconds to make an impression. We do it in 5.">
+        <div class="ts-stage">
+            <h2 class="ts-say"><em>They Say,</em></h2>
+            <p class="ts-lines">
+                <span class="mask"><span>it takes 7 seconds</span></span>
+                <span class="mask"><span>to make an impression</span></span>
+            </p>
+            <p class="ts-five">we do it in 5</p>
+        </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>think in bytes</span><i>✦</i><span>ai-powered</span><i>✦</i><span>ship it fast</span><i>✦</i><span>made in chemnitz</span><i>✦</i><span>no boring software</span><i>✦</i><span>data that slaps</span><i>✦</i>
+            <span>think in bytes</span><i>✦</i><span>ai-powered</span><i>✦</i><span>ship it fast</span><i>✦</i><span>made in chemnitz</span><i>✦</i><span>no boring software</span><i>✦</i><span>data that slaps</span><i>✦</i>
+        </div>
+    </div>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section section--light">
         <div class="container">
-            <h2>About Us</h2>
-            <div class="section-content">
-                <div id="company-desc">
+            <div class="section-head">
+                <span class="kicker">(01) — the tl;dr</span>
+                <h2>about <em>us</em></h2>
+                <span class="sticker sticker--lime" aria-hidden="true">est. 2026 ✌️</span>
+            </div>
+            <div class="about-layout">
+                <div id="company-desc" class="about-copy">
                     <p><strong>DenkByte</strong> is an innovative technology company focused on developing smart, creative, and future-ready digital solutions. Our name combines <strong>&ldquo;Denk&rdquo;</strong> (German for &ldquo;think&rdquo;) and <strong>&ldquo;Byte&rdquo;</strong> (representing technology), reflecting our passion for turning ideas into impactful digital experiences.</p>
                     <p>Driven by a collaborative team of technology enthusiasts, we specialize in AI-powered solutions, web and mobile application development, and intelligent software systems. At DenkByte, we combine creativity, modern technology, and teamwork to solve real-world challenges and bring innovative ideas to life.</p>
                 </div>
                 <div class="about-grid">
-                    <div class="about-card">
-                        <h3>Founded</h3>
+                    <div class="about-card tilt">
+                        <h3>founded</h3>
                         <p id="founded-year">2026</p>
                     </div>
-                    <div class="about-card">
-                        <h3>Team Members</h3>
+                    <div class="about-card tilt about-card--lilac">
+                        <h3>team members</h3>
                         <p id="team-count">0</p>
                     </div>
-                    <div class="about-card">
-                        <h3>Core Services</h3>
+                    <div class="about-card tilt about-card--lime">
+                        <h3>core services</h3>
                         <p>6</p>
                     </div>
                 </div>
@@ -64,24 +145,27 @@
         </div>
     </section>
 
-    <!-- Vision & Mission Section -->
-    <section id="vision" class="section alternate">
+    <!-- ============ VISION & MISSION ============ -->
+    <section id="vision" class="section section--tint">
         <div class="container">
-            <h2>Vision & Mission</h2>
+            <div class="section-head">
+                <span class="kicker">(02) — why we exist</span>
+                <h2>vision &amp; <em>mission</em></h2>
+            </div>
             <div class="vision-grid">
-                <div class="vision-card">
-                    <div class="vision-icon">🎯</div>
-                    <h3>Our Mission</h3>
+                <div class="vision-card tilt">
+                    <div class="vision-icon" aria-hidden="true">🎯</div>
+                    <h3>our mission</h3>
                     <p>Empower businesses through intelligent technology and data-driven insights. We transform complex challenges into elegant solutions, combining creative thinking with technological excellence to drive sustainable growth and measurable impact.</p>
                 </div>
-                <div class="vision-card">
-                    <div class="vision-icon">🚀</div>
-                    <h3>Our Vision</h3>
+                <div class="vision-card tilt">
+                    <div class="vision-icon" aria-hidden="true">🚀</div>
+                    <h3>our vision</h3>
                     <p>To be the trusted partner in digital transformation globally. We envision a future where organizations leverage AI, analytics, and innovative technologies to make smarter decisions, optimize operations, and unlock new opportunities for growth and innovation.</p>
                 </div>
-                <div class="vision-card">
-                    <div class="vision-icon">💎</div>
-                    <h3>Our Core Values</h3>
+                <div class="vision-card tilt">
+                    <div class="vision-icon" aria-hidden="true">💎</div>
+                    <h3>our core values</h3>
                     <ul class="values-list">
                         <li><strong>Innovation</strong> — constantly pushing boundaries</li>
                         <li><strong>Integrity</strong> — honest, transparent partnerships</li>
@@ -93,80 +177,94 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section">
+    <!-- ============ SERVICES ============ -->
+    <section id="services" class="section section--light">
         <div class="container">
-            <h2>Services & Expertise</h2>
+            <div class="section-head">
+                <span class="kicker">(03) — what we're good at</span>
+                <h2>services &amp; <em>expertise</em></h2>
+            </div>
             <div class="services-grid" id="services-container">
-                <!-- Dynamically populated -->
+                <!-- Rendered from data/services.json -->
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section id="team" class="section alternate">
+    <!-- ============ TEAM ============ -->
+    <section id="team" class="section section--tint-warm">
         <div class="container">
-            <h2>The Minds Behind DenkByte</h2>
-            <p class="section-subtitle">Different minds. One vision. Endless possibilities.</p>
-        </div>
-        <div class="team-marquee">
-            <div class="team-track" id="team-container">
-                <!-- Dynamically populated (auto-scrolling) -->
+            <div class="section-head">
+                <span class="kicker">(04) — the humans</span>
+                <h2>the minds behind <em>denkbyte</em></h2>
+                <p class="section-subtitle">Different minds. One vision. Endless possibilities.</p>
+                <span class="sticker sticker--lilac" aria-hidden="true">9 brains, 1 vibe 🧠</span>
+            </div>
+            <div class="team-grid" id="team-container">
+                <!-- Rendered from data/team.json -->
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section alternate">
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section section--tint section--contact">
         <div class="container">
-            <h2>Contact Us</h2>
+            <div class="section-head">
+                <span class="kicker">(05) — say hi</span>
+                <h2 class="contact-title">we were <em>expecting</em> you <span class="wave" aria-hidden="true">👀</span></h2>
+                <p class="contact-sub">don't be shy, say hiii!</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
+                    <h3>get in touch</h3>
                     <div class="contact-details" id="contact-details">
-                        <!-- Dynamically populated -->
+                        <!-- Rendered from data/config.json -->
                     </div>
                 </div>
                 <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="contact">
                     <p class="visually-hidden" aria-hidden="true">
-                        <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field"></label>
+                        <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field" tabindex="-1"></label>
                     </p>
-                    <label for="cf-name" class="visually-hidden">Your Name</label>
-                    <input type="text" id="cf-name" name="name" placeholder="Your Name" required>
-                    <label for="cf-email" class="visually-hidden">Your Email</label>
-                    <input type="email" id="cf-email" name="email" placeholder="Your Email" required>
+                    <div class="chat-bubble chat-bubble--in" aria-hidden="true">hey there 👋 what should we call you?</div>
+                    <label for="cf-name" class="visually-hidden">Your name</label>
+                    <input type="text" id="cf-name" name="name" placeholder="your name pls" autocomplete="name" required>
+                    <label for="cf-email" class="visually-hidden">Your email</label>
+                    <input type="email" id="cf-email" name="email" placeholder="where do we reply?" autocomplete="email" required>
                     <label for="cf-subject" class="visually-hidden">Subject</label>
-                    <input type="text" id="cf-subject" name="subject" placeholder="Subject" required>
-                    <label for="cf-message" class="visually-hidden">Your Message</label>
-                    <textarea id="cf-message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                    <div id="form-status" role="status" aria-live="polite"></div>
+                    <input type="text" id="cf-subject" name="subject" placeholder="what's it about?" required>
+                    <label for="cf-message" class="visually-hidden">Your message</label>
+                    <textarea id="cf-message" name="message" placeholder="spill it…" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary btn-send magnetic">send it 🚀</button>
+                    <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ============ FOOTER ============ -->
     <footer class="footer">
         <div class="container">
+            <a href="#top" class="footer-logo" aria-label="DenkByte home">
+                <img src="logo.png" alt="DenkByte" width="171" height="48" loading="lazy">
+            </a>
+            <p class="footer-big" aria-hidden="true">think <em>digitally.</em></p>
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Company</h4>
-                    <p id="footer-company-name">YourCompany</p>
+                    <h4>company</h4>
+                    <p id="footer-company-name">DenkByte</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4>quick links</h4>
                     <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#vision">Vision & Mission</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#about">about</a></li>
+                        <li><a href="#services">services</a></li>
+                        <li><a href="#vision">vision &amp; mission</a></li>
+                        <li><a href="#team">team</a></li>
+                        <li><a href="#contact">contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Legal</h4>
+                    <h4>legal</h4>
                     <ul>
                         <li><a href="#impressum">Impressum</a></li>
                         <li><a href="#gdpr">Privacy Policy</a></li>
@@ -174,30 +272,35 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> <span id="footer-year-company">YourCompany</span>. All rights reserved.</p>
+                <p>&copy; <span id="year"></span> <span id="footer-year-company">DenkByte</span>. All rights reserved.</p>
                 <p id="academic-disclaimer" class="disclaimer"></p>
             </div>
         </div>
     </footer>
 
     <!-- Impressum Modal -->
-    <div id="impressum-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Impressum / Legal Notice</h2>
+    <div id="impressum-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="impressum-title">
+        <div class="modal-content" data-lenis-prevent>
+            <button class="close" type="button" aria-label="Close">&times;</button>
+            <h2 id="impressum-title">Impressum / Legal Notice</h2>
             <div id="impressum-content"></div>
         </div>
     </div>
 
     <!-- Privacy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Privacy Policy & GDPR Compliance</h2>
+    <div id="privacy-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+        <div class="modal-content" data-lenis-prevent>
+            <button class="close" type="button" aria-label="Close">&times;</button>
+            <h2 id="privacy-title">Privacy Policy &amp; GDPR Compliance</h2>
             <div id="privacy-content"></div>
         </div>
     </div>
 
+    <!-- Animation libraries (vendored so the site has no CDN dependency) -->
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/ScrollTrigger.min.js"></script>
+    <script src="vendor/lenis.min.js"></script>
+    <script src="avatars.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

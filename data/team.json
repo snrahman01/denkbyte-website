@@ -1,1 +1,101 @@
-[{"id":1,"name":"Ayush Aryan","role":"Software Engineer","superhero":"Iron Man","superpower":"Engineering ingenuity — builds powerful systems from the ground up","avatar":"🦾","bio":"Software Engineer crafting robust, scalable solutions. Turns complex requirements into clean, maintainable code.","email":"ayush2574@gmail.com","github":"https://github.com/aryan2574","gitlab":"https://gitlab.hrz.tu-chemnitz.de/ayar-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/ayusharyandev/"},{"id":2,"name":"Nishtha Bhagyawant","role":"AI Engineer","superhero":"Vision","superpower":"Synthetic intelligence — sees patterns humans miss","avatar":"🤖","bio":"AI Engineer building intelligent systems that learn and adapt. Passionate about applied machine learning and automation.","email":"nishthabhagyawant@gmail.com","github":"https://github.com/NishthaB1409","gitlab":"https://gitlab.hrz.tu-chemnitz.de/nbha-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/nishtha-bhagyawant-507b721b9/"},{"id":3,"name":"Kashish Madan","role":"Frontend / UI/UX Engineer","superhero":"Green Lantern","superpower":"Imagination forged — bends pixels into beautiful experiences","avatar":"✨","bio":"Frontend & UI/UX Engineer designing intuitive, human-centered interfaces. Bridges the gap between users and technology.","email":"kashishmadan0902@gmail.com","github":"https://github.com/kashishmadaann","gitlab":"https://gitlab.hrz.tu-chemnitz.de/kamad-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/madan-kashish"},{"id":4,"name":"Meeta Dave","role":"ML Engineer / Product Owner","superhero":"Professor X","superpower":"Strategic vision — guides the team and the mind of the product","avatar":"🧠","bio":"ML Engineer and Product Owner balancing technical depth with product strategy. Keeps the team aligned toward a shared vision.","email":"davemeeta12@gmail.com","github":"https://github.com/davemeeta","gitlab":"https://gitlab.hrz.tu-chemnitz.de/dmee-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/meetadave/"},{"id":5,"name":"Rohini Mane","role":"Data Engineer","superhero":"Oracle","superpower":"Master of data — turns raw information into actionable knowledge","avatar":"🔮","bio":"Data Engineer building reliable pipelines and data foundations. Ensures clean, accessible data powers every decision.","email":"ruhiimane7844@gmail.com","github":"https://github.com/RuhiMane","gitlab":"https://gitlab.hrz.tu-chemnitz.de/rohma-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/ruhi-mane-042613335/"},{"id":6,"name":"Pranav Malap","role":"Software Engineer","superhero":"Spider-Man","superpower":"Agile & versatile — swings across the full stack with ease","avatar":"🕸️","bio":"Software Engineer with a knack for solving tricky problems quickly. Adaptable across the stack and always ready to help.","email":"pranavmalap.de@gmail.com","github":"https://github.com/pranavmalap","gitlab":"https://gitlab.hrz.tu-chemnitz.de/malap-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/pranavmalap"},{"id":7,"name":"Abhishek Dombe","role":"Backend Engineer","superhero":"Hulk","superpower":"Raw power — handles the heavy lifting on the backend","avatar":"💪","bio":"Backend Engineer building the powerful core that keeps everything running. Thrives on performance and reliability.","email":"abhidombe1111@gmail.com","github":"https://github.com/abhishekdombe","gitlab":"https://gitlab.hrz.tu-chemnitz.de/doab-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/abhishek-dombe-0508a61a5"},{"id":8,"name":"Yashwanth Thalka","role":"Integration, Backend & Deployment Engineer","superhero":"Doctor Strange","superpower":"Master of connections — links systems and opens deployment portals","avatar":"🌀","bio":"Integration, Backend & Deployment Engineer connecting services and shipping them to production. Keeps the pipeline flowing smoothly.","email":"thalkayashwanth084@gmail.com","github":"https://github.com/Yashwanth2424","gitlab":"https://gitlab.hrz.tu-chemnitz.de/yath-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/thalka-yashwanth"},{"id":9,"name":"Syeda Nargis Rahman","role":"Backend Engineer","superhero":"Ms. Marvel","superpower":"Resilient & resourceful — stretches to meet any challenge","avatar":"🌙","bio":"Backend Engineer designing solid APIs and services. Detail-oriented and dedicated to building dependable foundations.","email":"nargis.rhmn@gmail.com","github":"https://github.com/snrahman01","gitlab":"https://gitlab.hrz.tu-chemnitz.de/rsye-at-tu-chemnitz.de","linkedin":"https://www.linkedin.com/in/syeda-nargis-rahman-51148b205/"}]
+[
+  {
+    "id": 1,
+    "name": "Ayush Aryan",
+    "role": "Software Engineer",
+    "avatar": "ayush",
+    "bio": "Software Engineer crafting robust, scalable solutions. Turns complex requirements into clean, maintainable code.",
+    "email": "ayush2574@gmail.com",
+    "github": "https://github.com/aryan2574",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/ayar-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/ayusharyandev/"
+  },
+  {
+    "id": 2,
+    "name": "Nishtha Bhagyawant",
+    "role": "AI Engineer",
+    "avatar": "nishtha",
+    "bio": "AI Engineer building intelligent systems that learn and adapt. Passionate about applied machine learning and automation.",
+    "email": "nishthabhagyawant@gmail.com",
+    "github": "https://github.com/NishthaB1409",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/nbha-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/nishtha-bhagyawant-507b721b9/"
+  },
+  {
+    "id": 3,
+    "name": "Kashish Madan",
+    "role": "Frontend / UI/UX Engineer",
+    "avatar": "kashish",
+    "bio": "Frontend & UI/UX Engineer designing intuitive, human-centered interfaces. Bridges the gap between users and technology.",
+    "email": "kashishmadan0902@gmail.com",
+    "github": "https://github.com/kashishmadaann",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/kamad-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/madan-kashish"
+  },
+  {
+    "id": 4,
+    "name": "Meeta Dave",
+    "role": "ML Engineer / Product Owner",
+    "avatar": "meeta",
+    "bio": "ML Engineer and Product Owner balancing technical depth with product strategy. Keeps the team aligned toward a shared vision.",
+    "email": "davemeeta12@gmail.com",
+    "github": "https://github.com/davemeeta",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/dmee-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/meetadave/"
+  },
+  {
+    "id": 5,
+    "name": "Rohini Mane",
+    "role": "Data Engineer",
+    "avatar": "rohini",
+    "bio": "Data Engineer building reliable pipelines and data foundations. Ensures clean, accessible data powers every decision.",
+    "email": "ruhiimane7844@gmail.com",
+    "github": "https://github.com/RuhiMane",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/rohma-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/ruhi-mane-042613335/"
+  },
+  {
+    "id": 6,
+    "name": "Pranav Malap",
+    "role": "Software Engineer",
+    "avatar": "pranav",
+    "bio": "Software Engineer with a knack for solving tricky problems quickly. Adaptable across the stack and always ready to help.",
+    "email": "pranavmalap.de@gmail.com",
+    "github": "https://github.com/pranavmalap",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/malap-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/pranavmalap"
+  },
+  {
+    "id": 7,
+    "name": "Abhishek Dombe",
+    "role": "Backend Engineer",
+    "avatar": "abhishek",
+    "bio": "Backend Engineer building the powerful core that keeps everything running. Thrives on performance and reliability.",
+    "email": "abhidombe1111@gmail.com",
+    "github": "https://github.com/abhishekdombe",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/doab-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/abhishek-dombe-0508a61a5"
+  },
+  {
+    "id": 8,
+    "name": "Yashwanth Thalka",
+    "role": "Integration, Backend & Deployment Engineer",
+    "avatar": "yashwanth",
+    "bio": "Integration, Backend & Deployment Engineer connecting services and shipping them to production. Keeps the pipeline flowing smoothly.",
+    "email": "thalkayashwanth084@gmail.com",
+    "github": "https://github.com/Yashwanth2424",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/yath-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/thalka-yashwanth"
+  },
+  {
+    "id": 9,
+    "name": "Syeda Nargis Rahman",
+    "role": "Backend Engineer",
+    "avatar": "syeda",
+    "bio": "Backend Engineer designing solid APIs and services. Detail-oriented and dedicated to building dependable foundations.",
+    "email": "nargis.rhmn@gmail.com",
+    "github": "https://github.com/snrahman01",
+    "gitlab": "https://gitlab.hrz.tu-chemnitz.de/rsye-at-tu-chemnitz.de",
+    "linkedin": "https://www.linkedin.com/in/syeda-nargis-rahman-51148b205/"
+  }
+]

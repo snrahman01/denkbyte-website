@@ -9,6 +9,8 @@ TU Chemnitz (WS 2026/27). DenkByte is a fictional company created for academic p
 ## Tech
 
 - Plain **HTML + CSS + JavaScript** (no framework, no build step)
+- Animations: **GSAP 3** + **ScrollTrigger** and **Lenis** smooth scroll, vendored in `vendor/`
+  (5-second intro preloader plays once per session; skipped with reduced motion)
 - Content loaded from static JSON in `data/`
 - Contact form via **Netlify Forms**
 - Hosted free on **Netlify**
@@ -20,10 +22,13 @@ denkbyte-website/
 ├── index.html          # the page (at repo root)
 ├── styles.css          # theme + layout (CSS variables for easy theming)
 ├── script.js           # loads data, renders team/services, nav, modals
-├── logo.png / logo.svg # brand logo
+├── logo.png           # brand logo (navbar, footer, intro)
+├── favicon.png        # bulb icon cropped from logo.png
+├── avatars.js         # inline-SVG cartoon avatars, one config per member
+├── vendor/             # gsap.min.js, ScrollTrigger.min.js, lenis.min.js
 ├── data/
 │   ├── config.json     # company name, colors, contact, legal text
-│   ├── team.json       # team members
+│   ├── team.json       # team members ("avatar" key → drawing in avatars.js)
 │   └── services.json   # services offered
 ├── netlify.toml        # Netlify publish config (publishes repo root)
 ├── NETLIFY_DEPLOY.md   # deployment steps
@@ -48,6 +53,7 @@ All content is in `data/`:
   (colors apply automatically via CSS variables — see `THEME_EXAMPLES.md`)
 - **Team members** → `team.json`
 - **Services** → `services.json`
+- **Replay the intro** → it plays once per browser tab; open a new tab or run `sessionStorage.clear()`
 
 No rebuild needed — edit the JSON and refresh.
 
