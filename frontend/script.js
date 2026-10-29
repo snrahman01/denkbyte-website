@@ -188,6 +188,7 @@ function loadSocialLinks(socialMedia) {
     if (!socialMedia) return;
 
     const container = document.getElementById('social-links');
+    if (!container) return; // "Follow Us" section removed — nothing to populate
     let html = '';
 
     const icons = {
