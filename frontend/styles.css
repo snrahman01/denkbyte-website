@@ -888,10 +888,60 @@ body {
 }
 
 .team-track .team-member {
-    flex: 0 0 280px;
-    width: 280px;
+    flex: 0 0 250px;
+    width: 250px;
     margin-right: var(--spacing-md);
     margin-bottom: 0;
+    padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+/* Compact marquee card tweaks */
+.team-track .team-member-avatar {
+    width: 68px;
+    height: 68px;
+    font-size: 1.9rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.team-track .hero-badge {
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.66rem;
+    padding: 3px 10px;
+}
+
+.team-track .team-member h3 {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.team-track .team-member .role {
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.8rem;
+}
+
+.team-track .team-member .superpower {
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.74rem;
+}
+
+/* Clamp the bio so cards stay short (full text still there for screen readers) */
+.team-track .team-member p:not(.superpower) {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.8rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.team-track .member-socials {
+    padding-top: var(--spacing-xs);
+    gap: 6px;
+}
+
+.team-track .member-socials a {
+    font-size: 0.72rem;
+    padding: 3px 8px;
 }
 
 @keyframes teamScroll {
