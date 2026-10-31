@@ -32,18 +32,10 @@ export default function App() {
         onOpenPrivacy={() => setOpenModal('privacy')}
       />
 
-      <Modal
-        open={openModal === 'impressum'}
-        title="Impressum / Legal Notice"
-        onClose={close}
-      >
+      <Modal open={openModal === 'impressum'} title="Impressum / Legal Notice" onClose={close}>
         <Impressum />
       </Modal>
-      <Modal
-        open={openModal === 'privacy'}
-        title="Privacy Policy & GDPR Compliance"
-        onClose={close}
-      >
+      <Modal open={openModal === 'privacy'} title="Privacy Policy & GDPR Compliance" onClose={close}>
         <PrivacyPolicy />
       </Modal>
     </>

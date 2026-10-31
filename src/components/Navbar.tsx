@@ -70,11 +70,7 @@ export default function Navbar() {
   const close = () => setOpen(false);
 
   return (
-    <nav
-      ref={navRef}
-      className={`navbar${scrolled ? ' scrolled' : ''}`}
-      aria-label="Main navigation"
-    >
+    <nav ref={navRef} className={`navbar${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
       <a className="skip-link" href="#main">
         Skip to content
       </a>

@@ -30,8 +30,8 @@ export default function Hero() {
           </h1>
 
           <p className="hero-lead">
-            We turn ideas into impactful digital experiences &mdash; from AI-powered solutions to
-            web and mobile applications, built by a team of technology enthusiasts.
+            We turn ideas into impactful digital experiences &mdash; from AI-powered solutions to web and
+            mobile applications, built by a team of technology enthusiasts.
           </p>
 
           <div className="hero-actions">

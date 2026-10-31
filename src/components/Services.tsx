@@ -1,15 +1,7 @@
 import type { ReactNode } from 'react';
 import { services } from '../data';
 import Reveal from './Reveal';
-import {
-  BoltIcon,
-  ChartIcon,
-  ChipIcon,
-  CloudIcon,
-  CodeIcon,
-  PlusCircleIcon,
-  ShieldCheckIcon,
-} from './icons';
+import { BoltIcon, ChartIcon, ChipIcon, CloudIcon, CodeIcon, PlusCircleIcon, ShieldCheckIcon } from './icons';
 
 const iconProps = { size: 28, strokeWidth: 1.7 };
 

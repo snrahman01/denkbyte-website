@@ -146,7 +146,9 @@ export default function Contact() {
                 </>
               ) : (
                 <>
-                  <p className="contact-card-value contact-card-value--muted">linkedin.com/company/&hellip;</p>
+                  <p className="contact-card-value contact-card-value--muted">
+                    linkedin.com/company/&hellip;
+                  </p>
                   <div className="contact-card-actions">
                     <span className="btn btn-outline is-disabled" aria-disabled="true">
                       Coming soon

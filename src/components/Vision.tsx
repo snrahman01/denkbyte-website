@@ -1,13 +1,6 @@
 import type { ReactNode } from 'react';
 import Reveal from './Reveal';
-import {
-  BulbIcon,
-  EyeIcon,
-  ShieldCheckIcon,
-  StarIcon,
-  TargetIcon,
-  TrendUpIcon,
-} from './icons';
+import { BulbIcon, EyeIcon, ShieldCheckIcon, StarIcon, TargetIcon, TrendUpIcon } from './icons';
 
 const iconProps = { size: 28, strokeWidth: 1.7 };
 

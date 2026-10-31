@@ -52,9 +52,7 @@ export const ChartIcon = line(
   </>,
 );
 
-export const CloudIcon = line(
-  <path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5H7z" />,
-);
+export const CloudIcon = line(<path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5a4 4 0 0 1-.5 8.5H7z" />);
 
 export const BoltIcon = line(<path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />);
 

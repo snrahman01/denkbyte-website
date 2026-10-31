@@ -75,18 +75,17 @@ export default function About() {
               We think first. <span className="about-lead-accent">Then we build.</span>
             </p>
             <p>
-              <strong>{config.company.name}</strong> is a software engineering company that turns
-              ideas into reliable, well-crafted digital products. From AI-powered solutions to web
-              and mobile applications and intelligent software systems, we approach every project
-              the same way: understand the problem deeply, design with intent, and engineer the
-              solution to last.
+              <strong>{config.company.name}</strong> is a software engineering company that turns ideas into
+              reliable, well-crafted digital products. From AI-powered solutions to web and mobile
+              applications and intelligent software systems, we approach every project the same way:
+              understand the problem deeply, design with intent, and engineer the solution to last.
             </p>
             <p>
-              The name says it all. <strong>&ldquo;Denk&rdquo;</strong> is German for
-              &ldquo;think&rdquo;; <strong>&ldquo;Byte&rdquo;</strong> is the building block of
-              everything digital. Together they describe how we work: clear thinking first, clean
-              engineering second. And because our team spans AI, data, backend, frontend and
-              deployment, an idea can travel from first sketch to production under one roof.
+              The name says it all. <strong>&ldquo;Denk&rdquo;</strong> is German for &ldquo;think&rdquo;;{' '}
+              <strong>&ldquo;Byte&rdquo;</strong> is the building block of everything digital. Together they
+              describe how we work: clear thinking first, clean engineering second. And because our team spans
+              AI, data, backend, frontend and deployment, an idea can travel from first sketch to production
+              under one roof.
             </p>
 
             <dl className="about-stats">
@@ -114,7 +113,8 @@ export default function About() {
                     <span className="c-comment">// the name, decoded</span>
                   </span>
                   <span className="code-line">
-                    <span className="c-kw">const</span> <span className="c-var">{config.company.name}</span> = {'{'}
+                    <span className="c-kw">const</span> <span className="c-var">{config.company.name}</span> ={' '}
+                    {'{'}
                   </span>
                   <span className="code-line">
                     {'  '}denk: <span className="c-str">&quot;think&quot;</span>,{'      '}
@@ -136,7 +136,8 @@ export default function About() {
                   <span className="code-line">{'};'}</span>
                   <span className="code-line">&nbsp;</span>
                   <span className="code-line">
-                    <span className="c-kw">export default</span> <span className="c-var">{config.company.name}</span>;
+                    <span className="c-kw">export default</span>{' '}
+                    <span className="c-var">{config.company.name}</span>;
                   </span>
                 </code>
               </pre>

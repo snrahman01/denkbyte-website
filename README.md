@@ -57,11 +57,11 @@ Open http://localhost:5173. The page reloads automatically when you edit a file.
 
 All text content lives in `src/data/`. No component changes are needed for routine updates.
 
-| File               | Contains                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
+| File               | Contains                                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
 | `site.config.json` | Company name, tagline, brand colors, email, LinkedIn, Instagram (+ QR images), address, legal text |
-| `team.json`        | Team members (name, role, bio, GitHub/GitLab/LinkedIn links)              |
-| `services.json`    | Services (title, description, `icon`, `tags`)                             |
+| `team.json`        | Team members (name, role, bio, GitHub/GitLab/LinkedIn links)                                       |
+| `services.json`    | Services (title, description, `icon`, `tags`)                                                      |
 
 - `icon` in `services.json` must be one of: `ai`, `code`, `chart`, `cloud`, `speed`, `shield`.
 - Brand colors are set in `site.config.json` under `branding.colors`. `src/main.tsx` copies them into
