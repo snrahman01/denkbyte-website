@@ -8,13 +8,10 @@ import { ChipIcon, CodeIcon, MonitorIcon } from './icons';
 function CountUp({ value }: { value: number }) {
   const { ref, inView } = useInView<HTMLSpanElement>(0.5);
   const [shown, setShown] = useState(0);
+  const [reducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   useEffect(() => {
-    if (!inView) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(value);
-      return;
-    }
+    if (!inView || reducedMotion) return;
     const duration = 1100;
     const start = performance.now();
     let raf = 0;
@@ -25,11 +22,13 @@ function CountUp({ value }: { value: number }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value]);
+  }, [inView, reducedMotion, value]);
+
+  const display = reducedMotion && inView ? value : shown;
 
   return (
     <span ref={ref}>
-      <span aria-hidden="true">{shown}</span>
+      <span aria-hidden="true">{display}</span>
       <span className="sr-only">{value}</span>
     </span>
   );

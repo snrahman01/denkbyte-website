@@ -6,16 +6,12 @@ import { useEffect, useRef, useState } from 'react';
  */
 export function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
+  // Without IntersectionObserver support there is nothing to wait for: show everything right away.
+  const [inView, setInView] = useState(() => typeof IntersectionObserver === 'undefined');
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true);
-      return;
-    }
+    if (!el || typeof IntersectionObserver === 'undefined') return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {

@@ -32,7 +32,7 @@ export default function Terminal() {
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const nextId = useRef(0);
-  const startedAt = useRef(Date.now());
+  const [startedAt] = useState(() => Date.now());
   const history = useRef<string[]>([]); // submitted commands, oldest first
   const cursor = useRef(-1); // position while browsing history with ↑/↓ (-1 = not browsing)
   const draft = useRef(''); // what was typed before the visitor pressed ↑
@@ -72,7 +72,7 @@ export default function Terminal() {
 
     if (history.current[history.current.length - 1] !== command) history.current.push(command);
 
-    const result = execute(command, { theme, history: history.current, startedAt: startedAt.current });
+    const result = execute(command, { theme, history: history.current, startedAt });
     const { action } = result;
 
     if (action?.type === 'clear') {
