@@ -2,7 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { config } from "./data";
+import { initSmoothScroll } from "./utils/smoothScroll";
 import "./styles.css";
+
+initSmoothScroll();
 
 // Apply brand colors from site.config.json as CSS variables (--color-*, see styles.css).
 const { colors } = config.branding;
