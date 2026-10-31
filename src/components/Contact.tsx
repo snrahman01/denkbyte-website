@@ -1,75 +1,145 @@
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { config } from '../data';
+import Reveal from './Reveal';
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  CopyIcon,
+  LinkedInIcon,
+  MailIcon,
+  PinIcon,
+} from './icons';
 
-function MailIcon() {
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable (e.g. insecure context) - the mailto link still works */
+    }
+  };
+
   return (
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2.5" />
-      <path d="m3.5 7 8.5 6.5L20.5 7" />
-    </svg>
+    <button type="button" className="copy-btn" onClick={copy} aria-label="Copy email address">
+      {copied ? <CheckIcon size={16} strokeWidth={2.4} /> : <CopyIcon size={16} strokeWidth={2} />}
+      <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
+    </button>
   );
 }
 
-function PinIcon() {
+function Card({
+  icon,
+  title,
+  text,
+  children,
+}: {
+  icon: ReactNode;
+  title: string;
+  text: string;
+  children: ReactNode;
+}) {
   return (
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" />
-      <circle cx="12" cy="9.5" r="2.6" />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
+    <article className="contact-card">
+      <div className="contact-card-icon">{icon}</div>
+      <h3>{title}</h3>
+      <p className="contact-card-text">{text}</p>
+      {children}
+    </article>
   );
 }
 
 export default function Contact() {
-  const { email, address } = config.contact;
+  const { email, linkedin, address } = config.contact;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${address.street}, ${address.postal_code} ${address.city}, ${address.country}`,
   )}`;
+  // "https://www.linkedin.com/company/denkbyte/" -> "linkedin.com/company/denkbyte"
+  const linkedinLabel = linkedin?.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 
   return (
-    <section id="contact" className="section alternate">
+    <section id="contact" className="section contact">
       <div className="container">
-        <h2>Contact Us</h2>
-        <p className="section-subtitle">Have an idea or a challenge? Let&rsquo;s talk about it.</p>
+        <Reveal className="section-head">
+          <p className="section-eyebrow">// contact</p>
+          <h2>Contact Us</h2>
+          <p className="contact-subtitle">Have an idea or a challenge? Let&rsquo;s talk about it.</p>
+        </Reveal>
 
-        <div className="contact-cards">
-          <article className="contact-card">
-            <div className="contact-card-icon">
-              <MailIcon />
-            </div>
-            <h3>Email us</h3>
-            <p className="contact-card-text">Questions, project ideas or just a hello &mdash; drop us a line.</p>
-            <a href={`mailto:${email}`} className="contact-card-value">
-              {email}
-            </a>
-            <a href={`mailto:${email}`} className="btn btn-primary contact-card-btn">
-              Send an email <ArrowIcon />
-            </a>
-          </article>
+        <div className="contact-grid">
+          <Reveal>
+            <Card
+              icon={<MailIcon size={28} />}
+              title="Email us"
+              text="Questions, project ideas or just a hello — drop us a line."
+            >
+              <a href={`mailto:${email}`} className="contact-card-value">
+                {email}
+              </a>
+              <div className="contact-card-actions">
+                <a href={`mailto:${email}`} className="btn btn-accent">
+                  Send an email <ArrowRightIcon size={16} strokeWidth={2} />
+                </a>
+                <CopyButton text={email} />
+              </div>
+            </Card>
+          </Reveal>
 
-          <article className="contact-card">
-            <div className="contact-card-icon">
-              <PinIcon />
-            </div>
-            <h3>Visit us</h3>
-            <p className="contact-card-text">Find us at our home base in the heart of Saxony.</p>
-            <address className="contact-card-value">
-              {address.street}
-              <br />
-              {address.postal_code} {address.city}
-              <br />
-              {address.country}
-            </address>
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary contact-card-btn">
-              Open in Maps <ArrowIcon />
-            </a>
-          </article>
+          <Reveal delay={120}>
+            <Card
+              icon={<LinkedInIcon size={26} />}
+              title="Connect on LinkedIn"
+              text="Follow our company page for news, projects and updates."
+            >
+              {linkedin ? (
+                <>
+                  <a href={linkedin} target="_blank" rel="noopener noreferrer" className="contact-card-value">
+                    {linkedinLabel}
+                  </a>
+                  <div className="contact-card-actions">
+                    <a href={linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-accent">
+                      Visit our page <ArrowRightIcon size={16} strokeWidth={2} />
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="contact-card-value contact-card-value--muted">linkedin.com/company/&hellip;</p>
+                  <div className="contact-card-actions">
+                    <span className="btn btn-outline is-disabled" aria-disabled="true">
+                      Coming soon
+                    </span>
+                  </div>
+                </>
+              )}
+            </Card>
+          </Reveal>
+
+          <Reveal delay={240}>
+            <Card
+              icon={<PinIcon size={28} />}
+              title="Visit us"
+              text="Find us on the campus of TU Chemnitz, in the heart of Saxony."
+            >
+              <address className="contact-card-value">
+                {address.street}
+                <br />
+                {address.postal_code} {address.city}, {address.country}
+              </address>
+              <div className="contact-card-actions">
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-accent">
+                  Open in Maps <ArrowRightIcon size={16} strokeWidth={2} />
+                </a>
+              </div>
+            </Card>
+          </Reveal>
         </div>
       </div>
     </section>

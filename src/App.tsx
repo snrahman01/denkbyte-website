@@ -19,12 +19,14 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <About />
-      <Vision />
-      <Services />
-      <Team />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <About />
+        <Vision />
+        <Services />
+        <Team />
+        <Contact />
+      </main>
       <Footer
         onOpenImpressum={() => setOpenModal('impressum')}
         onOpenPrivacy={() => setOpenModal('privacy')}
