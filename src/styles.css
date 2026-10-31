@@ -40,6 +40,45 @@
     /* Transitions */
     --transition-fast: 150ms ease-in-out;
     --transition-base: 300ms ease-in-out;
+
+    /* ------------------------------------------------------------
+       Semantic theme tokens (LIGHT defaults)
+       Components use these instead of raw colours, so dark mode only
+       has to re-define this block (see [data-theme='dark'] below).
+       Brand colours above still come from src/data/site.config.json.
+       ------------------------------------------------------------ */
+    color-scheme: light;
+
+    --bg: var(--color-light);              /* page background */
+    --bg-alt: #f1f3f6;                     /* alternating section background */
+    --surface: #ffffff;                    /* cards, modal */
+    --surface-nav: #ffffff;                /* mobile menu panel */
+    --chip-bg: var(--color-light);         /* tech chips */
+    --chip-fg: var(--color-primary);
+
+    --heading: var(--color-primary);       /* headings + emphasised text on light surfaces */
+    --fg: var(--color-text);               /* body copy */
+    --fg-muted: var(--color-text-light);   /* secondary copy */
+    --tagline: rgba(22, 33, 62, 0.7);
+    --accent-text: var(--color-secondary-text); /* small accent text (AA contrast) */
+    --index: rgba(22, 33, 62, 0.25);       /* "01", "02" card numbers */
+    --ghost: rgba(22, 33, 62, 0.06);       /* oversized ghost numbers */
+
+    --border: rgba(22, 33, 62, 0.08);
+    --border-strong: rgba(22, 33, 62, 0.14);
+    --dot: rgba(22, 33, 62, 0.13);         /* dotted backdrop */
+    --grid-line: rgba(255, 255, 255, 0.05);/* pixel grid on the dark bands */
+
+    --tint: linear-gradient(135deg, rgba(22, 33, 62, 0.07), rgba(232, 115, 12, 0.14)); /* icon tiles */
+    --bar: linear-gradient(90deg, var(--color-primary), var(--color-secondary));      /* card top bars */
+    --band: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);   /* hero / team / footer cards */
+    --footer-bg: linear-gradient(180deg, var(--color-dark) 0%, #0a101d 100%);
+
+    --nav-bg: rgba(255, 255, 255, 0.82);
+    --nav-bg-scrolled: rgba(255, 255, 255, 0.94);
+    --nav-border: rgba(22, 33, 62, 0.06);
+    --nav-shadow: 0 6px 24px rgba(15, 24, 41, 0.08);
+    --nav-menu-shadow: 0 20px 30px rgba(15, 24, 41, 0.12);
 }
 
 /* ====================================
@@ -49,6 +88,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Keep the scrollbar's space reserved so the page doesn't jump sideways when a dialog locks scrolling */
+html {
+    scrollbar-gutter: stable;
 }
 
 /* Smooth scrolling for #links is handled in src/utils/smoothScroll.ts
@@ -61,8 +105,8 @@ body {
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
     line-height: 1.6;
-    color: var(--color-text);
-    background-color: var(--color-light);
+    color: var(--fg);
+    background-color: var(--bg);
 }
 
 .container {
@@ -130,16 +174,16 @@ button:focus-visible {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.82);
+    background: var(--nav-bg);
     -webkit-backdrop-filter: saturate(180%) blur(14px);
     backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid rgba(22, 33, 62, 0.06);
+    border-bottom: 1px solid var(--nav-border);
     transition: background-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 6px 24px rgba(15, 24, 41, 0.08);
+    background: var(--nav-bg-scrolled);
+    box-shadow: var(--nav-shadow);
 }
 
 .nav-content {
@@ -156,7 +200,7 @@ button:focus-visible {
     align-items: center;
     gap: 0.6rem;
     text-decoration: none;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .logo-mark {
@@ -169,13 +213,18 @@ button:focus-visible {
     transform: rotate(-6deg) scale(1.06);
 }
 
+/* Light-on-dark variant of the mark is only shown in dark mode */
+.logo-mark--dark {
+    display: none;
+}
+
 .logo-text {
     font-family: var(--font-family-mono);
     font-weight: 800;
     font-size: 1.45rem;
     letter-spacing: -0.04em;
     line-height: 1;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .logo-dot,
@@ -201,7 +250,7 @@ button:focus-visible {
     font-size: 0.68rem;
     line-height: 1;
     letter-spacing: 0.01em;
-    color: rgba(22, 33, 62, 0.7);
+    color: var(--tagline);
     white-space: nowrap;
 }
 
@@ -231,6 +280,46 @@ button:focus-visible {
     align-items: center;
     list-style: none;
     gap: 0.25rem;
+    margin-left: auto;
+}
+
+/* Theme toggle (sun / moon) */
+.theme-toggle {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: 0.75rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--heading);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-secondary);
+    color: var(--accent-text);
+    transform: translateY(-1px);
+}
+
+.theme-toggle-icon {
+    display: flex;
+    animation: themeIconIn 0.45s ease backwards;
+}
+
+@keyframes themeIconIn {
+    from {
+        opacity: 0;
+        transform: rotate(-70deg) scale(0.6);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 .nav-link {
@@ -238,7 +327,7 @@ button:focus-visible {
     display: block;
     padding: 0.55rem 0.95rem;
     border-radius: 999px;
-    color: var(--color-text);
+    color: var(--fg);
     text-decoration: none;
     font-size: 0.92rem;
     font-weight: 500;
@@ -254,7 +343,7 @@ button:focus-visible {
     bottom: 5px;
     height: 2px;
     border-radius: 2px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--bar);
     transform: scaleX(0);
     transition: transform var(--transition-base);
 }
@@ -262,8 +351,8 @@ button:focus-visible {
 /* Hover + current section share the same blue-to-orange tint used on the site's icon tiles */
 .nav-link:hover,
 .nav-link[aria-current='location'] {
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.07), rgba(232, 115, 12, 0.15));
-    color: var(--color-primary);
+    background: var(--tint);
+    color: var(--heading);
 }
 
 .nav-link:hover::after,
@@ -290,9 +379,9 @@ button:focus-visible {
     position: relative;
     width: 44px;
     height: 44px;
-    border: 1px solid rgba(22, 33, 62, 0.12);
+    border: 1px solid var(--border-strong);
     border-radius: 12px;
-    background: white;
+    background: var(--surface);
     cursor: pointer;
 }
 
@@ -302,7 +391,7 @@ button:focus-visible {
     right: 12px;
     height: 2px;
     border-radius: 2px;
-    background: var(--color-primary);
+    background: var(--heading);
     transition: transform var(--transition-base), opacity var(--transition-fast), top var(--transition-base);
 }
 
@@ -319,7 +408,14 @@ button:focus-visible {
         display: block;
     }
 
+    /* Mobile: [logo ........ theme] [menu] */
+    .theme-toggle {
+        margin-left: auto;
+        margin-right: 0.5rem;
+    }
+
     .nav-menu {
+        margin-left: 0;
         position: absolute;
         top: 100%;
         left: 0;
@@ -328,9 +424,9 @@ button:focus-visible {
         align-items: stretch;
         gap: 0.25rem;
         padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
-        background: white;
-        border-bottom: 1px solid rgba(22, 33, 62, 0.08);
-        box-shadow: 0 20px 30px rgba(15, 24, 41, 0.12);
+        background: var(--surface-nav);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--nav-menu-shadow);
         /* Hidden state is animated (visibility also removes links from tab order) */
         opacity: 0;
         visibility: hidden;
@@ -373,7 +469,7 @@ button:focus-visible {
     overflow: hidden;
     color: white;
     padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(3.5rem, 8vw, 6rem);
-    background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    background: var(--band);
 }
 
 /* Faint "pixel grid" backdrop, fading out toward the edges */
@@ -383,8 +479,8 @@ button:focus-visible {
     inset: 0;
     z-index: -2;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 44px 44px;
     -webkit-mask-image: radial-gradient(ellipse 80% 90% at 70% 35%, #000 20%, transparent 75%);
     mask-image: radial-gradient(ellipse 80% 90% at 70% 35%, #000 20%, transparent 75%);
@@ -529,6 +625,12 @@ button:focus-visible {
     font-size: clamp(0.78rem, 1.5vw, 0.92rem);
     line-height: 2;
     color: rgba(255, 255, 255, 0.9);
+    /* Fixed height: output scrolls inside the window instead of growing the hero */
+    height: 21.5rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+    cursor: text;
 }
 
 .terminal-line {
@@ -550,6 +652,119 @@ button:focus-visible {
     vertical-align: text-bottom;
     background: var(--color-secondary);
     animation: blink 1.1s steps(1) infinite;
+}
+
+/* ---- Interactive part of the terminal ---- */
+.t-accent { color: var(--color-accent); }
+.t-head { color: #fff; font-weight: 700; }
+.t-err { color: #ff7b72; }
+
+.t-link {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(245, 166, 35, 0.4);
+    text-underline-offset: 3px;
+}
+
+.t-link:hover {
+    text-decoration-color: var(--color-accent);
+}
+
+/* Typed commands + their output wrap instead of truncating, and sit a bit tighter than the intro */
+.terminal-entry {
+    margin-top: 0.4rem;
+}
+
+.terminal-out {
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6ch;
+}
+
+.terminal-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.terminal-input {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    line-height: inherit;
+    color: #fff;
+    caret-color: var(--color-accent);
+}
+
+/* Ghost hint: indented so the idle block cursor / caret sits in front of it */
+.terminal-input::placeholder {
+    color: rgba(255, 255, 255, 0.55); /* >= 4.5:1 on the terminal background */
+    opacity: 1;
+}
+
+.terminal-input:placeholder-shown {
+    text-indent: 1.1ch;
+}
+
+.terminal-input-wrap .terminal-cursor {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -0.55em;
+    pointer-events: none;
+}
+
+/* Visible focus for the whole window (the input itself has no outline) */
+.terminal:focus-within {
+    border-color: rgba(245, 166, 35, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(245, 166, 35, 0.45);
+}
+
+/* Quick-start chips */
+.terminal-hints {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.7rem 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.terminal-hints button {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    font: inherit;
+    color: rgba(255, 255, 255, 0.88);
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.terminal-hints button:hover {
+    color: var(--color-accent);
+    border-color: rgba(245, 166, 35, 0.6);
+    background: rgba(245, 166, 35, 0.1);
+}
+
+/* iOS Safari zooms the page when an input under 16px gets focus */
+@media (pointer: coarse) {
+    .terminal-input {
+        font-size: 16px;
+    }
 }
 
 @keyframes fadeInUp {
@@ -647,6 +862,7 @@ button:focus-visible {
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--border-radius-md);
     text-decoration: none;
+    font-family: inherit; /* also for <button class="btn"> */
     font-weight: 500;
     border: none;
     cursor: pointer;
@@ -662,14 +878,14 @@ button:focus-visible {
 }
 
 .section.alternate {
-    background-color: #f5f5f5;
+    background-color: var(--bg-alt);
 }
 
 .section h2 {
     font-size: var(--font-size-2xl);
     margin-bottom: var(--spacing-lg);
     text-align: center;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 /* ====================================
@@ -682,7 +898,7 @@ button:focus-visible {
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: var(--color-secondary-text);
+    color: var(--accent-text);
 }
 
 /* Reveal-on-scroll */
@@ -757,7 +973,7 @@ button:focus-visible {
 .about {
     position: relative;
     isolation: isolate;
-    background: var(--color-light);
+    background: var(--bg);
 }
 
 /* Subtle dot grid, fading out toward the bottom */
@@ -766,7 +982,7 @@ button:focus-visible {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: radial-gradient(rgba(22, 33, 62, 0.13) 1px, transparent 1.5px);
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
     background-size: 26px 26px;
     -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
     mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
@@ -790,7 +1006,7 @@ button:focus-visible {
     font-size: var(--font-size-lg);
     line-height: 1.8;
     margin-bottom: var(--spacing-md);
-    color: var(--color-text);
+    color: var(--fg);
 }
 
 .about-text .about-lead {
@@ -799,7 +1015,7 @@ button:focus-visible {
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.025em;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .about-lead-accent {
@@ -811,7 +1027,7 @@ button:focus-visible {
 }
 
 .about-text p strong {
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .about-stats {
@@ -827,7 +1043,7 @@ button:focus-visible {
     gap: 0.25rem;
     padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 1.1rem;
     border-left: 3px solid var(--color-secondary);
-    background: white;
+    background: var(--surface);
     border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
     box-shadow: var(--shadow-sm);
 }
@@ -838,7 +1054,7 @@ button:focus-visible {
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .about-stat dt {
@@ -846,7 +1062,7 @@ button:focus-visible {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 .about-focus-title {
@@ -854,7 +1070,7 @@ button:focus-visible {
     font-family: var(--font-family-mono);
     font-size: 1rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .about-focus-title::before {
@@ -877,8 +1093,8 @@ button:focus-visible {
     overflow: hidden;
     flex: 1;
     padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
-    background: white;
-    border: 1px solid rgba(22, 33, 62, 0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--border-radius-lg);
     transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
@@ -891,7 +1107,7 @@ button:focus-visible {
     left: 0;
     height: 4px;
     width: 48px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--bar);
     transition: width var(--transition-base);
 }
 
@@ -912,7 +1128,7 @@ button:focus-visible {
     font-family: var(--font-family-mono);
     font-size: 0.85rem;
     font-weight: 700;
-    color: rgba(22, 33, 62, 0.25);
+    color: var(--index);
 }
 
 .focus-icon {
@@ -924,19 +1140,19 @@ button:focus-visible {
     margin-bottom: var(--spacing-md);
     border-radius: 14px;
     color: var(--color-secondary);
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.07), rgba(232, 115, 12, 0.14));
+    background: var(--tint);
 }
 
 .focus-card h4 {
     margin-bottom: var(--spacing-xs);
     font-size: var(--font-size-lg);
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .focus-card p {
     font-size: var(--font-size-sm);
     line-height: 1.7;
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 @media (max-width: 900px) {
@@ -966,7 +1182,7 @@ button:focus-visible {
 }
 
 .vision {
-    background: #f1f3f6;
+    background: var(--bg-alt);
 }
 
 .pillar-grid {
@@ -986,8 +1202,8 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     padding: var(--spacing-lg);
-    background: white;
-    border: 1px solid rgba(22, 33, 62, 0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 20px;
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
@@ -1000,7 +1216,7 @@ button:focus-visible {
     left: 0;
     height: 4px;
     width: 64px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--bar);
     transition: width var(--transition-base);
 }
 
@@ -1028,7 +1244,7 @@ button:focus-visible {
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.06em;
-    color: rgba(22, 33, 62, 0.06);
+    color: var(--ghost);
     pointer-events: none;
     user-select: none;
 }
@@ -1050,7 +1266,7 @@ button:focus-visible {
     height: 52px;
     border-radius: 14px;
     color: var(--color-secondary);
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.07), rgba(232, 115, 12, 0.14));
+    background: var(--tint);
 }
 
 .pillar-top h3 {
@@ -1059,7 +1275,7 @@ button:focus-visible {
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--color-secondary-text);
+    color: var(--accent-text);
 }
 
 .pillar-statement {
@@ -1068,13 +1284,13 @@ button:focus-visible {
     font-weight: 800;
     line-height: 1.25;
     letter-spacing: -0.02em;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .pillar-text {
     margin-bottom: var(--spacing-md);
     line-height: 1.8;
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 .pillar-tags {
@@ -1087,12 +1303,12 @@ button:focus-visible {
 
 .pillar-tags li {
     padding: 0.3rem 0.8rem;
-    border: 1px solid rgba(22, 33, 62, 0.14);
+    border: 1px solid var(--border-strong);
     border-radius: var(--border-radius-sm);
-    background: var(--color-light);
+    background: var(--chip-bg);
     font-family: var(--font-family-mono);
     font-size: 0.78rem;
-    color: var(--color-primary);
+    color: var(--chip-fg);
 }
 
 /* Core values: dark band, echoes the hero */
@@ -1104,7 +1320,7 @@ button:focus-visible {
     padding: var(--spacing-lg);
     border-radius: 20px;
     color: white;
-    background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    background: var(--band);
 }
 
 .values-band::before {
@@ -1113,8 +1329,8 @@ button:focus-visible {
     inset: 0;
     z-index: -1;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 40px 40px;
     -webkit-mask-image: radial-gradient(ellipse 70% 100% at 100% 0%, #000, transparent 75%);
     mask-image: radial-gradient(ellipse 70% 100% at 100% 0%, #000, transparent 75%);
@@ -1218,7 +1434,7 @@ button:focus-visible {
 .services {
     position: relative;
     isolation: isolate;
-    background: var(--color-light);
+    background: var(--bg);
 }
 
 /* Faint dot grid, fading toward the bottom (same motif as About) */
@@ -1227,7 +1443,7 @@ button:focus-visible {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: radial-gradient(rgba(22, 33, 62, 0.13) 1px, transparent 1.5px);
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
     background-size: 26px 26px;
     -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 60%);
     mask-image: linear-gradient(180deg, #000 0%, transparent 60%);
@@ -1250,8 +1466,8 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
-    background: white;
-    border: 1px solid rgba(22, 33, 62, 0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--border-radius-lg);
     transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
@@ -1263,7 +1479,7 @@ button:focus-visible {
     left: 0;
     height: 4px;
     width: 48px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--bar);
     transition: width var(--transition-base);
 }
 
@@ -1284,7 +1500,7 @@ button:focus-visible {
     font-family: var(--font-family-mono);
     font-size: 0.85rem;
     font-weight: 700;
-    color: rgba(22, 33, 62, 0.25);
+    color: var(--index);
 }
 
 .service-icon {
@@ -1296,7 +1512,7 @@ button:focus-visible {
     margin-bottom: var(--spacing-md);
     border-radius: 14px;
     color: var(--color-secondary);
-    background: linear-gradient(135deg, rgba(22, 33, 62, 0.07), rgba(232, 115, 12, 0.14));
+    background: var(--tint);
     transition: background var(--transition-base), color var(--transition-base), transform var(--transition-base);
 }
 
@@ -1311,14 +1527,14 @@ button:focus-visible {
     font-size: 1.2rem;
     line-height: 1.3;
     letter-spacing: -0.01em;
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .service-card p {
     margin-bottom: var(--spacing-md);
     font-size: var(--font-size-sm);
     line-height: 1.7;
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 .service-tags {
@@ -1331,12 +1547,12 @@ button:focus-visible {
 
 .service-tags li {
     padding: 0.25rem 0.65rem;
-    border: 1px solid rgba(22, 33, 62, 0.14);
+    border: 1px solid var(--border-strong);
     border-radius: var(--border-radius-sm);
-    background: var(--color-light);
+    background: var(--chip-bg);
     font-family: var(--font-family-mono);
     font-size: 0.74rem;
-    color: var(--color-primary);
+    color: var(--chip-fg);
 }
 
 @media (max-width: 1000px) {
@@ -1359,7 +1575,7 @@ button:focus-visible {
     isolation: isolate;
     overflow: hidden;
     color: white;
-    background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    background: var(--band);
 }
 
 /* Pixel grid + warm glow, same language as the hero */
@@ -1369,8 +1585,8 @@ button:focus-visible {
     inset: 0;
     z-index: -2;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 44px 44px;
     -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 80%);
     mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 80%);
@@ -1556,7 +1772,7 @@ button:focus-visible {
 .contact {
     position: relative;
     isolation: isolate;
-    background: var(--color-light);
+    background: var(--bg);
 }
 
 .contact::before {
@@ -1564,7 +1780,7 @@ button:focus-visible {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: radial-gradient(rgba(22, 33, 62, 0.13) 1px, transparent 1.5px);
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
     background-size: 26px 26px;
     -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 65%);
     mask-image: linear-gradient(180deg, #000 0%, transparent 65%);
@@ -1577,7 +1793,7 @@ button:focus-visible {
 .contact-subtitle {
     margin-bottom: var(--spacing-lg);
     font-size: var(--font-size-lg);
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 .contact-grid {
@@ -1598,7 +1814,7 @@ button:focus-visible {
     flex-direction: column;
     padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
     color: white;
-    background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    background: var(--band);
     border: 1px solid transparent;
     border-radius: var(--border-radius-lg);
     box-shadow: 0 20px 44px rgba(15, 24, 41, 0.28);
@@ -1612,8 +1828,8 @@ button:focus-visible {
     inset: 0;
     pointer-events: none;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 36px 36px;
     -webkit-mask-image: radial-gradient(ellipse 80% 70% at 100% 0%, #000, transparent 75%);
     mask-image: radial-gradient(ellipse 80% 70% at 100% 0%, #000, transparent 75%);
@@ -1666,6 +1882,97 @@ button:focus-visible {
     color: white;
 }
 
+/* Social rows: icon tile, platform + handle, arrow. Same code-box look as the other cards' values. */
+.social-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: auto;
+    list-style: none;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius-md);
+    background: rgba(8, 13, 26, 0.55);
+    color: white;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.social-link:hover {
+    border-color: var(--color-accent);
+    background: rgba(245, 166, 35, 0.08);
+    transform: translateX(3px);
+}
+
+.social-link-icon {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--color-accent);
+    background: rgba(232, 115, 12, 0.18);
+    transition: background var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+.social-link:hover .social-link-icon {
+    color: var(--color-dark);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    transform: rotate(-6deg);
+}
+
+.social-link-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.social-link-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.social-link-handle {
+    font-family: var(--font-family-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    overflow-wrap: anywhere;
+}
+
+.social-link-arrow {
+    flex: none;
+    display: flex;
+    color: rgba(255, 255, 255, 0.55);
+    transform: rotate(-45deg);
+    transition: color var(--transition-fast), transform var(--transition-base);
+}
+
+.social-link:hover .social-link-arrow {
+    color: var(--color-accent);
+    transform: translate(2px, -2px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .social-link:hover,
+    .social-link:hover .social-link-icon {
+        transform: none;
+    }
+
+    .social-link:hover .social-link-arrow {
+        transform: rotate(-45deg); /* keep the ↗ angle, drop the nudge */
+    }
+}
+
 .contact-card-text {
     margin-bottom: var(--spacing-md);
     font-size: var(--font-size-sm);
@@ -1712,6 +2019,11 @@ a.contact-card-value:hover {
 .contact-card-actions .copy-btn {
     padding: 0.7rem 1rem;
     white-space: nowrap;
+}
+
+/* Social rows are followed by the "Show QR code" button: tighter gap than the 32px under a value box */
+.social-list + .contact-card-actions {
+    margin-top: var(--spacing-sm);
 }
 
 /* Outline button for dark surfaces (only used for the disabled placeholder state) */
@@ -1768,7 +2080,7 @@ a.contact-card-value:hover {
     overflow: hidden;
     color: white;
     padding: var(--spacing-xl) 0 var(--spacing-md);
-    background: linear-gradient(180deg, var(--color-dark) 0%, #0a101d 100%);
+    background: var(--footer-bg);
 }
 
 /* Same pixel grid + glow language as hero/team */
@@ -1778,8 +2090,8 @@ a.contact-card-value:hover {
     inset: 0;
     z-index: -2;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 44px 44px;
     -webkit-mask-image: radial-gradient(ellipse 80% 90% at 0% 0%, #000 10%, transparent 75%);
     mask-image: radial-gradient(ellipse 80% 90% at 0% 0%, #000 10%, transparent 75%);
@@ -2067,7 +2379,7 @@ a.contact-card-value:hover {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--surface);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-lg);
     width: 90%;
@@ -2088,26 +2400,26 @@ a.contact-card-value:hover {
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    color: var(--color-text-light);
+    color: var(--fg-muted);
 }
 
 .close:hover {
-    color: var(--color-primary);
+    color: var(--heading);
 }
 
 .modal-content h2 {
-    color: var(--color-primary);
+    color: var(--heading);
     margin-bottom: var(--spacing-lg);
 }
 
 .modal-content h3 {
-    color: var(--color-primary);
+    color: var(--heading);
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-md);
 }
 
 .modal-content p {
-    color: var(--color-text-light);
+    color: var(--fg-muted);
     margin-bottom: var(--spacing-md);
     line-height: 1.8;
 }
@@ -2130,6 +2442,163 @@ a.contact-card-value:hover {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* ====================================
+   QR DIALOG (Contact -> Follow us -> Show QR code)
+   Same dark "code box" language as the contact cards, in both themes. The QR itself always sits on
+   white, because a code needs light/dark contrast to scan.
+   ==================================== */
+.modal .modal-content.qr-dialog {
+    width: min(92%, 400px);
+    max-height: 94vh;
+    padding: 1.75rem 1.5rem 1.5rem;
+    background: var(--band);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    color: white;
+    text-align: center;
+}
+
+.qr-dialog h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    color: white;
+}
+
+.qr-dialog .close {
+    top: 0.6rem;
+    right: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.qr-dialog .close:hover {
+    color: white;
+}
+
+/* Segmented control: LinkedIn | Instagram */
+.qr-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+    padding: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius-md);
+    background: rgba(8, 13, 26, 0.55);
+}
+
+.qr-tab {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.75rem;
+    border: none;
+    border-radius: calc(var(--border-radius-md) - 3px);
+    background: transparent;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.72);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.qr-tab:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.qr-tab[aria-selected='true'] {
+    color: var(--color-dark);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+}
+
+.qr-tab:focus-visible {
+    outline-offset: 2px;
+}
+
+/* White scan card with viewfinder corners */
+.qr-frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 270px, 36vh); /* shrinks on short screens so the whole dialog stays in view */
+    aspect-ratio: 1114 / 1280; /* the Instagram code is portrait; other codes are centred in the same box so the dialog never jumps */
+    margin: 0 auto 1.25rem;
+    padding: 10px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.qr-frame::after {
+    --c: var(--color-accent);
+    --len: 24px;
+    --w: 3px;
+    content: '';
+    position: absolute;
+    inset: -8px;
+    pointer-events: none;
+    background:
+        linear-gradient(var(--c), var(--c)) top left / var(--len) var(--w),
+        linear-gradient(var(--c), var(--c)) top left / var(--w) var(--len),
+        linear-gradient(var(--c), var(--c)) top right / var(--len) var(--w),
+        linear-gradient(var(--c), var(--c)) top right / var(--w) var(--len),
+        linear-gradient(var(--c), var(--c)) bottom left / var(--len) var(--w),
+        linear-gradient(var(--c), var(--c)) bottom left / var(--w) var(--len),
+        linear-gradient(var(--c), var(--c)) bottom right / var(--len) var(--w),
+        linear-gradient(var(--c), var(--c)) bottom right / var(--w) var(--len);
+    background-repeat: no-repeat;
+}
+
+.qr-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.qr-dialog .qr-hint {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.qr-url {
+    display: block;
+    margin-bottom: 1.25rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius-md);
+    background: rgba(8, 13, 26, 0.55);
+    font-family: var(--font-family-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.qr-url:hover {
+    border-color: var(--color-accent);
+}
+
+.qr-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.qr-actions .btn,
+.qr-actions .copy-btn {
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
 }
 
 /* ====================================
@@ -2163,4 +2632,202 @@ a.contact-card-value:hover {
     .contact-card {
         padding: var(--spacing-md) 1.25rem 1.25rem;
     }
+}
+
+/* ====================================
+   DARK MODE  ->  "midnight terminal"
+   ------------------------------------
+   Idea: an IDE at night. Deep ink-blue canvas (like a code editor), brand orange kept as the
+   hot accent, and an electric cyan as the "syntax highlight" colour for icons, chips and bar
+   gradients. Cards get a faint glow on hover instead of a heavy shadow.
+
+     canvas   #0A0E17   page            cyan     #22D3EE   icons, bars, glows
+     surface  #0F1624   cards           orange   brand     CTAs, eyebrows, cursor
+     heading  #EEF3FB   titles          chip     #8BE9FD   tech chips (Dracula cyan)
+   ==================================== */
+:root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --cyan: #22D3EE;
+
+    --bg: #0A0E17;
+    --bg-alt: #0D1320;
+    --surface: #0F1624;
+    --surface-nav: #0D1320;
+    --chip-bg: rgba(34, 211, 238, 0.07);
+    --chip-fg: #8BE9FD;
+
+    --heading: #EEF3FB;
+    --fg: #C5D0E2;
+    --fg-muted: #8D9AB2;
+    --tagline: rgba(197, 208, 226, 0.72);
+    --accent-text: #FFB547;
+    --index: rgba(139, 233, 253, 0.65);
+    --ghost: rgba(148, 163, 184, 0.07);
+
+    --border: rgba(148, 163, 184, 0.14);
+    --border-strong: rgba(148, 163, 184, 0.26);
+    --dot: rgba(148, 163, 184, 0.2);
+    --grid-line: rgba(120, 165, 255, 0.075); /* blueprint blue instead of white */
+
+    --tint: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(245, 166, 35, 0.18));
+    --bar: linear-gradient(90deg, #22D3EE, var(--color-secondary));
+    --band: linear-gradient(160deg, #060912 0%, #0C1428 100%);
+    --footer-bg: linear-gradient(180deg, #070B14 0%, #04060C 100%);
+
+    --nav-bg: rgba(10, 14, 23, 0.78);
+    --nav-bg-scrolled: rgba(10, 14, 23, 0.92);
+    --nav-border: rgba(148, 163, 184, 0.12);
+    --nav-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+    --nav-menu-shadow: 0 24px 40px rgba(0, 0, 0, 0.55);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.55);
+    --hover-glow: 0 0 0 1px rgba(245, 166, 35, 0.3), 0 14px 44px rgba(245, 166, 35, 0.12);
+
+    scrollbar-color: #26324A var(--bg);
+}
+
+[data-theme='dark'] ::selection {
+    background: rgba(34, 211, 238, 0.3);
+    color: #fff;
+}
+
+/* Fade colours when the visitor flips the theme (class is added for ~400ms by useTheme) */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-transition,
+    .theme-transition *,
+    .theme-transition *::before,
+    .theme-transition *::after {
+        transition: none !important;
+    }
+}
+
+/* Brand mark + chrome */
+[data-theme='dark'] .logo-mark--light { display: none; }
+[data-theme='dark'] .logo-mark--dark { display: block; }
+
+[data-theme='dark'] .skip-link {
+    border: 1px solid var(--border-strong);
+}
+
+[data-theme='dark'] .nav-link:hover,
+[data-theme='dark'] .nav-link[aria-current='location'] {
+    box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.18);
+}
+
+[data-theme='dark'] .theme-toggle:hover {
+    box-shadow: 0 0 18px rgba(245, 166, 35, 0.28);
+}
+
+/* Cards: cyan icons, glowing hover edge */
+[data-theme='dark'] .focus-icon,
+[data-theme='dark'] .pillar-icon,
+[data-theme='dark'] .service-icon {
+    color: var(--cyan);
+    box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.16);
+}
+
+[data-theme='dark'] .service-card:hover .service-icon {
+    box-shadow: 0 0 22px rgba(245, 166, 35, 0.4);
+}
+
+[data-theme='dark'] .focus-card:hover,
+[data-theme='dark'] .pillar-card:hover,
+[data-theme='dark'] .service-card:hover {
+    border-color: rgba(245, 166, 35, 0.5);
+    box-shadow: var(--shadow-lg), var(--hover-glow);
+}
+
+[data-theme='dark'] .about-stat {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--color-secondary);
+}
+
+[data-theme='dark'] .pillar-tags li,
+[data-theme='dark'] .service-tags li {
+    border-color: rgba(34, 211, 238, 0.22);
+}
+
+/* Dark bands: add a second (cyan) glow so they don't read as flat black, and a hairline edge
+   so they separate from the dark page around them. */
+[data-theme='dark'] .hero {
+    background:
+        radial-gradient(640px 420px at 6% 105%, rgba(34, 211, 238, 0.13), transparent 70%),
+        var(--band);
+}
+
+[data-theme='dark'] .team {
+    background:
+        radial-gradient(620px 420px at 100% 100%, rgba(34, 211, 238, 0.11), transparent 70%),
+        var(--band);
+    border-top: 1px solid var(--border);
+}
+
+[data-theme='dark'] .footer {
+    border-top: 1px solid var(--border);
+}
+
+[data-theme='dark'] .values-band {
+    border: 1px solid var(--border);
+}
+
+[data-theme='dark'] .contact-card {
+    border-color: var(--border);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='dark'] .contact-card:hover {
+    border-color: rgba(245, 166, 35, 0.5);
+    box-shadow: 0 26px 56px rgba(0, 0, 0, 0.6), var(--hover-glow);
+}
+
+[data-theme='dark'] .member-card:hover {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), var(--hover-glow);
+}
+
+/* Terminal + code window: neon-edged, like a window floating over a dark desktop */
+[data-theme='dark'] .terminal {
+    background: rgba(5, 8, 16, 0.86);
+    border-color: rgba(34, 211, 238, 0.2);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(232, 115, 12, 0.14),
+        0 0 70px rgba(34, 211, 238, 0.1);
+}
+
+[data-theme='dark'] .terminal:focus-within {
+    border-color: rgba(245, 166, 35, 0.55);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(245, 166, 35, 0.45),
+        0 0 70px rgba(245, 166, 35, 0.12);
+}
+
+[data-theme='dark'] .code-card {
+    background: #070B14;
+    border-color: rgba(34, 211, 238, 0.2);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(34, 211, 238, 0.07);
+}
+
+[data-theme='dark'] .c-comment { color: #6C7A99; }
+[data-theme='dark'] .c-kw { color: #FF79C6; }
+[data-theme='dark'] .c-str { color: #50FA7B; }
+[data-theme='dark'] .c-num { color: #8BE9FD; }
+
+/* Legal modals */
+[data-theme='dark'] .modal {
+    background-color: rgba(2, 4, 10, 0.72);
+}
+
+[data-theme='dark'] .modal-content {
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
