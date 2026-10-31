@@ -17,10 +17,11 @@
   },
   "contact": {
     "email": "support.denkbyte@gmail.com",
+    "linkedin": "https://www.linkedin.com/company/denkbyte/",
     "address": {
-      "street": "Reichenhainer Straße 70",
+      "street": "Straße der Nationen 62",
       "city": "Chemnitz",
-      "postal_code": "09107",
+      "postal_code": "09111",
       "country": "Germany"
     }
   },
