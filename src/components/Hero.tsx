@@ -1,5 +1,6 @@
-import { config, services } from '../data';
+import { config } from '../data';
 import { ArrowRightIcon } from './icons';
+import Terminal from './Terminal';
 
 const tags = ['AI-powered solutions', 'Web & mobile apps', 'Intelligent software'];
 
@@ -50,31 +51,8 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Decorative terminal, nods to the "$ think --digitally" brand line */}
-        <div className="terminal" aria-hidden="true">
-          <div className="terminal-bar">
-            <span className="terminal-dot terminal-dot--red" />
-            <span className="terminal-dot terminal-dot--yellow" />
-            <span className="terminal-dot terminal-dot--green" />
-            <span className="terminal-title">{config.company.name.toLowerCase()} — zsh</span>
-          </div>
-          <div className="terminal-body">
-            <p className="terminal-line" style={{ ['--i' as string]: 0 }}>
-              <span className="t-prompt">$</span> think --digitally
-            </p>
-            <p className="terminal-line t-dim" style={{ ['--i' as string]: 1 }}>
-              loading services&hellip;
-            </p>
-            {services.map((service, i) => (
-              <p className="terminal-line" key={service.title} style={{ ['--i' as string]: i + 2 }}>
-                <span className="t-ok">✓</span> {service.title}
-              </p>
-            ))}
-            <p className="terminal-line" style={{ ['--i' as string]: services.length + 2 }}>
-              <span className="t-prompt">$</span> <span className="terminal-cursor" />
-            </p>
-          </div>
-        </div>
+        {/* Interactive terminal: plays the "$ think --digitally" intro, then takes simulated commands */}
+        <Terminal />
       </div>
     </header>
   );

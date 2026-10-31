@@ -7,6 +7,14 @@
 
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
+/** Set by initSmoothScroll(); lets other code (e.g. the hero terminal) navigate like a link click. */
+let goToHash: ((hash: string) => boolean) | null = null;
+
+/** Smooth-scroll to a section by id ("team", "contact", "top"...). Returns false if it doesn't exist. */
+export function scrollToSection(id: string): boolean {
+  return goToHash ? goToHash(`#${id}`) : false;
+}
+
 export function initSmoothScroll() {
   let frame = 0;
 
@@ -48,28 +56,12 @@ export function initSmoothScroll() {
     window.addEventListener(type, cancel, { passive: true }),
   );
 
-  document.addEventListener('click', (event) => {
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
-      return;
-    }
-
-    const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
-    if (!link) return;
-
-    const hash = link.getAttribute('href') ?? '';
+  /** Scrolls to "#id". Returns false when the page has no such section. */
+  const goTo = (hash: string): boolean => {
     const id = decodeURIComponent(hash.slice(1));
     const isTop = id === '' || id === 'top';
     const target = isTop ? document.documentElement : document.getElementById(id);
-    if (!target) return; // not a section on this page (e.g. modal triggers handle themselves)
-
-    event.preventDefault();
+    if (!target) return false; // not a section on this page (e.g. modal triggers handle themselves)
 
     // Land just below the sticky navbar (uses each section's CSS scroll-margin-top)
     const offset = isTop ? 0 : parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
@@ -86,5 +78,25 @@ export function initSmoothScroll() {
       if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     }
+    return true;
+  };
+  goToHash = goTo;
+
+  document.addEventListener('click', (event) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!link) return;
+
+    if (goTo(link.getAttribute('href') ?? '')) event.preventDefault();
   });
 }
