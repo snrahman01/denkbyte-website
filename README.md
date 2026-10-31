@@ -1,6 +1,6 @@
 # DenkByte — Company Website
 
-A static company website built for the **Planspiel Web Engineering** course at
+A company website built for the **Planspiel Web Engineering** course at
 TU Chemnitz (WS 2026/27). DenkByte is a fictional company created for academic purposes.
 
 > **Disclaimer:** This website does not belong to a real company. It is a Planspiel
@@ -8,57 +8,89 @@ TU Chemnitz (WS 2026/27). DenkByte is a fictional company created for academic p
 
 ## Tech
 
-- Plain **HTML + CSS + JavaScript** (no framework, no build step)
-- Content loaded from static JSON in `data/`
-- Contact form via **Netlify Forms**
-- Hosted free on **Netlify**
+- **React 19 + TypeScript**, bundled with **Vite**
+- Content lives in typed JSON files in `src/data/`
+- Hosted free on **Netlify** (auto-deploys from `main`)
 
 ## Project structure
 
 ```
 denkbyte-website/
-├── index.html          # the page (at repo root)
-├── styles.css          # theme + layout (CSS variables for easy theming)
-├── script.js           # loads data, renders team/services, nav, modals
-├── logo.png / logo.svg # brand logo
-├── data/
-│   ├── config.json     # company name, colors, contact, legal text
-│   ├── team.json       # team members
-│   └── services.json   # services offered
-├── netlify.toml        # Netlify publish config (publishes repo root)
-├── NETLIFY_DEPLOY.md   # deployment steps
-├── THEME_EXAMPLES.md   # alternative color palettes
-└── DENKBYTE_PROFILE.md # company/team profile reference
+├── index.html            # Vite entry point
+├── src/
+│   ├── main.tsx          # bootstraps React + applies theme colors
+│   ├── App.tsx           # page layout + legal modals
+│   ├── types.ts          # TypeScript types for the JSON data
+│   ├── styles.css        # theme + layout (CSS variables for easy theming)
+│   ├── components/       # Navbar, Hero, About, Vision, Services, Team, Contact, Footer, Modal, Legal
+│   └── data/
+│       ├── site.config.json # company name, colors, contact (email + address), legal text
+│       ├── team.json        # team members
+│       └── services.json    # services offered
+├── public/               # static assets copied as-is (logo.png, logo.svg)
+└── netlify.toml          # Netlify build config (npm run build -> dist/)
 ```
 
 ## Run locally
 
-The page fetches JSON, so open it through a local web server (not `file://`):
+Requires Node.js 20.19+ or 22.12+.
 
 ```bash
-python3 -m http.server 3000
-# then open http://localhost:3000
+npm install
+npm run dev        # dev server with hot reload -> http://localhost:5173
+```
+
+Other commands:
+
+```bash
+npm run typecheck  # TypeScript type-check only
+npm run build      # type-check + production build into dist/
+npm run preview    # serve the production build locally
 ```
 
 ## Edit content
 
-All content is in `data/`:
+All content is in `src/data/`:
 
-- **Company name, tagline, colors, contact, legal** → `config.json`
-  (colors apply automatically via CSS variables — see `THEME_EXAMPLES.md`)
+- **Company name, tagline, colors, contact, legal** → `site.config.json`
+  (see [Theming](#theming))
 - **Team members** → `team.json`
 - **Services** → `services.json`
 
-No rebuild needed — edit the JSON and refresh.
+Commit and push — Netlify rebuilds the site automatically.
+
+## Theming
+
+Brand colors live in `branding.colors` in `src/data/site.config.json`. At startup, `src/main.tsx`
+copies each one into a CSS variable that `src/styles.css` uses everywhere:
+
+| Config key   | CSS variable         | Used for                       |
+| ------------ | -------------------- | ------------------------------ |
+| `primary`    | `--color-primary`    | headings, buttons, nav         |
+| `secondary`  | `--color-secondary`  | accents, gradients, hover      |
+| `accent`     | `--color-accent`     | highlights (footer disclaimer) |
+| `dark`       | `--color-dark`       | footer background              |
+| `light`      | `--color-light`      | page background                |
+| `text`       | `--color-text`       | body text                      |
+| `text_light` | `--color-text-light` | secondary text                 |
+
+Keep enough contrast between text and background colors (WCAG AA).
 
 ## Deploy
 
-See **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** — connect the GitHub repo for auto-deploys,
-or drag-and-drop the whole project folder to Netlify.
+The site is hosted on Netlify, which is connected to this GitHub repo. All build settings are in
+`netlify.toml` (`npm run build`, publish `dist/`, Node 22), so there is nothing to configure by hand.
+
+- **Production:** every push to `main` redeploys the live site.
+- **Previews:** other branches and pull requests get their own preview URL, so check changes there
+  before merging into `main`.
+- **Rollback:** in Netlify → **Deploys**, open an earlier successful deploy and click
+  **Publish deploy**.
+- **Test the production build locally:** `npm run build` then `npm run preview`.
 
 ## Course compliance
 
 - ✅ Impressum (footer → Impressum)
 - ✅ GDPR / Privacy Policy (footer → Privacy Policy)
 - ✅ Fictional-company disclaimer (footer)
-- ✅ Responsive + accessible (mobile nav, form labels, reduced-motion support)
+- ✅ Responsive + accessible (mobile nav, keyboard-closable modals, reduced-motion support)
