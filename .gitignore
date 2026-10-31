@@ -1,50 +1,22 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+# Dependencies
+node_modules/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
+# Build output
+dist/
 
 # Environment
 .env
 .env.local
 .env.*.local
 
-# Docker
-.dockerignore
+# Logs
+*.log
+npm-debug.log*
 
-# OS
+# OS / editor
 .DS_Store
 Thumbs.db
-
-# Project-specific
-node_modules/
-.cache/
-dist/
-build/
+.vscode/
+.idea/
+*.swp
+*~
