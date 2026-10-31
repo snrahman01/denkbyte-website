@@ -1,0 +1,34 @@
+{
+  "company": {
+    "name": "DenkByte",
+    "tagline": "Built with purpose. Engineered for impact.",
+    "founded": 2026
+  },
+  "branding": {
+    "colors": {
+      "primary": "#16213E",
+      "secondary": "#E8730C",
+      "accent": "#F5A623",
+      "dark": "#0F1829",
+      "light": "#f8f9fa",
+      "text": "#16213E",
+      "text_light": "#6B7280"
+    }
+  },
+  "contact": {
+    "email": "support.denkbyte@gmail.com",
+    "address": {
+      "street": "Reichenhainer Straße 70",
+      "city": "Chemnitz",
+      "postal_code": "09107",
+      "country": "Germany"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "owner": "DenkByte GmbH",
+      "responsible": "Management Team"
+    },
+    "disclaimer": "This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). Any resemblance to real companies or organizations is purely coincidental."
+  }
+}
