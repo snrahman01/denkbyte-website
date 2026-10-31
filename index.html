@@ -5,8 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DenkByte</title>
-  <meta name="description" content="DenkByte is a software engineering team building AI-powered solutions, web and mobile applications and intelligent software systems. We think first, then we build." />
+  <meta name="description"
+    content="DenkByte is a software engineering team building AI-powered solutions, web and mobile applications and intelligent software systems. We think first, then we build." />
   <meta name="theme-color" content="#16213E" />
+  <meta name="color-scheme" content="light dark" />
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('denkbyte-theme');
+        var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        if (dark) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0A0E17');
+      } catch (e) { }
+    })();
+  </script>
 
   <!-- Icons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -16,7 +29,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DenkByte" />
   <meta property="og:title" content="DenkByte | Built with purpose. Engineered for impact." />
-  <meta property="og:description" content="Software engineering for AI, web and mobile. We think first, then we build." />
+  <meta property="og:description"
+    content="Software engineering for AI, web and mobile. We think first, then we build." />
   <meta property="og:url" content="https://denkbyte.netlify.app/" />
   <meta property="og:image" content="https://denkbyte.netlify.app/og-image.png" />
   <meta property="og:image:width" content="1200" />

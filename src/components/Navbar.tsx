@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { config } from '../data';
+import ThemeToggle from './ThemeToggle';
 
 const links = [
   { id: 'about', label: 'About' },
@@ -13,6 +14,10 @@ const watchedIds = ['top', ...links.map((l) => l.id), 'contact'];
 
 // "DenkByte" -> ["Denk", "Byte"] so the wordmark can be two-tone.
 const [brandFirst, brandSecond] = config.company.name.split(/(?=[A-Z])/);
+
+// The link's accessible name has to contain its visible text (WCAG 2.5.3 "Label in Name"),
+// so it spells the wordmark the way it is displayed: "Denk·Byte" and the tagline.
+const logoLabel = `${[brandFirst, brandSecond].filter(Boolean).join('·')} – think digitally – back to top`;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -75,8 +80,9 @@ export default function Navbar() {
       </a>
       <div className="container">
         <div className="nav-content">
-          <a className="logo" href="#top" aria-label={`${config.company.name} – back to top`} onClick={close}>
-            <img src="/logo.svg" alt="" className="logo-mark" width={44} height={44} />
+          <a className="logo" href="#top" aria-label={logoLabel} onClick={close}>
+            <img src="/logo.svg" alt="" className="logo-mark logo-mark--light" width={44} height={44} />
+            <img src="/logo-dark.svg" alt="" className="logo-mark logo-mark--dark" width={44} height={44} />
             <span className="logo-words" aria-hidden="true">
               <span className="logo-text">
                 {brandFirst}
@@ -93,18 +99,6 @@ export default function Navbar() {
               </span>
             </span>
           </a>
-
-          <button
-            className={`nav-toggle${open ? ' open' : ''}`}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="nav-menu"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
 
           <ul className={`nav-menu${open ? ' active' : ''}`} id="nav-menu">
             {links.map((link) => (
@@ -130,6 +124,21 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
+
+          <ThemeToggle />
+
+          {/* Hamburger sits after the theme toggle so both stay visible on mobile */}
+          <button
+            className={`nav-toggle${open ? ' open' : ''}`}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="nav-menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
       </div>
     </nav>
