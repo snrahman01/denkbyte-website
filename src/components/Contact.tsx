@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import { config } from '../data';
 import CopyButton from './CopyButton';
-import QrDialog, { preloadQrImages, type QrItem } from './QrDialog';
+import QrDialog from './QrDialog';
+import { preloadQrImages, type QrItem } from '../utils/qr';
 import Reveal from './Reveal';
 import { ArrowRightIcon, FollowIcon, InstagramIcon, LinkedInIcon, MailIcon, PinIcon, QrIcon } from './icons';
 

@@ -1,26 +1,10 @@
-import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import CopyButton from './CopyButton';
 import Modal from './Modal';
 import { ArrowRightIcon } from './icons';
+import type { QrItem } from '../utils/qr';
 import { bareUrl } from '../utils/url';
-
-export interface QrItem {
-  name: string;
-  url: string;
-  qr: string;
-  icon: ReactNode;
-}
-
-/** Starts downloading the QR images so the dialog opens instantly (called on hover/focus of the trigger). */
-let preloaded = false;
-export function preloadQrImages(items: QrItem[]) {
-  if (preloaded) return;
-  preloaded = true;
-  items.forEach((item) => {
-    new Image().src = item.qr;
-  });
-}
 
 function QrTabs({ items }: { items: QrItem[] }) {
   const [active, setActive] = useState(0);
