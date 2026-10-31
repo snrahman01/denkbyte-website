@@ -24,6 +24,7 @@ export interface SiteConfig {
   };
   contact: {
     email: string;
+    linkedin?: string;
     address: Address;
   };
   legal: {
@@ -35,14 +36,19 @@ export interface SiteConfig {
 export interface Service {
   title: string;
   description: string;
-  icon: string;
+  /** Icon name: "ai" | "code" | "chart" | "cloud" | "speed" | "shield" (anything else shows a default icon) */
+  icon?: string;
+  tags?: string[];
 }
 
 export interface TeamMember {
   id: number;
   name: string;
   role: string;
-  superhero?: string;
-  superpower?: string;
-  avatar?: string;
+  bio?: string;
+  photo?: string;
+  email?: string;
+  github?: string;
+  gitlab?: string;
+  linkedin?: string;
 }
