@@ -16,8 +16,9 @@ const exploreLinks = [
 
 export default function Footer({ onOpenImpressum, onOpenPrivacy }: FooterProps) {
   const { name, tagline } = config.company;
-  const { email, linkedin, address } = config.contact;
+  const { email, linkedin, instagram, address } = config.contact;
   const [brandFirst, brandSecond] = name.split(/(?=[A-Z])/);
+  const logoLabel = `${[brandFirst, brandSecond].filter(Boolean).join('·')} – back to top`;
 
   return (
     <footer className="footer">
@@ -25,7 +26,7 @@ export default function Footer({ onOpenImpressum, onOpenPrivacy }: FooterProps) 
         <div className="footer-main">
           {/* Brand */}
           <div className="footer-brand">
-            <a className="footer-logo" href="#top" aria-label={`${name} – back to top`}>
+            <a className="footer-logo" href="#top" aria-label={logoLabel}>
               <span className="footer-logo-tile">
                 <img src="/logo.svg" alt="" width={34} height={34} />
               </span>
@@ -93,6 +94,13 @@ export default function Footer({ onOpenImpressum, onOpenPrivacy }: FooterProps) 
                 <li>
                   <a href={linkedin} target="_blank" rel="noopener noreferrer">
                     LinkedIn
+                  </a>
+                </li>
+              )}
+              {instagram && (
+                <li>
+                  <a href={instagram} target="_blank" rel="noopener noreferrer">
+                    Instagram
                   </a>
                 </li>
               )}

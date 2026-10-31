@@ -18,6 +18,11 @@
   "contact": {
     "email": "support.denkbyte@gmail.com",
     "linkedin": "https://www.linkedin.com/company/denkbyte/",
+    "instagram": "https://www.instagram.com/denkbyte/",
+    "qr": {
+      "linkedin": "/linkedin-qr-code.jpg",
+      "instagram": "/ig-qr-code.jpeg"
+    },
     "address": {
       "street": "Straße der Nationen 62",
       "city": "Chemnitz",

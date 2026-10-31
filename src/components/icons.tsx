@@ -165,6 +165,34 @@ export const CopyIcon = line(
 
 export const CheckIcon = line(<path d="M5 12.5l4.5 4.5L19 7.5" />);
 
+/** "Follow": a person with a plus. Used for the Follow us contact card. */
+export const FollowIcon = line(
+  <>
+    <circle cx="9" cy="8" r="3.6" />
+    <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+    <path d="M19 8v6M16 11h6" />
+  </>,
+);
+
+/** QR code glyph: three finder squares plus a few data modules. */
+export const QrIcon = line(
+  <>
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    <path d="M6.5 6.5h.01M17.5 6.5h.01M6.5 17.5h.01M14 14h3v3M21 14v.01M14 20.5v.01M17.5 20.5H21V17.5" />
+  </>,
+);
+
+/** Outline Instagram glyph (rounded square, lens, flash dot). */
+export const InstagramIcon = line(
+  <>
+    <rect x="3" y="3" width="18" height="18" rx="5.5" />
+    <circle cx="12" cy="12" r="4.2" />
+    <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
+  </>,
+);
+
 export const InfoIcon = line(
   <>
     <circle cx="12" cy="12" r="9" />

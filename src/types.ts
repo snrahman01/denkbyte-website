@@ -25,6 +25,8 @@ export interface SiteConfig {
   contact: {
     email: string;
     linkedin?: string;
+    instagram?: string;
+    qr?: { linkedin?: string; instagram?: string };
     address: Address;
   };
   legal: {

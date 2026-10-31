@@ -5,11 +5,13 @@ interface ModalProps {
   title: string;
   onClose: () => void;
   children: ReactNode;
+  /** Extra class on the dialog box, for dialogs that need their own look. */
+  className?: string;
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export default function Modal({ open, title, onClose, children }: ModalProps) {
+export default function Modal({ open, title, onClose, children, className }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   const titleId = useId();
@@ -64,7 +66,7 @@ export default function Modal({ open, title, onClose, children }: ModalProps) {
     >
       <div
         ref={dialogRef}
-        className="modal-content"
+        className={className ? `modal-content ${className}` : 'modal-content'}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}

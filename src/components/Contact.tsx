@@ -1,38 +1,28 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { config } from '../data';
+import CopyButton from './CopyButton';
+import QrDialog, { preloadQrImages, type QrItem } from './QrDialog';
 import Reveal from './Reveal';
-import {
-  ArrowRightIcon,
-  CheckIcon,
-  CopyIcon,
-  LinkedInIcon,
-  MailIcon,
-  PinIcon,
-} from './icons';
+import { ArrowRightIcon, FollowIcon, InstagramIcon, LinkedInIcon, MailIcon, PinIcon, QrIcon } from './icons';
 
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  const timer = useRef<number | undefined>(undefined);
+/**
+ * "https://www.linkedin.com/company/denkbyte/" -> "/company/denkbyte".
+ * A malformed value in site.config.json (e.g. missing "https://") must not crash the page, so it
+ * falls back to showing the text as written.
+ */
+function pathOf(url: string) {
+  try {
+    return new URL(url).pathname.replace(/\/$/, '') || url;
+  } catch {
+    return url;
+  }
+}
 
-  useEffect(() => () => window.clearTimeout(timer.current), []);
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* clipboard unavailable (e.g. insecure context) - the mailto link still works */
-    }
-  };
-
-  return (
-    <button type="button" className="copy-btn" onClick={copy} aria-label="Copy email address">
-      {copied ? <CheckIcon size={16} strokeWidth={2.4} /> : <CopyIcon size={16} strokeWidth={2} />}
-      <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
-    </button>
-  );
+/** "https://www.instagram.com/denkbyte/" -> "@denkbyte" */
+function handleOf(url: string) {
+  const path = pathOf(url);
+  const last = path.split('/').filter(Boolean).pop();
+  return last && path.startsWith('/') ? `@${last}` : path;
 }
 
 function Card({
@@ -57,12 +47,34 @@ function Card({
 }
 
 export default function Contact() {
-  const { email, linkedin, address } = config.contact;
+  const { email, linkedin, instagram, qr, address } = config.contact;
+  const [qrOpen, setQrOpen] = useState(false);
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${address.street}, ${address.postal_code} ${address.city}, ${address.country}`,
   )}`;
-  // "https://www.linkedin.com/company/denkbyte/" -> "linkedin.com/company/denkbyte"
-  const linkedinLabel = linkedin?.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+  // Social profiles shown in the "Follow us" card. A profile without a URL in site.config.json is skipped.
+  const socials = [
+    {
+      name: 'LinkedIn',
+      url: linkedin,
+      handle: linkedin && pathOf(linkedin),
+      qr: qr?.linkedin,
+      icon: <LinkedInIcon size={18} />,
+    },
+    {
+      name: 'Instagram',
+      url: instagram,
+      handle: instagram && handleOf(instagram),
+      qr: qr?.instagram,
+      icon: <InstagramIcon size={19} strokeWidth={1.9} />,
+    },
+  ].filter((s): s is typeof s & { url: string; handle: string } => Boolean(s.url));
+
+  // Profiles that also have a QR image in site.config.json get an entry in the QR dialog.
+  const qrItems: QrItem[] = socials.flatMap((s) =>
+    s.qr ? [{ name: s.name, url: s.url, qr: s.qr, icon: s.icon }] : [],
+  );
 
   return (
     <section id="contact" className="section contact">
@@ -87,27 +99,49 @@ export default function Contact() {
                 <a href={`mailto:${email}`} className="btn btn-accent">
                   Send an email <ArrowRightIcon size={16} strokeWidth={2} />
                 </a>
-                <CopyButton text={email} />
+                <CopyButton text={email} label="Copy email address" />
               </div>
             </Card>
           </Reveal>
 
           <Reveal delay={120}>
             <Card
-              icon={<LinkedInIcon size={26} />}
-              title="Connect on LinkedIn"
-              text="Follow our company page for news, projects and updates."
+              icon={<FollowIcon size={28} />}
+              title="Follow us"
+              text="News, projects and behind-the-scenes from the DenkByte team."
             >
-              {linkedin ? (
+              {socials.length > 0 ? (
                 <>
-                  <a href={linkedin} target="_blank" rel="noopener noreferrer" className="contact-card-value">
-                    {linkedinLabel}
-                  </a>
-                  <div className="contact-card-actions">
-                    <a href={linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-accent">
-                      Visit our page <ArrowRightIcon size={16} strokeWidth={2} />
-                    </a>
-                  </div>
+                  <ul className="social-list">
+                    {socials.map((s) => (
+                      <li key={s.name}>
+                        <a href={s.url} target="_blank" rel="noopener noreferrer" className="social-link">
+                          <span className="social-link-icon">{s.icon}</span>
+                          <span className="social-link-text">
+                            <span className="social-link-name">{s.name}</span>
+                            <span className="social-link-handle">{s.handle}</span>
+                          </span>
+                          <span className="social-link-arrow">
+                            <ArrowRightIcon size={16} strokeWidth={2.2} />
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  {qrItems.length > 0 && (
+                    <div className="contact-card-actions">
+                      <button
+                        type="button"
+                        className="btn btn-accent"
+                        aria-haspopup="dialog"
+                        onClick={() => setQrOpen(true)}
+                        onPointerEnter={() => preloadQrImages(qrItems)}
+                        onFocus={() => preloadQrImages(qrItems)}
+                      >
+                        <QrIcon size={18} strokeWidth={2} /> Show QR code
+                      </button>
+                    </div>
+                  )}
                 </>
               ) : (
                 <>
@@ -142,6 +176,8 @@ export default function Contact() {
           </Reveal>
         </div>
       </div>
+
+      {qrItems.length > 0 && <QrDialog open={qrOpen} onClose={() => setQrOpen(false)} items={qrItems} />}
     </section>
   );
 }
