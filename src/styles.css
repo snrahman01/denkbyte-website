@@ -1820,6 +1820,25 @@ button:focus-visible {
   color: var(--color-accent);
 }
 
+/* Extra roles ("hats") shown as small pills under the main role */
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+}
+
+.member-tags li {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid rgba(245, 166, 35, 0.35);
+  border-radius: 999px;
+  background: rgba(245, 166, 35, 0.1);
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .member-bio {
   font-size: var(--font-size-sm);
   line-height: 1.7;
