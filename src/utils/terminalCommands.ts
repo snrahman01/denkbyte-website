@@ -106,17 +106,20 @@ const listServices = (args: string[]): Result => {
 };
 
 const listTeam = (args: string[]): Result => {
-  if (args[0] === undefined) {
+  // "team member 3" and the shorter "team 3" both open one person.
+  const query = args[0]?.toLowerCase() === 'member' ? args[1] : args[0];
+
+  if (query === undefined) {
     return out(
       ...team.map((m, i): Line => [seg(`${two(i)} `, 'dim'), seg(m.name), seg(` · ${m.role}`, 'dim')]),
       blank,
-      text('Tip: "team 3" for a closer look', 'dim'),
+      text('Tip: "team member 3" for a closer look', 'dim'),
     );
   }
 
-  const index = Number(args[0]) - 1;
+  const index = Number(query) - 1;
   const member = Number.isInteger(index) ? team[index] : undefined;
-  if (!member) return error(`team: no member "${args[0]}" (try 1-${team.length})`);
+  if (!member) return error(`team: no member "${query}" (try 1-${team.length})`);
 
   const links = [
     { label: 'github   ', url: member.github },
@@ -234,7 +237,7 @@ const commands: Command[] = [
   },
   {
     name: 'team',
-    usage: 'team [n]',
+    usage: 'team [member n]',
     desc: 'the people',
     run: (a) => listTeam(a),
   },
@@ -414,6 +417,7 @@ const ARG_CHOICES: Record<string, string[]> = {
   theme: [...THEMES],
   cat: Object.keys(FILES),
   sudo: ['hire-us'],
+  team: ['member'],
 };
 
 function commonPrefix(items: string[]) {
