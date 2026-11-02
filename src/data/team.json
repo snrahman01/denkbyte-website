@@ -2,8 +2,8 @@
   {
     "id": 1,
     "name": "Ayush Aryan",
-    "role": "Software Engineer",
-    "bio": "Software Engineer crafting robust, scalable solutions. Turns complex requirements into clean, maintainable code.",
+    "role": "Software Engineer / Product Owner",
+    "bio": "Owns the vision and writes the code. Turns complex requirements into clean, scalable software and keeps priorities, backlog and team aligned from idea to release.",
     "github": "https://github.com/aryan2574",
     "gitlab": "https://gitlab.hrz.tu-chemnitz.de/ayar-at-tu-chemnitz.de",
     "linkedin": "https://www.linkedin.com/in/ayusharyandev/"
@@ -11,8 +11,8 @@
   {
     "id": 2,
     "name": "Nishtha Bhagyawant",
-    "role": "AI Engineer",
-    "bio": "AI Engineer building intelligent systems that learn and adapt. Passionate about applied machine learning and automation.",
+    "role": "AI Engineer / Growth and Content Specialist",
+    "bio": "Builds AI systems that learn and adapt, then tells the story behind them. Pairs applied machine learning and automation with content and growth that put DenkByte on the map.",
     "github": "https://github.com/NishthaB1409",
     "gitlab": "https://gitlab.hrz.tu-chemnitz.de/nbha-at-tu-chemnitz.de",
     "linkedin": "https://www.linkedin.com/in/nishtha-bhagyawant-507b721b9/"
@@ -20,8 +20,8 @@
   {
     "id": 3,
     "name": "Kashish Madan",
-    "role": "Frontend / UI/UX Engineer",
-    "bio": "Frontend & UI/UX Engineer designing intuitive, human-centered interfaces. Bridges the gap between users and technology.",
+    "role": "UI/UX Engineer (Frontend) / Brand Identity Designer",
+    "bio": "Designs and builds interfaces people enjoy using. Combines UI/UX thinking and frontend craft with a brand identity that makes DenkByte instantly recognizable.",
     "github": "https://github.com/kashishmadaann",
     "gitlab": "https://gitlab.hrz.tu-chemnitz.de/kamad-at-tu-chemnitz.de",
     "linkedin": "https://www.linkedin.com/in/madan-kashish"
@@ -29,8 +29,8 @@
   {
     "id": 4,
     "name": "Meeta Dave",
-    "role": "ML Engineer / Product Owner",
-    "bio": "ML Engineer and Product Owner balancing technical depth with product strategy. Keeps the team aligned toward a shared vision.",
+    "role": "ML Engineer / Visual Lead",
+    "bio": "Engineers the core machine learning models that power our system from the back end. Steers the visual direction on the side to ensure the final product looks as brilliant as the data behind it.",
     "github": "https://github.com/davemeeta",
     "gitlab": "https://gitlab.hrz.tu-chemnitz.de/dmee-at-tu-chemnitz.de",
     "linkedin": "https://www.linkedin.com/in/meetadave/"
@@ -38,8 +38,8 @@
   {
     "id": 5,
     "name": "Rohini Mane",
-    "role": "Data Engineer",
-    "bio": "Data Engineer building reliable pipelines and data foundations. Ensures clean, accessible data powers every decision.",
+    "role": "DevOps Engineer / Social Media Strategist",
+    "bio": "Automates the road to production and amplifies what we ship. Builds reliable CI/CD and cloud pipelines, and drives the social media strategy that grows our audience.",
     "github": "https://github.com/RuhiMane",
     "gitlab": "https://gitlab.hrz.tu-chemnitz.de/rohma-at-tu-chemnitz.de",
     "linkedin": "https://www.linkedin.com/in/ruhi-mane-042613335/"

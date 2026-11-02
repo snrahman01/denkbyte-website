@@ -31,12 +31,23 @@ function roleIcon(role: string): ReactNode {
   if (/\b(ai|ml)\b/.test(r)) return <ChipIcon {...badge} />;
   if (/\b(frontend|ui)\b/.test(r)) return <LayoutIcon {...badge} />;
   if (r.includes('data')) return <DatabaseIcon {...badge} />;
-  if (r.includes('deploy') || r.includes('integration')) return <BranchIcon {...badge} />;
+  if (r.includes('devops') || r.includes('deploy') || r.includes('integration'))
+    return <BranchIcon {...badge} />;
   if (r.includes('backend')) return <ServerIcon {...badge} />;
   return <CodeIcon {...badge} />;
 }
 
+/**
+ * A role like "ML Engineer / Visual Lead" is shown as a main role plus extra "hats".
+ * Only " / " with spaces splits, so "UI/UX Engineer" stays in one piece.
+ */
+function splitRole(role: string): { main: string; extras: string[] } {
+  const [main, ...extras] = role.split(/\s+\/\s+/).map((part) => part.trim());
+  return { main, extras };
+}
+
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
+  const { main: mainRole, extras: extraRoles } = splitRole(member.role);
   const links = [
     { href: member.github, label: 'GitHub', icon: <GitHubIcon /> },
     { href: member.gitlab, label: 'GitLab', icon: <GitLabIcon /> },
@@ -62,9 +73,17 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
         </div>
         <div>
           <h3>{member.name}</h3>
-          <p className="member-role">{member.role}</p>
+          <p className="member-role">{mainRole}</p>
         </div>
       </header>
+
+      {extraRoles.length > 0 && (
+        <ul className="member-tags" aria-label={`Also ${extraRoles.join(', ')}`}>
+          {extraRoles.map((extra) => (
+            <li key={extra}>{extra}</li>
+          ))}
+        </ul>
+      )}
 
       {member.bio && <p className="member-bio">{member.bio}</p>}
 
