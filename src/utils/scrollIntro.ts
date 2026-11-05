@@ -97,7 +97,7 @@ export function createScrollIntro() {
       </p>
     </div>
 
-    <div class="intro-bottom bottom-0 ${bar}">
+    <div class="intro-bottom bottom-14 ${bar} sm:bottom-10">
       <span aria-hidden="true"><span class="intro-count-now text-white">00</span> / 0${SCENES}</span>
       <span class="absolute bottom-[clamp(1.1rem,3.5vw,2.25rem)] left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[0.66rem] tracking-[0.28em] whitespace-nowrap max-sm:bottom-21" aria-hidden="true">
         <span class="relative h-[34px] w-[22px] rounded-xl border-[1.5px] border-white/35 pointer-coarse:h-[38px] pointer-coarse:w-0.5 pointer-coarse:rounded-sm pointer-coarse:border-0 pointer-coarse:bg-white/18">
