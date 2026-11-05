@@ -1,0 +1,285 @@
+/*
+ * DenkByte design tokens for Tailwind CSS v4.
+ *
+ * Components are styled with Tailwind classes; this file only defines what those classes are built
+ * from. Short guide:
+ *
+ *   Brand colours   bg-primary  text-secondary  from-accent ...   (values come from site.config.json)
+ *   Theme colours   bg-page  bg-surface  text-heading  text-fg  text-muted  border-line ...
+ *                   -> these switch automatically between light and dark mode, no `dark:` needed
+ *   Dark mode       dark:...   (follows <html data-theme="dark">, set by the theme toggle)
+ *   Backgrounds     bg-band  bg-bar  bg-tint  bg-footer  bg-grid  bg-dots   (see @utility below)
+ *   Text            text-gradient   (orange gradient text)
+ *   Animations      animate-fade-up  animate-blink  animate-pulse-dot  animate-heartbeat  animate-float
+ */
+@import 'tailwindcss';
+
+/* `dark:` variants follow the site's theme toggle instead of only the OS setting */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---------- Static tokens ---------- */
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --font-mono:
+    ui-monospace, 'Cascadia Code', 'SF Mono', 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  --font-serif: Georgia, 'Times New Roman', serif;
+
+  /* Brand (defaults; src/main.tsx overrides them from site.config.json at startup) */
+  --color-primary: #16213e;
+  --color-secondary: #e8730c;
+  --color-accent: #f5a623;
+  --color-dark: #0f1829;
+  --color-light: #f8f9fa;
+  --color-cyan: #22d3ee;
+
+  /* Fixed palette for the always-dark parts (terminal, code window) */
+  --color-ink: #080d1a;
+  --color-ok: #4ade80;
+  --color-err: #ff7b72;
+
+  --animate-fade-up: fade-up 0.7s ease backwards;
+  --animate-fade-in: fade-in 0.3s ease;
+  --animate-slide-up: slide-up 0.3s ease;
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-out infinite;
+  --animate-heartbeat: heartbeat 1.6s ease-in-out infinite;
+  --animate-float: float 3.2s ease-in-out infinite;
+  --animate-theme-icon: theme-icon 0.45s ease backwards;
+  --animate-cue: cue 1.8s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgb(245 166 35 / 0.55);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 10px rgb(245 166 35 / 0);
+    }
+  }
+  @keyframes heartbeat {
+    0%,
+    30%,
+    60%,
+    100% {
+      transform: scale(1);
+    }
+    15% {
+      transform: scale(1.25);
+    }
+    45% {
+      transform: scale(1.18);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-4deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-14px) rotate(4deg);
+      opacity: 0.55;
+    }
+  }
+  @keyframes theme-icon {
+    from {
+      opacity: 0;
+      transform: rotate(-70deg) scale(0.6);
+    }
+  }
+  @keyframes cue {
+    0% {
+      opacity: 0;
+      transform: translateY(-3px);
+    }
+    30% {
+      opacity: 1;
+    }
+    80%,
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+}
+
+/* ---------- Theme tokens: light values here, dark values below ---------- */
+:root {
+  color-scheme: light;
+  --bg: var(--color-light);
+  --bg-alt: #f1f3f6;
+  --surface: #ffffff;
+  --heading: var(--color-primary);
+  --fg: var(--color-text, var(--color-primary));
+  --muted: var(--color-text-light, #6b7280);
+  --accent-text: #b45309; /* small orange text on light backgrounds (WCAG AA) */
+  --chip-bg: var(--color-light);
+  --chip-fg: var(--color-primary);
+  --line: rgb(22 33 62 / 0.08);
+  --line-strong: rgb(22 33 62 / 0.14);
+  --index: rgb(22 33 62 / 0.25);
+  --ghost: rgb(22 33 62 / 0.06);
+  --dot: rgb(22 33 62 / 0.13);
+  --grid-line: rgb(255 255 255 / 0.05);
+  --nav: rgb(255 255 255 / 0.85);
+  --tint: linear-gradient(135deg, rgb(22 33 62 / 0.07), rgb(232 115 12 / 0.14));
+  --bar: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  --band: linear-gradient(160deg, var(--color-dark) 0%, var(--color-primary) 100%);
+  --footer: linear-gradient(180deg, var(--color-dark) 0%, #0a101d 100%);
+}
+
+/* Dark mode, "midnight terminal": ink-blue canvas, brand orange + electric cyan accents */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0a0e17;
+  --bg-alt: #0d1320;
+  --surface: #0f1624;
+  --heading: #eef3fb;
+  --fg: #c5d0e2;
+  --muted: #8d9ab2;
+  --accent-text: #ffb547;
+  --chip-bg: rgb(34 211 238 / 0.07);
+  --chip-fg: #8be9fd;
+  --line: rgb(148 163 184 / 0.14);
+  --line-strong: rgb(148 163 184 / 0.26);
+  --index: rgb(139 233 253 / 0.65);
+  --ghost: rgb(148 163 184 / 0.07);
+  --dot: rgb(148 163 184 / 0.2);
+  --grid-line: rgb(120 165 255 / 0.075);
+  --nav: rgb(10 14 23 / 0.85);
+  --tint: linear-gradient(135deg, rgb(34 211 238 / 0.12), rgb(245 166 35 / 0.18));
+  --bar: linear-gradient(90deg, #22d3ee, var(--color-secondary));
+  --band: linear-gradient(160deg, #060912 0%, #0c1428 100%);
+  --footer: linear-gradient(180deg, #070b14 0%, #04060c 100%);
+  scrollbar-color: #26324a var(--bg);
+}
+
+/* Theme colours as Tailwind utilities: bg-page, text-heading, border-line, ... */
+@theme inline {
+  --color-page: var(--bg);
+  --color-page-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-heading: var(--heading);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent-text: var(--accent-text);
+  --color-chip: var(--chip-bg);
+  --color-chip-fg: var(--chip-fg);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-index: var(--index);
+  --color-ghost: var(--ghost);
+  --color-nav: var(--nav);
+}
+
+/* ---------- Reusable backgrounds and text effects ---------- */
+@utility bg-band {
+  background-image: var(--band);
+}
+@utility bg-bar {
+  background-image: var(--bar);
+}
+@utility bg-tint {
+  background-image: var(--tint);
+}
+@utility bg-footer {
+  background-image: var(--footer);
+}
+@utility bg-brand {
+  background-image: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+}
+/* "Pixel grid" lines, size via --grid-size (default 44px) */
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size, 44px) var(--grid-size, 44px);
+}
+@utility bg-dots {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+@utility text-gradient {
+  background-image: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--color-secondary);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scrollbar-gutter: stable; /* no sideways jump when a dialog locks scrolling */
+  }
+
+  body {
+    @apply bg-page font-sans leading-relaxed text-fg antialiased;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    @apply outline-2 outline-offset-3 outline-secondary;
+  }
+
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  [data-theme='dark'] ::selection {
+    background: rgb(34 211 238 / 0.3);
+    color: #fff;
+  }
+}
+
+/* Fade colours when the visitor flips the theme (class is added for ~400ms by useTheme) */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+
+/* Respect "reduce motion": no decorative animation anywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}

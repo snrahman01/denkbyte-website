@@ -30,7 +30,9 @@ export interface SiteConfig {
     address: Address;
   };
   legal: {
-    impressum: { owner: string; responsible: string };
+    /** Real team member named in the Impressum and Privacy Policy (required by the Planspiel rules) */
+    contact_person: { name: string; role: string; email: string };
+    /** Required wording, shown in the footer of every page */
     disclaimer: string;
   };
 }
@@ -52,4 +54,16 @@ export interface TeamMember {
   github?: string;
   gitlab?: string;
   linkedin?: string;
+}
+
+export interface PatchNote {
+  /** Version label without the "v", e.g. "1.2" */
+  version: string;
+  /** ISO date, e.g. "2026-11-20" */
+  date: string;
+  title: string;
+  /** What changed, one short line each */
+  changes: string[];
+  /** Optional category, e.g. "Website", "Product", "Team", "Pitch" */
+  tag?: string;
 }

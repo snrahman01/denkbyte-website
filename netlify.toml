@@ -19,3 +19,51 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Routes (keep in sync with src/router.tsx): served by the app with status 200.
+[[redirects]]
+  from = "/about"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/vision"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/services"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/team"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/patch-notes"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/impressum"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/index.html"
+  status = 200
+
+# Everything else: the app shows its 404 page, and Netlify sends a real 404 status.
+# (Existing files like /logo.svg or /assets/* are still served normally.)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

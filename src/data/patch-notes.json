@@ -1,0 +1,63 @@
+[
+  {
+    "version": "1.1",
+    "date": "2026-11-04",
+    "tag": "Pitch",
+    "title": "First pitch: 4th place",
+    "changes": [
+      "Presented our startup pitch to the professors: problem, solution, vision, values, services, business model, team and roadmap",
+      "DenkByte placed 4th"
+    ]
+  },
+  {
+    "version": "1.0",
+    "date": "2026-11-02",
+    "tag": "Launch",
+    "title": "Ready for launch",
+    "changes": ["Team details finalised", "Website complete for launch"]
+  },
+  {
+    "version": "0.4",
+    "date": "2026-10-31",
+    "tag": "Website",
+    "title": "Rebuilt with React, TypeScript and Vite",
+    "changes": [
+      "Website rebuilt with React, TypeScript and Vite",
+      "Added dark mode, an interactive terminal and QR codes",
+      "LinkedIn and Instagram pages set up, launch video ready"
+    ]
+  },
+  {
+    "version": "0.3",
+    "date": "2026-10-29",
+    "tag": "Website",
+    "title": "New look, live on Netlify",
+    "changes": [
+      "New logo and navy / orange theme on the website",
+      "Turned into a static site with accessibility fixes",
+      "Deployed on Netlify: every change to the main branch goes live automatically"
+    ]
+  },
+  {
+    "version": "0.2",
+    "date": "2026-10-28",
+    "tag": "Brand",
+    "title": "Hello, DenkByte",
+    "changes": [
+      "Chose the name DenkByte from a shortlist that included Elevon and NovaStack",
+      "Final \"Bright Idea\" logo: a light bulb, half smooth (human thinking), half pixels (the digital)",
+      "Brand kit: navy, orange and amber palette, light and dark themes, typefaces",
+      "Website repository created, development started"
+    ]
+  },
+  {
+    "version": "0.1",
+    "date": "2026-10-27",
+    "tag": "Team",
+    "title": "Ideas and values",
+    "changes": [
+      "Name shortlist and first logo concepts",
+      "Vision and mission defined, with four core values: Innovation, Integrity, Excellence and Impact"
+    ]
+  }
+]

@@ -3,15 +3,16 @@
 Company website for **DenkByte**, a software engineering team focused on AI, web and mobile solutions.
 Live site: **https://denkbyte.netlify.app/**
 
-> **Disclaimer:** This website represents a fictional company created for educational purposes as part
-> of the Planspiel Web Engineering course at Technische Universität Chemnitz (WS 2026/27). Any
-> resemblance to real companies or organizations is purely coincidental.
+> **Disclaimer:** This website does not belong to a real company. It is a Planspiel Web Engineering
+> project at University of Technology Chemnitz.
 
 ## Tech stack
 
 - [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/) for development and bundling
-- Plain CSS (one stylesheet, theme via CSS variables), no UI framework
+- [Tailwind CSS v4](https://tailwindcss.com/) for all styling (theme in `src/index.css`)
+- [React Router 7](https://reactrouter.com/) for the pages
+- [GSAP](https://gsap.com/) for the intro loader and the scroll intro
 - Hosted on [Netlify](https://www.netlify.com/)
 
 ## Getting started
@@ -39,19 +40,99 @@ Open http://localhost:5173. The page reloads automatically when you edit a file.
 ## Project structure
 
 ```
-├── index.html               # HTML entry point (meta tags, favicon, social preview)
-├── netlify.toml             # Netlify build + caching config
+├── index.html               # HTML entry point (meta tags, inline intro loader for instant first paint)
+├── netlify.toml             # Netlify build, caching and route config
 ├── public/                  # Static files: logo, favicon, touch icon, social image, QR codes
 └── src/
-    ├── main.tsx             # App bootstrap, applies theme colors
-    ├── App.tsx              # Page layout and legal dialogs
-    ├── styles.css           # All styling
+    ├── main.tsx             # App bootstrap: brand colours, router, loader + scroll intro
+    ├── router.tsx           # All routes (URL -> page)
+    ├── index.css            # Tailwind import + design tokens (colours, fonts, animations)
     ├── types.ts             # Types for the JSON data
-    ├── components/          # One file per page section, plus Modal, Reveal and icons
+    ├── pages/               # One file per route: HomePage, AboutPage, ..., NotFoundPage
+    ├── layouts/             # RootLayout: navbar + page + footer
+    ├── components/
+    │   ├── sections/        # Page content blocks: About, Vision, Services, Team, Contact, ...
+    │   ├── ui/              # Small building blocks: Button, Card, Chip, Section, SectionHeader, ...
+    │   └── *.tsx            # Navbar, Footer, Hero, Terminal, Logo, dialogs, icons
     ├── hooks/               # useInView (scroll animations), useTheme (light/dark)
-    ├── utils/               # smoothScroll (in-page link scrolling), terminalCommands (hero terminal)
-    └── data/                # Site content (see below)
+    ├── lib/cn.ts            # Joins class names: cn('a', open && 'b')
+    ├── utils/               # terminalCommands, introLoader, scrollIntro, qr helpers
+    └── data/                # Site content + navigation links (see below)
 ```
+
+## Pages and routes
+
+| URL            | Page                         | File                           |
+| -------------- | ---------------------------- | ------------------------------ |
+| `/`            | Home (hero, highlights, CTA) | `src/pages/HomePage.tsx`       |
+| `/about`       | About                        | `src/pages/AboutPage.tsx`      |
+| `/vision`      | Vision & Mission             | `src/pages/VisionPage.tsx`     |
+| `/services`    | Services                     | `src/pages/ServicesPage.tsx`   |
+| `/team`        | Team                         | `src/pages/TeamPage.tsx`       |
+| `/patch-notes` | Patch Notes (status updates) | `src/pages/PatchNotesPage.tsx` |
+| `/contact`     | Contact                      | `src/pages/ContactPage.tsx`    |
+| `/impressum`   | Impressum                    | `src/pages/ImpressumPage.tsx`  |
+| `/privacy`     | Privacy Policy               | `src/pages/PrivacyPage.tsx`    |
+| anything else  | 404 page                     | `src/pages/NotFoundPage.tsx`   |
+
+**Adding a page:**
+
+1. Create `src/pages/MyPage.tsx` (start with `<PageTitle title="..." />` and a `<Section>`).
+2. Add the route in `src/router.tsx`.
+3. Add the link in `src/data/navigation.ts` (navbar and footer read from there).
+4. Add the path to `netlify.toml` so Netlify serves it with status 200 (otherwise it gets a 404 status).
+
+Use `<Link to="/team">` (or `<Button to="/team">`) for links between pages, never `<a href>`, so the
+page changes without a reload.
+
+## Styling with Tailwind
+
+Everything is styled with Tailwind classes directly in the components; there is no separate
+stylesheet per component. `src/index.css` only defines the design tokens:
+
+| Use               | Classes                                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| Brand colours     | `bg-primary`, `text-secondary`, `text-accent`, `bg-dark` (from `site.config.json`)                  |
+| Theme colours     | `bg-page`, `bg-page-alt`, `bg-surface`, `text-heading`, `text-fg`, `text-muted`, `border-line`      |
+| Brand backgrounds | `bg-band` (dark navy band), `bg-brand` (orange gradient), `bg-bar`, `bg-tint`, `bg-grid`, `bg-dots` |
+| Text effect       | `text-gradient` (orange gradient text)                                                              |
+| Animations        | `animate-fade-up`, `animate-blink`, `animate-pulse-dot`, `animate-heartbeat`                        |
+
+- **Theme colours switch automatically** between light and dark mode, so most components need no
+  `dark:` classes. Use `dark:` only for extras (e.g. a glow in dark mode).
+- **Reuse the building blocks** in `src/components/ui/` before writing long class lists:
+  `Button` (`variant="accent" | "ghost"`, `to` for pages, `href` for external links), `Card`,
+  `Section`, `SectionHeader`, `Chip`, `IconTile`, `Backdrop`/`Glow`, `Container`.
+- **Mobile first:** classes without a prefix apply to phones; `sm:` (640px), `md:` (768px),
+  `lg:` (1024px, desktop navbar) and `xl:` (1280px) add the larger layouts.
+- Install the VS Code extension **Tailwind CSS IntelliSense** for autocomplete. Prettier sorts the
+  classes automatically (`prettier-plugin-tailwindcss`).
+
+## Posting patch notes
+
+The Planspiel rules ask for regular status updates; ours are the **Patch Notes**. Add an entry to
+`src/data/patch-notes.json`:
+
+```json
+{
+  "version": "1.2",
+  "date": "2026-11-20",
+  "tag": "Product",
+  "title": "Short headline",
+  "changes": ["What changed", "One short line each"]
+}
+```
+
+It appears on `/patch-notes` and, if it is one of the two newest, on the homepage. Entries are sorted
+by date automatically.
+
+## Legal requirements (Planspiel)
+
+- **Disclaimer:** the exact required sentence is `legal.disclaimer` in `site.config.json`. It is shown in
+  the footer of every page and on the 404 page. Don't reword it.
+- **Impressum / Privacy:** `legal.contact_person` must be a real team member with a working email (not
+  the topic experts or VSR staff). If you add an external service (embedded map or video, web font,
+  analytics, form service, CDN script ...), describe it in `src/pages/PrivacyPage.tsx` before it goes live.
 
 ## Editing content
 
@@ -65,9 +146,9 @@ All text content lives in `src/data/`. No component changes are needed for routi
 
 - `icon` in `services.json` must be one of: `ai`, `code`, `chart`, `cloud`, `speed`, `shield`.
 - Brand colors are set in `site.config.json` under `branding.colors`. `src/main.tsx` copies them into
-  CSS variables at startup. Small orange text on light backgrounds uses a darker shade,
-  `--color-secondary-text` in `src/styles.css`, to meet WCAG AA contrast. Check it if you change the
-  secondary color.
+  CSS variables at startup, which become the Tailwind colours `primary`, `secondary`, `accent`, ...
+  Small orange text on light backgrounds uses a darker shade (`text-accent-text`, `--accent-text` in
+  `src/index.css`) to meet WCAG AA contrast. Check it if you change the secondary color.
 
 ### Dark mode
 
@@ -76,9 +157,9 @@ visitor's OS setting; after clicking the button the choice is saved in `localSto
 (`denkbyte-theme`). A small inline script in `index.html` applies the theme before first paint,
 so there is no light flash.
 
-- Components use semantic tokens (`--bg`, `--surface`, `--heading`, `--fg-muted`, `--border`, ...)
-  defined in `:root` in `src/styles.css`. Light values are derived from the brand colors above.
-- The dark palette is the `:root[data-theme='dark']` block at the end of `src/styles.css`
+- Components use the theme colours (`bg-page`, `bg-surface`, `text-heading`, `text-muted`,
+  `border-line`, ...). Their light values are in `:root` in `src/index.css`.
+- The dark palette is the `:root[data-theme='dark']` block in `src/index.css`
   ("midnight terminal": ink-blue canvas, brand orange as the hot accent, cyan for icons, chips and
   glows). Change a color there and the whole dark theme follows.
 - `public/logo-dark.svg` is the logo mark with the navy half lightened, shown only in dark mode.
@@ -87,7 +168,7 @@ so there is no light flash.
 ### Interactive terminal
 
 The terminal in the hero plays the `$ think --digitally` intro, then visitors can type commands
-(`help`, `services 2`, `team 3`, `contact`, `goto team`, `theme dark`, `neofetch`, plus a few hidden
+(`help`, `services 2`, `team 3`, `contact`, `goto team` (opens the page), `theme dark`, `neofetch`, plus a few hidden
 easter eggs such as `sudo hire-us`). Arrow keys browse history, Tab completes, Ctrl+L clears, and
 clickable "try:" chips cover touch devices.
 
@@ -96,9 +177,9 @@ clickable "try:" chips cover touch devices.
 - Answers come from `src/data/*.json`, so editing services, team or contact there updates the terminal.
 - To add a command, add an entry to the `commands` array in `terminalCommands.ts`. Mark it
   `hidden: true` to keep it out of `help`.
-- UI lives in `src/components/Terminal.tsx`; its styles are in the hero section of `src/styles.css`.
+- UI lives in `src/components/Terminal.tsx`.
 
-### QR codes (Contact section)
+### QR codes (Contact page)
 
 The "Follow us" card lists the LinkedIn and Instagram links, with a **Show QR code** button underneath.
 The button opens a dialog with a LinkedIn / Instagram switch, the QR code on a white card, the link,
@@ -109,8 +190,16 @@ and Open / Copy buttons. The images are only downloaded when someone hovers or o
   images at all, the button is hidden.
 - To replace a code, drop the new image into `public/` and update the path. Any aspect ratio works.
   For a sharp result use at least 600 px wide, with a white background and a quiet margin.
-- The dialog reuses `Modal.tsx` (focus trap, Escape, scroll lock). Its code is `QrDialog.tsx`, with
-  styles in the "QR dialog" block of `src/styles.css`.
+- The dialog reuses `Modal.tsx` (focus trap, Escape, scroll lock). Its code is `QrDialog.tsx`.
+
+### Loader and scroll intro
+
+Every page load starts with a 2.5 s loader (bulb, typed tagline, progress bar). Its markup and
+first-paint styles are inline in `index.html` so it appears before any JavaScript loads; GSAP
+animates it (`src/utils/introLoader.ts`). On the homepage a scroll-driven intro follows
+(`src/utils/scrollIntro.ts`): "They say," → "People judge a webpage in 0.05 seconds." → "We built it
+for that moment." → the site. One scroll / swipe / arrow key per step; a "Skip intro" button skips it.
+It is skipped on other pages and for links to a section.
 
 ## Deployment
 
@@ -126,8 +215,8 @@ production URL. Update them if the domain changes.
 
 ## Accessibility
 
-Audited with axe-core 4.14 against WCAG 2.1 A/AA with no violations, in light and dark mode, with the
-QR and legal dialogs open. Includes a skip link, semantic landmarks and heading order, visible
+Audited with axe-core against WCAG 2.1 A/AA with no violations on every page, in light and dark mode,
+on desktop and phone sizes. Includes a skip link, semantic landmarks and heading order, visible
 keyboard focus, `prefers-reduced-motion` support, and dialogs that trap focus, close with Escape and
 restore focus. Re-run an audit after larger design changes.
 
@@ -139,6 +228,6 @@ restore focus. Re-run an audit after larger design changes.
 
 ## Course requirements
 
-- Impressum and Privacy Policy (GDPR), opened from the footer
-- Fictional-company disclaimer in the footer
+- Impressum and Privacy Policy (GDPR) pages, linked from the footer
+- Required Planspiel disclaimer in the footer of every page
 - Responsive layout with a mobile navigation

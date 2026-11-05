@@ -19,6 +19,13 @@
             saved === 'dark' ||
             (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
           document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+          document.documentElement.classList.add('is-loading');
+          // Failsafe: never leave the page paused if the app script fails to load.
+          setTimeout(function () {
+            if (!document.documentElement.hasAttribute('data-booted')) {
+              document.documentElement.classList.remove('is-loading');
+            }
+          }, 8000);
           if (dark) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0A0E17');
         } catch (e) {}
       })();
@@ -43,9 +50,240 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://denkbyte.netlify.app/og-image.png" />
     <link rel="canonical" href="https://denkbyte.netlify.app/" />
+    <!-- Intro loader: inline so it paints before the JS/CSS bundle arrives.
+         GSAP animates it and removes it (src/utils/introLoader.ts). -->
+    <style>
+      html.is-loading {
+        overflow: hidden;
+      }
+      /* Hold the hero animations (incl. the terminal intro) until the loader lifts */
+      html.is-loading #root *,
+      html.is-loading #root *::before,
+      html.is-loading #root *::after {
+        animation-play-state: paused !important;
+      }
+      .preloader {
+        --pl-bg: linear-gradient(160deg, #0f1829 0%, #16213e 100%);
+        --pl-grid: rgba(255, 255, 255, 0.05);
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: var(--pl-bg);
+        color: #fff;
+        font-family:
+          ui-monospace, 'Cascadia Code', 'SF Mono', 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+        /* Failsafe: fade out on its own if the app script never runs */
+        animation: pl-failsafe 0.5s ease 8s forwards;
+      }
+      html[data-theme='dark'] .preloader {
+        --pl-bg: linear-gradient(160deg, #060912 0%, #0c1428 100%);
+        --pl-grid: rgba(120, 165, 255, 0.075);
+      }
+      .preloader::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--pl-grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--pl-grid) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, #000 15%, transparent 70%);
+        mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, #000 15%, transparent 70%);
+      }
+      .preloader-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .preloader-box {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 2rem;
+      }
+      .preloader-mark {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        margin-bottom: 1.5rem;
+      }
+      /* Orange glow + spinning ring around the bulb (spins while the bundle loads) */
+      .preloader-glow {
+        position: absolute;
+        inset: -70px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(245, 166, 35, 0.42) 0%, rgba(232, 115, 12, 0) 65%);
+        opacity: 0.8;
+        animation: pl-glow 1.6s ease-in-out infinite;
+      }
+      .preloader-ring {
+        position: absolute;
+        inset: -14px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-top-color: #e8730c;
+        border-right-color: #f5a623;
+        animation: pl-spin 1s linear infinite;
+      }
+      .preloader-mark img {
+        position: relative;
+        width: 72px;
+        height: 72px;
+        animation: pl-bulb 1.6s ease-in-out infinite;
+      }
+      .preloader-word {
+        display: flex;
+        font-size: clamp(2.1rem, 8vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+      /* Each letter rises from behind its own mask (GSAP) */
+      .preloader-m {
+        display: inline-block;
+        overflow: hidden;
+        padding-bottom: 0.08em;
+      }
+      .preloader-c {
+        display: inline-block;
+        transform: translateY(110%);
+      }
+      .preloader-o {
+        color: #e8730c;
+      }
+      .preloader-cmd {
+        display: flex;
+        align-items: center;
+        height: 1.4em;
+        margin: 0.5rem 0 2.2rem;
+        font-size: clamp(0.85rem, 2.6vw, 1rem);
+        color: rgba(197, 208, 226, 0.8);
+        white-space: pre;
+      }
+      .preloader-cmd b {
+        margin-right: 0.5em;
+        color: #e8730c;
+      }
+      .preloader-type,
+      .preloader-ch {
+        display: none; /* GSAP types the letters in */
+      }
+      .preloader-type {
+        display: inline;
+      }
+      .preloader-cursor {
+        display: inline-block;
+        width: 0.55em;
+        height: 1.05em;
+        margin-left: 0.25em;
+        background: #e8730c;
+        animation: pl-blink 1.1s steps(1) infinite;
+      }
+      .preloader-meta {
+        width: min(280px, 70vw);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      .preloader-bar {
+        display: block;
+        height: 3px;
+        border-radius: 3px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .preloader-bar i {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #e8730c, #f5a623);
+        box-shadow: 0 0 12px rgba(245, 166, 35, 0.6);
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+      .preloader-status {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.7rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        color: rgba(197, 208, 226, 0.6);
+        font-variant-numeric: tabular-nums;
+      }
+      @keyframes pl-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes pl-glow {
+        50% {
+          opacity: 0.5;
+          transform: scale(0.9);
+        }
+      }
+      @keyframes pl-bulb {
+        50% {
+          filter: drop-shadow(0 0 14px rgba(245, 166, 35, 0.75));
+        }
+      }
+      @keyframes pl-blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      @keyframes pl-failsafe {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .preloader-glow,
+        .preloader-ring,
+        .preloader-mark img {
+          animation: none;
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <div class="preloader" id="preloader" role="status" aria-live="polite">
+      <span class="preloader-sr">Loading DenkByte…</span>
+      <div class="preloader-box" aria-hidden="true">
+        <span class="preloader-mark">
+          <span class="preloader-glow"></span>
+          <span class="preloader-ring"></span>
+          <img src="/logo-dark.svg" alt="" width="72" height="72" />
+        </span>
+        <span class="preloader-word"
+          ><span class="preloader-m"><span class="preloader-c">D</span></span
+          ><span class="preloader-m"><span class="preloader-c">e</span></span
+          ><span class="preloader-m"><span class="preloader-c">n</span></span
+          ><span class="preloader-m"><span class="preloader-c">k</span></span
+          ><span class="preloader-m"><span class="preloader-c preloader-o">·</span></span
+          ><span class="preloader-m"><span class="preloader-c preloader-o">B</span></span
+          ><span class="preloader-m"><span class="preloader-c preloader-o">y</span></span
+          ><span class="preloader-m"><span class="preloader-c preloader-o">t</span></span
+          ><span class="preloader-m"><span class="preloader-c preloader-o">e</span></span></span
+        >
+        <span class="preloader-cmd"
+          ><b>$</b><span class="preloader-type">think --digitally</span><span class="preloader-cursor"></span
+        ></span>
+        <span class="preloader-meta">
+          <span class="preloader-bar"><i></i></span>
+          <span class="preloader-status"
+            ><span>booting ideas</span><span><span class="preloader-count">000</span>%</span></span
+          >
+        </span>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
