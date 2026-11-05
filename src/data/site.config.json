@@ -31,10 +31,11 @@
     }
   },
   "legal": {
-    "impressum": {
-      "owner": "DenkByte GmbH",
-      "responsible": "Management Team"
+    "contact_person": {
+      "name": "Ayush Aryan",
+      "role": "Product Owner",
+      "email": "support.denkbyte@gmail.com"
     },
-    "disclaimer": "This website represents a fictional company created for educational purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). Any resemblance to real companies or organizations is purely coincidental."
+    "disclaimer": "This website does not belong to a real company. It is a Planspiel Web Engineering project at University of Technology Chemnitz."
   }
 }

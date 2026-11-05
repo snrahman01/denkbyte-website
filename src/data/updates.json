@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-11-05",
+    "tag": "Website",
+    "title": "New website: separate pages, mobile layout and intro",
+    "text": "Our website now has its own pages for About, Vision & Mission, Services, Team and Contact, a layout built for phones first, and a short animated intro on the homepage."
+  },
+  {
+    "date": "2026-10-31",
+    "tag": "Website",
+    "title": "Website rebuilt with React and TypeScript",
+    "text": "We moved the site to React and TypeScript with a redesigned navbar, hero, services, team and contact sections, plus an interactive terminal in the hero."
+  },
+  {
+    "date": "2026-10-29",
+    "tag": "Brand",
+    "title": "New logo and brand colours",
+    "text": "DenkByte got its lightbulb logo and the navy and orange colour theme you see across the site."
+  },
+  {
+    "date": "2026-10-28",
+    "tag": "Team",
+    "title": "DenkByte is online",
+    "text": "Our team of nine started building the DenkByte company website as part of the Planspiel Web Engineering project at TU Chemnitz."
+  }
+]

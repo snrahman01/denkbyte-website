@@ -3,9 +3,8 @@
 Company website for **DenkByte**, a software engineering team focused on AI, web and mobile solutions.
 Live site: **https://denkbyte.netlify.app/**
 
-> **Disclaimer:** This website represents a fictional company created for educational purposes as part
-> of the Planspiel Web Engineering course at Technische Universität Chemnitz (WS 2026/27). Any
-> resemblance to real companies or organizations is purely coincidental.
+> **Disclaimer:** This website does not belong to a real company. It is a Planspiel Web Engineering
+> project at University of Technology Chemnitz.
 
 ## Tech stack
 
@@ -70,6 +69,7 @@ Open http://localhost:5173. The page reloads automatically when you edit a file.
 | `/vision`     | Vision & Mission             | `src/pages/VisionPage.tsx`    |
 | `/services`   | Services                     | `src/pages/ServicesPage.tsx`  |
 | `/team`       | Team                         | `src/pages/TeamPage.tsx`      |
+| `/updates`    | Updates (status / news)      | `src/pages/UpdatesPage.tsx`   |
 | `/contact`    | Contact                      | `src/pages/ContactPage.tsx`   |
 | `/impressum`  | Impressum                    | `src/pages/ImpressumPage.tsx` |
 | `/privacy`    | Privacy Policy               | `src/pages/PrivacyPage.tsx`   |
@@ -107,6 +107,25 @@ stylesheet per component. `src/index.css` only defines the design tokens:
   `lg:` (1024px, desktop navbar) and `xl:` (1280px) add the larger layouts.
 - Install the VS Code extension **Tailwind CSS IntelliSense** for autocomplete. Prettier sorts the
   classes automatically (`prettier-plugin-tailwindcss`).
+
+## Posting an update
+
+The Planspiel rules ask for regular status updates. Add an entry to `src/data/updates.json`:
+
+```json
+{ "date": "2026-11-20", "tag": "Product", "title": "Short headline", "text": "One or two sentences." }
+```
+
+It appears on `/updates` and, if it is one of the two newest, on the homepage. Entries are sorted by
+date automatically.
+
+## Legal requirements (Planspiel)
+
+- **Disclaimer:** the exact required sentence is `legal.disclaimer` in `site.config.json`. It is shown in
+  the footer of every page and on the 404 page. Don't reword it.
+- **Impressum / Privacy:** `legal.contact_person` must be a real team member with a working email (not
+  the topic experts or VSR staff). If you add an external service (embedded map or video, web font,
+  analytics, form service, CDN script ...), describe it in `src/pages/PrivacyPage.tsx` before it goes live.
 
 ## Editing content
 
@@ -189,8 +208,8 @@ production URL. Update them if the domain changes.
 
 ## Accessibility
 
-Audited with axe-core 4.14 against WCAG 2.1 A/AA with no violations, in light and dark mode, with the
-QR and legal dialogs open. Includes a skip link, semantic landmarks and heading order, visible
+Audited with axe-core against WCAG 2.1 A/AA with no violations on every page, in light and dark mode,
+on desktop and phone sizes. Includes a skip link, semantic landmarks and heading order, visible
 keyboard focus, `prefers-reduced-motion` support, and dialogs that trap focus, close with Escape and
 restore focus. Re-run an audit after larger design changes.
 
@@ -203,5 +222,5 @@ restore focus. Re-run an audit after larger design changes.
 ## Course requirements
 
 - Impressum and Privacy Policy (GDPR) pages, linked from the footer
-- Fictional-company disclaimer in the footer
+- Required Planspiel disclaimer in the footer of every page
 - Responsive layout with a mobile navigation

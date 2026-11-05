@@ -6,6 +6,7 @@ import AboutStats from '../components/sections/AboutStats';
 import CallToAction from '../components/sections/CallToAction';
 import FocusAreas from '../components/sections/FocusAreas';
 import ServiceGrid from '../components/sections/Services';
+import UpdateList from '../components/sections/UpdateList';
 import { ArrowRightIcon } from '../components/icons';
 import Backdrop from '../components/ui/Backdrop';
 import Button from '../components/ui/Button';
@@ -59,6 +60,17 @@ export default function HomePage() {
       </Section>
 
       <Section className="bg-page">
+        <SectionHeader eyebrow="// changelog" title="Latest Updates" />
+        <UpdateList limit={2} />
+        <Link
+          to="/updates"
+          className="mt-8 inline-flex items-center gap-2 font-bold text-accent-text no-underline hover:underline hover:underline-offset-4"
+        >
+          All updates <ArrowRightIcon size={16} strokeWidth={2.5} />
+        </Link>
+      </Section>
+
+      <Section className="bg-page-alt">
         <CallToAction />
       </Section>
     </>

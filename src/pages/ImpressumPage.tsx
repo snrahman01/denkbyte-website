@@ -2,44 +2,53 @@ import LegalPage from '../components/LegalPage';
 import { config } from '../data';
 
 export default function ImpressumPage() {
-  const { impressum } = config.legal;
-  const { email, address } = config.contact;
+  const { name } = config.company;
+  const { contact_person: person, disclaimer } = config.legal;
+  const { address } = config.contact;
 
   return (
     <LegalPage title="Impressum / Legal Notice" eyebrow="// legal">
-      <h2>Operator</h2>
-      <p>{impressum.owner}</p>
-
-      <h2>Contact</h2>
+      <h2>Information according to § 5 DDG</h2>
       <p>
-        Email: <a href={`mailto:${email}`}>{email}</a>
+        <strong>{name}</strong> (Planspiel Web Engineering project, not a registered company)
         <br />
-        Address: {address.street}
+        {address.street}
         <br />
         {address.postal_code} {address.city}
         <br />
         {address.country}
       </p>
 
+      <h2>Contact person</h2>
+      <p>
+        {person.name} ({person.role})
+        <br />
+        Email: <a href={`mailto:${person.email}`}>{person.email}</a>
+      </p>
+
+      <h2>Responsible for the content according to § 18 (2) MStV</h2>
+      <p>
+        {person.name}
+        <br />
+        {address.street}, {address.postal_code} {address.city}
+      </p>
+
       <h2>Disclaimer</h2>
       <p>
-        <strong>Academic Purpose:</strong> This website represents a fictional company created for educational
-        purposes as part of the Planspiel course at Technische Universität Chemnitz (WS 2026/27). All content
-        is fictional and for demonstration purposes only.
+        <strong>{disclaimer}</strong>
       </p>
 
-      <h2>Liability for Content</h2>
+      <h2>Liability for content</h2>
       <p>
-        The contents of this website have been compiled with meticulous care. However, the operator does not
-        assume any liability for the topicality, correctness, completeness or quality of the information
-        provided.
+        The contents of this website have been compiled with care. However, we do not assume any liability for
+        the topicality, correctness, completeness or quality of the information provided.
       </p>
 
-      <h2>Liability for Links</h2>
+      <h2>Liability for links</h2>
       <p>
-        The operator is responsible for the content of external websites only to the extent that they have
-        knowledge of illegal content and it would be technically possible and reasonable to prevent the use of
-        such websites.
+        This website contains links to external websites. We have no influence on their content and are
+        responsible for it only to the extent that we have knowledge of illegal content and it would be
+        technically possible and reasonable to prevent the use of such websites.
       </p>
 
       <h2>Copyright</h2>

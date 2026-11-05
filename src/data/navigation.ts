@@ -13,6 +13,7 @@ export const mainNav: NavItem[] = [
   { to: '/vision', label: 'Vision & Mission' },
   { to: '/services', label: 'Services' },
   { to: '/team', label: 'Team' },
+  { to: '/updates', label: 'Updates' },
 ];
 
 export const contactNav: NavItem = { to: '/contact', label: 'Contact' };

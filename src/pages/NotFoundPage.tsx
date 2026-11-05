@@ -70,7 +70,8 @@ export default function NotFoundPage() {
         </Container>
       </main>
 
-      <footer className="bg-footer p-4 text-center text-sm text-white/60">
+      <footer className="bg-footer px-4 py-5 text-center text-sm text-white/60">
+        <p className="mx-auto mb-1 max-w-2xl font-semibold text-white/85">{config.legal.disclaimer}</p>
         &copy; {new Date().getFullYear()} {config.company.name}
       </footer>
     </div>
