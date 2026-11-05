@@ -9,10 +9,19 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Modal from './components/Modal';
 import { Impressum, PrivacyPolicy } from './components/Legal';
+import NotFound from './components/NotFound';
 
 type LegalModal = 'impressum' | 'privacy' | null;
 
+// One-page site: anything other than "/" (or "/index.html") is a 404.
+const isHome = /^\/(index\.html)?$/.test(window.location.pathname);
+
 export default function App() {
+  if (!isHome) return <NotFound />;
+  return <Home />;
+}
+
+function Home() {
   const [openModal, setOpenModal] = useState<LegalModal>(null);
   const close = () => setOpenModal(null);
 

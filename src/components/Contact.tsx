@@ -82,7 +82,7 @@ export default function Contact() {
       <div className="container">
         <Reveal className="section-head">
           <p className="section-eyebrow">// contact</p>
-          <h2>Contact Us</h2>
+          <h2>We Were Expecting You!</h2>
           <p className="contact-subtitle">Have an idea or a challenge? Let&rsquo;s talk about it.</p>
         </Reveal>
 

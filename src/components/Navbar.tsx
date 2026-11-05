@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { config } from '../data';
+import Logo, { brandLabel } from './Logo';
 import ThemeToggle from './ThemeToggle';
 
 const links = [
@@ -12,12 +12,7 @@ const links = [
 // Sections the scroll-spy watches ("top" is the hero, which has no nav link).
 const watchedIds = ['top', ...links.map((l) => l.id), 'contact'];
 
-// "DenkByte" -> ["Denk", "Byte"] so the wordmark can be two-tone.
-const [brandFirst, brandSecond] = config.company.name.split(/(?=[A-Z])/);
-
-// The link's accessible name has to contain its visible text (WCAG 2.5.3 "Label in Name"),
-// so it spells the wordmark the way it is displayed: "Denk·Byte" and the tagline.
-const logoLabel = `${[brandFirst, brandSecond].filter(Boolean).join('·')} – think digitally – back to top`;
+const logoLabel = `${brandLabel} – back to top`;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -76,25 +71,7 @@ export default function Navbar() {
       </a>
       <div className="container">
         <div className="nav-content">
-          <a className="logo" href="#top" aria-label={logoLabel} onClick={close}>
-            <img src="/logo.svg" alt="" className="logo-mark logo-mark--light" width={44} height={44} />
-            <img src="/logo-dark.svg" alt="" className="logo-mark logo-mark--dark" width={44} height={44} />
-            <span className="logo-words" aria-hidden="true">
-              <span className="logo-text">
-                {brandFirst}
-                {brandSecond && (
-                  <>
-                    <span className="logo-dot">·</span>
-                    <span className="logo-byte">{brandSecond}</span>
-                  </>
-                )}
-              </span>
-              <span className="logo-tagline">
-                <span className="logo-tagline-sign">$</span> think --digitally
-                <span className="logo-tagline-cursor" />
-              </span>
-            </span>
-          </a>
+          <Logo href="#top" label={logoLabel} onClick={close} />
 
           <ul className={`nav-menu${open ? ' active' : ''}`} id="nav-menu">
             {links.map((link) => (
