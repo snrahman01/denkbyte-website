@@ -84,7 +84,7 @@ export function createScrollIntro() {
       <p class="intro-scene invisible col-start-1 row-start-1 font-serif text-[clamp(2.8rem,9vw,7rem)] leading-[1.1] tracking-[-0.02em] text-white/90 italic">${words('They say,')}</p>
 
       <p class="intro-scene invisible col-start-1 row-start-1">
-        <span class="intro-lead mb-[clamp(0.5rem,1.6vw,1.1rem)] block text-[clamp(1.3rem,3.6vw,2.6rem)] leading-[1.3] font-light tracking-[-0.01em] text-white/72">${words('People judge a webpage in')}</span>
+        <span class="intro-lead mb-[clamp(0.5rem,1.6vw,1.1rem)] block font-serif text-[clamp(1.6rem,4.4vw,3.4rem)] leading-[1.2] tracking-[-0.02em] text-white/85 italic">${words('People judge a webpage in')}</span>
         <span class="relative inline-block">${word(
           '<span class="font-mono tracking-[-0.07em] tabular-nums intro-num">0.05</span> seconds.',
           'intro-hl bg-[linear-gradient(100deg,#ffd08a_0%,var(--color-accent)_35%,var(--color-secondary)_100%)] bg-clip-text text-[clamp(2.6rem,12vw,9.5rem)] leading-none font-extrabold tracking-[-0.045em] whitespace-nowrap text-transparent drop-shadow-[0_0_40px_rgb(232_115_12/0.25)]',
