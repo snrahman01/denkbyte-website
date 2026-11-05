@@ -15,8 +15,9 @@ const SCENES = 3;
 const GESTURE_GAP_MS = 220;
 const SWIPE_MIN_PX = 45;
 
+/** A word that slides in from behind its own mask (padding keeps italics/descenders unclipped). */
 const word = (text: string, cls = '') =>
-  `<span class="intro-wm"><span class="intro-w${cls ? ` ${cls}` : ''}">${text}</span></span>`;
+  `<span class="-mx-[0.06em] -mt-[0.08em] -mb-[0.16em] inline-block overflow-hidden px-[0.06em] pt-[0.08em] pb-[0.16em] align-bottom"><span class="intro-w inline-block will-change-transform ${cls}">${text}</span></span>`;
 const words = (text: string) =>
   text
     .split(' ')
@@ -28,9 +29,13 @@ const letters = (text: string, cls = '') =>
     .split(' ')
     .map(
       (w) =>
-        `<span class="intro-word${cls ? ` ${cls}` : ''}">${[...w].map((c) => `<span class="intro-c">${c}</span>`).join('')}</span>`,
+        `<span class="inline-block whitespace-nowrap ${cls}">${[...w].map((c) => `<span class="intro-c inline-block will-change-transform">${c}</span>`).join('')}</span>`,
     )
     .join(' ');
+
+/** Shared look of the small monospace labels at the top and bottom */
+const bar =
+  'absolute inset-x-0 flex items-center justify-between px-5 py-[clamp(1.1rem,3.5vw,2.25rem)] font-mono text-[0.72rem] tracking-[0.18em] text-white/45 uppercase sm:px-[clamp(1.25rem,4vw,2.75rem)]';
 
 /** Only on the homepage, and not when someone follows a link straight to a section (#team, ...). */
 export function shouldPlayIntro() {
@@ -57,33 +62,53 @@ export function createScrollIntro() {
   const cueLast = touch ? 'Swipe to enter' : 'Scroll to enter';
 
   const el = document.createElement('div');
-  el.className = 'intro';
+  el.className =
+    'intro fixed inset-0 z-999 isolate touch-none overflow-hidden overscroll-none bg-[#05070d] font-sans text-white select-none';
   el.setAttribute('role', 'region');
   el.setAttribute('aria-label', 'Introduction');
   el.innerHTML = `
-    <div class="intro-glow" aria-hidden="true"></div>
-    <div class="intro-top" aria-hidden="true">
-      <span class="intro-brand">Denk<b>·Byte</b></span>
+    <div class="intro-glow pointer-events-none absolute -z-30 size-[75vmax] rounded-full bg-[radial-gradient(circle,rgb(232_115_12/0.32)_0%,rgb(232_115_12/0.08)_38%,transparent_65%)]" aria-hidden="true"></div>
+    <div class="bg-grid pointer-events-none absolute inset-0 -z-20 [--grid-line:rgb(120_165_255/0.05)] [mask-image:radial-gradient(ellipse_65%_60%_at_50%_50%,#000_10%,transparent_75%)]" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgb(0_0_0/0.65)_100%)]" aria-hidden="true"></div>
+
+    <div class="intro-top top-0 ${bar} max-sm:text-[0.62rem]" aria-hidden="true">
+      <span class="font-extrabold tracking-[0.08em] text-white/85">Denk<b class="text-secondary">·Byte</b></span>
       <span>Est. ${founded} · ${city}</span>
     </div>
-    <div class="intro-stage" aria-live="polite">
-      <span class="intro-prompt" aria-hidden="true"><b>$</b><i></i></span>
-      <p class="intro-scene intro-scene--say">${words('They say,')}</p>
-      <p class="intro-scene intro-scene--stat">
-        <span class="intro-lead">${words('People judge a webpage in')}</span>
-        <span class="intro-hl-wrap">${word('<span class="intro-num">0.05</span> <span class="intro-unit">seconds.</span>', 'intro-hl')}<span class="intro-underline"></span></span>
+
+    <div class="intro-stage absolute inset-0 grid place-items-center px-[clamp(1.25rem,6vw,4rem)] text-center" aria-live="polite">
+      <span class="intro-prompt col-start-1 row-start-1 inline-flex items-center gap-[0.5em] font-mono text-[clamp(1.1rem,2.6vw,1.5rem)] text-secondary" aria-hidden="true">
+        <b>$</b><i class="h-[1.15em] w-[0.6em] animate-blink bg-secondary shadow-[0_0_18px_rgb(232_115_12/0.6)]"></i>
+      </span>
+
+      <p class="intro-scene invisible col-start-1 row-start-1 font-serif text-[clamp(2.8rem,9vw,7rem)] leading-[1.1] tracking-[-0.02em] text-white/90 italic">${words('They say,')}</p>
+
+      <p class="intro-scene invisible col-start-1 row-start-1">
+        <span class="intro-lead mb-[clamp(0.5rem,1.6vw,1.1rem)] block text-[clamp(1.3rem,3.6vw,2.6rem)] leading-[1.3] font-light tracking-[-0.01em] text-white/72">${words('People judge a webpage in')}</span>
+        <span class="relative inline-block">${word(
+          '<span class="font-mono tracking-[-0.07em] tabular-nums intro-num">0.05</span> seconds.',
+          'intro-hl bg-[linear-gradient(100deg,#ffd08a_0%,var(--color-accent)_35%,var(--color-secondary)_100%)] bg-clip-text text-[clamp(2.6rem,12vw,9.5rem)] leading-none font-extrabold tracking-[-0.045em] whitespace-nowrap text-transparent drop-shadow-[0_0_40px_rgb(232_115_12/0.25)]',
+        )}<span class="intro-underline absolute inset-x-[0.1em] -bottom-1.5 h-[3px] origin-left scale-x-0 rounded-sm bg-[linear-gradient(90deg,var(--color-secondary),var(--color-accent),transparent)]"></span></span>
       </p>
-      <p class="intro-scene intro-scene--built">
-        <span class="intro-row">${letters('We built it')}</span>
-        <span class="intro-row">${letters('for')} ${letters('that moment.', 'intro-accent')}</span>
+
+      <p class="intro-scene invisible col-start-1 row-start-1 text-[clamp(2.6rem,9.5vw,7.75rem)] leading-[1.02] font-extrabold tracking-[-0.045em]">
+        <span class="block">${letters('We built it')}</span>
+        <span class="block">${letters('for')} ${letters('that moment.', 'text-accent [text-shadow:0_0_48px_rgb(232_115_12/0.45)]')}</span>
       </p>
     </div>
-    <div class="intro-bottom">
-      <span class="intro-count" aria-hidden="true"><span class="intro-count-now">00</span> / 0${SCENES}</span>
-      <span class="intro-cue" aria-hidden="true"><span class="intro-cue-icon"><i></i></span><span class="intro-cue-label">${cue}</span></span>
-      <button type="button" class="intro-skip">Skip intro</button>
+
+    <div class="intro-bottom bottom-0 ${bar}">
+      <span aria-hidden="true"><span class="intro-count-now text-white">00</span> / 0${SCENES}</span>
+      <span class="absolute bottom-[clamp(1.1rem,3.5vw,2.25rem)] left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[0.66rem] tracking-[0.28em] whitespace-nowrap max-sm:bottom-21" aria-hidden="true">
+        <span class="relative h-[34px] w-[22px] rounded-xl border-[1.5px] border-white/35 pointer-coarse:h-[38px] pointer-coarse:w-0.5 pointer-coarse:rounded-sm pointer-coarse:border-0 pointer-coarse:bg-white/18">
+          <i class="absolute top-[7px] left-1/2 -ml-[1.5px] h-[7px] w-[3px] animate-cue rounded-xs bg-secondary pointer-coarse:top-auto pointer-coarse:bottom-0 pointer-coarse:-ml-0.5 pointer-coarse:size-1 pointer-coarse:rounded-full"></i>
+        </span>
+        <span class="intro-cue-label">${cue}</span>
+      </span>
+      <button type="button" class="intro-skip min-h-10 rounded-full border border-white/18 px-4 py-2 text-[inherit] tracking-[inherit] text-white/65 uppercase transition-colors hover:border-secondary hover:text-white">Skip intro</button>
     </div>
-    <div class="intro-progress" aria-hidden="true"><i></i></div>`;
+
+    <div class="intro-progress absolute inset-x-0 bottom-0 h-0.5 bg-white/6" aria-hidden="true"><i class="block h-full origin-left scale-x-0 bg-brand"></i></div>`;
   document.body.appendChild(el);
 
   const q = gsap.utils.selector(el);

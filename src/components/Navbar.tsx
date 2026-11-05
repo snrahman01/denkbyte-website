@@ -1,26 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
-import Logo, { brandLabel } from './Logo';
+import { NavLink } from 'react-router';
+import { contactNav, mainNav } from '../data/navigation';
+import { cn } from '../lib/cn';
+import Button from './ui/Button';
+import Container from './ui/Container';
+import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 
-const links = [
-  { id: 'about', label: 'About' },
-  { id: 'vision', label: 'Vision & Mission' },
-  { id: 'services', label: 'Services' },
-  { id: 'team', label: 'Team' },
-];
-
-// Sections the scroll-spy watches ("top" is the hero, which has no nav link).
-const watchedIds = ['top', ...links.map((l) => l.id), 'contact'];
-
-const logoLabel = `${brandLabel} – back to top`;
+const linkClass = ({ isActive }: { isActive: boolean }) =>
+  cn(
+    'relative block rounded-xl px-4 py-3.5 text-base font-medium text-fg no-underline transition-colors duration-150 hover:bg-tint hover:text-heading',
+    'lg:rounded-full lg:py-2 lg:text-[0.92rem]',
+    // brand underline, grows from the centre
+    'after:absolute after:inset-x-4 after:bottom-1.5 after:h-0.5 after:scale-x-0 after:rounded-sm after:bg-bar after:transition-transform after:duration-300 hover:after:scale-x-100',
+    isActive &&
+      'bg-tint font-bold text-heading after:scale-x-100 dark:shadow-[inset_0_0_0_1px_rgb(34_211_238/0.18)]',
+  );
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('');
   const navRef = useRef<HTMLElement>(null);
+  const close = () => setOpen(false);
 
-  // Add a shadow once the page has been scrolled.
+  // Shadow once the page has been scrolled
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -28,26 +31,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Scroll-spy: highlight the link of the section crossing the middle of the viewport.
-  useEffect(() => {
-    const sections = watchedIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    );
-
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  // Close the mobile menu with Escape or a click outside the navbar.
+  // Close the mobile menu with Escape or a click outside the navbar
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -62,58 +46,75 @@ export default function Navbar() {
     };
   }, [open]);
 
-  const close = () => setOpen(false);
-
   return (
-    <nav ref={navRef} className={`navbar${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <div className="container">
-        <div className="nav-content">
-          <Logo href="#top" label={logoLabel} onClick={close} />
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b border-line bg-nav backdrop-blur-md backdrop-saturate-150 transition-shadow duration-300',
+        scrolled && 'shadow-[0_6px_24px_rgb(15_24_41/0.08)] dark:shadow-[0_8px_28px_rgb(0_0_0/0.5)]',
+      )}
+    >
+      <nav ref={navRef} aria-label="Main navigation">
+        <Container className="flex h-18 items-center gap-2">
+          <Logo onClick={close} />
 
-          <ul className={`nav-menu${open ? ' active' : ''}`} id="nav-menu">
-            {links.map((link) => (
-              <li key={link.id}>
-                <a
-                  className="nav-link"
-                  href={`#${link.id}`}
-                  aria-current={active === link.id ? 'location' : undefined}
-                  onClick={close}
-                >
-                  {link.label}
-                </a>
+          <ul
+            id="nav-menu"
+            className={cn(
+              // Mobile: dropdown panel under the bar
+              'absolute inset-x-0 top-full flex flex-col gap-1 border-b border-line bg-surface px-5 pt-3 pb-5 shadow-[0_20px_30px_rgb(15_24_41/0.12)] transition-[opacity,transform,visibility] duration-300 sm:px-6 dark:shadow-[0_24px_40px_rgb(0_0_0/0.55)]',
+              open
+                ? 'visible translate-y-0 opacity-100'
+                : 'pointer-events-none invisible -translate-y-2 opacity-0',
+              // Desktop: inline row
+              'lg:pointer-events-auto lg:visible lg:static lg:ml-auto lg:translate-y-0 lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none dark:lg:shadow-none',
+            )}
+          >
+            {mainNav.map((item) => (
+              <li key={item.to}>
+                <NavLink to={item.to} className={linkClass} onClick={close}>
+                  {item.label}
+                </NavLink>
               </li>
             ))}
-            <li className="nav-cta">
-              <a
-                className="btn btn-accent"
-                href="#contact"
-                aria-current={active === 'contact' ? 'location' : undefined}
+            <li className="mt-2 lg:mt-0 lg:ml-3">
+              <Button
+                to={contactNav.to}
+                size="sm"
                 onClick={close}
+                className="w-full py-3.5 lg:w-auto lg:py-2.5"
               >
                 Contact us
-              </a>
+              </Button>
             </li>
           </ul>
 
-          <ThemeToggle />
+          <ThemeToggle className="ml-auto lg:ml-3" />
 
-          {/* Hamburger sits after the theme toggle so both stay visible on mobile */}
+          {/* Hamburger (mobile + tablet) */}
           <button
-            className={`nav-toggle${open ? ' open' : ''}`}
+            type="button"
+            className="relative size-11 flex-none rounded-xl border border-line-strong bg-surface lg:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="nav-menu"
             onClick={() => setOpen((v) => !v)}
           >
-            <span />
-            <span />
-            <span />
+            {[
+              open ? 'top-[20px] rotate-45' : 'top-[13px]',
+              open ? 'top-[20px] opacity-0' : 'top-[20px]',
+              open ? 'top-[20px] -rotate-45' : 'top-[27px]',
+            ].map((state, i) => (
+              <span
+                key={i}
+                className={cn(
+                  'absolute inset-x-3 h-0.5 rounded-sm bg-heading transition-all duration-300',
+                  state,
+                )}
+              />
+            ))}
           </button>
-        </div>
-      </div>
-    </nav>
+        </Container>
+      </nav>
+    </header>
   );
 }

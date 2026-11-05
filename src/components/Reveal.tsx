@@ -1,10 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useInView } from '../hooks/useInView';
+import { cn } from '../lib/cn';
 
-/** Fades/slides its children in when scrolled into view (styles: `.reveal` in styles.css). */
+/** Fades/slides its children in when scrolled into view. `delay` is in ms. */
 export default function Reveal({
   children,
-  className = '',
+  className,
   delay = 0,
 }: {
   children: ReactNode;
@@ -15,8 +16,14 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      className={`reveal${inView ? ' in-view' : ''} ${className}`}
-      style={{ '--d': `${delay}ms` } as CSSProperties}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={cn(
+        'transition duration-700 ease-out motion-reduce:transition-none',
+        inView
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100',
+        className,
+      )}
     >
       {children}
     </div>

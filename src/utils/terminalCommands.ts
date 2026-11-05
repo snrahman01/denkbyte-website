@@ -12,7 +12,7 @@ import { bareUrl } from './url';
 
 /* ---------- Output model ---------- */
 
-type Tone = 'dim' | 'ok' | 'accent' | 'err' | 'head';
+export type Tone = 'dim' | 'ok' | 'accent' | 'err' | 'head';
 
 /** A styled piece of text; give it `href` to render a link. */
 interface Seg {
@@ -25,7 +25,7 @@ interface Seg {
 export type Line = Seg[];
 
 /** Things a command wants to happen *outside* the terminal (the component performs them). */
-type Action = { type: 'clear' } | { type: 'goto'; id: string } | { type: 'theme'; value: Theme | 'toggle' };
+type Action = { type: 'clear' } | { type: 'goto'; path: string } | { type: 'theme'; value: Theme | 'toggle' };
 
 export interface Result {
   lines: Line[];
@@ -58,7 +58,8 @@ const out = (...lines: Line[]): Result => ({ lines });
 const error = (message: string): Result => out(text(message, 'err'));
 const pad = (value: string, width: number) => value.padEnd(width, ' ');
 const two = (n: number) => String(n + 1).padStart(2, '0');
-const SECTIONS = ['about', 'vision', 'services', 'team', 'contact', 'top'] as const;
+/** Pages `goto` can open ("home" = the homepage) */
+const SECTIONS = ['home', 'about', 'vision', 'services', 'team', 'contact'] as const;
 const THEMES = ['dark', 'light'] as const;
 const unique = <T>(items: T[]) => [...new Set(items)];
 
@@ -151,7 +152,7 @@ const contact = (): Result => {
       seg(`${address.street}, ${address.postal_code} ${address.city}, ${address.country}`),
     ],
     blank,
-    text('Prefer a scroll? Type "goto contact".', 'dim'),
+    text('Or open the contact page: type "goto contact".', 'dim'),
   );
 };
 
@@ -195,13 +196,15 @@ const think = (args: string[]): Result => {
 };
 
 const goto = (args: string[]): Result => {
-  const id = args[0]?.replace(/^#/, '').toLowerCase();
+  const raw = args[0]?.replace(/^[#/]/, '').toLowerCase();
+  const id = raw === 'top' ? 'home' : raw;
   if (!id || !(SECTIONS as readonly string[]).includes(id)) {
     return error(`usage: goto <${SECTIONS.join('|')}>`);
   }
+  const path = id === 'home' ? '/' : `/${id}`;
   return {
-    lines: [[seg('→ ', 'ok'), seg(`#${id}`, 'accent')]],
-    action: { type: 'goto', id },
+    lines: [[seg('→ ', 'ok'), seg(path, 'accent')]],
+    action: { type: 'goto', path },
   };
 };
 
@@ -245,8 +248,8 @@ const commands: Command[] = [
   { name: 'contact', usage: 'contact', desc: 'say hello', run: contact },
   {
     name: 'goto',
-    usage: 'goto <section>',
-    desc: 'jump to a section',
+    usage: 'goto <page>',
+    desc: 'open a page',
     run: (a) => goto(a),
   },
   {
@@ -345,7 +348,7 @@ const commands: Command[] = [
               text('[sudo] password for visitor: ********', 'dim'),
               text('Access granted. Let’s build something together →', 'ok'),
             ],
-            action: { type: 'goto', id: 'contact' },
+            action: { type: 'goto', path: '/contact' },
           }
         : out(text('visitor is not in the sudoers file. This incident will be reported.', 'err')),
   },
@@ -361,7 +364,7 @@ const commands: Command[] = [
     usage: 'exit',
     desc: '',
     hidden: true,
-    run: () => out(text('There is no escape. Try "goto top".', 'dim')),
+    run: () => out(text('There is no escape. Try "goto home".', 'dim')),
   },
 ];
 
