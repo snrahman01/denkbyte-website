@@ -62,18 +62,18 @@ Open http://localhost:5173. The page reloads automatically when you edit a file.
 
 ## Pages and routes
 
-| URL           | Page                         | File                          |
-| ------------- | ---------------------------- | ----------------------------- |
-| `/`           | Home (hero, highlights, CTA) | `src/pages/HomePage.tsx`      |
-| `/about`      | About                        | `src/pages/AboutPage.tsx`     |
-| `/vision`     | Vision & Mission             | `src/pages/VisionPage.tsx`    |
-| `/services`   | Services                     | `src/pages/ServicesPage.tsx`  |
-| `/team`       | Team                         | `src/pages/TeamPage.tsx`      |
-| `/updates`    | Updates (status / news)      | `src/pages/UpdatesPage.tsx`   |
-| `/contact`    | Contact                      | `src/pages/ContactPage.tsx`   |
-| `/impressum`  | Impressum                    | `src/pages/ImpressumPage.tsx` |
-| `/privacy`    | Privacy Policy               | `src/pages/PrivacyPage.tsx`   |
-| anything else | 404 page                     | `src/pages/NotFoundPage.tsx`  |
+| URL            | Page                         | File                           |
+| -------------- | ---------------------------- | ------------------------------ |
+| `/`            | Home (hero, highlights, CTA) | `src/pages/HomePage.tsx`       |
+| `/about`       | About                        | `src/pages/AboutPage.tsx`      |
+| `/vision`      | Vision & Mission             | `src/pages/VisionPage.tsx`     |
+| `/services`    | Services                     | `src/pages/ServicesPage.tsx`   |
+| `/team`        | Team                         | `src/pages/TeamPage.tsx`       |
+| `/patch-notes` | Patch Notes (status updates) | `src/pages/PatchNotesPage.tsx` |
+| `/contact`     | Contact                      | `src/pages/ContactPage.tsx`    |
+| `/impressum`   | Impressum                    | `src/pages/ImpressumPage.tsx`  |
+| `/privacy`     | Privacy Policy               | `src/pages/PrivacyPage.tsx`    |
+| anything else  | 404 page                     | `src/pages/NotFoundPage.tsx`   |
 
 **Adding a page:**
 
@@ -108,16 +108,23 @@ stylesheet per component. `src/index.css` only defines the design tokens:
 - Install the VS Code extension **Tailwind CSS IntelliSense** for autocomplete. Prettier sorts the
   classes automatically (`prettier-plugin-tailwindcss`).
 
-## Posting an update
+## Posting patch notes
 
-The Planspiel rules ask for regular status updates. Add an entry to `src/data/updates.json`:
+The Planspiel rules ask for regular status updates; ours are the **Patch Notes**. Add an entry to
+`src/data/patch-notes.json`:
 
 ```json
-{ "date": "2026-11-20", "tag": "Product", "title": "Short headline", "text": "One or two sentences." }
+{
+  "version": "1.2",
+  "date": "2026-11-20",
+  "tag": "Product",
+  "title": "Short headline",
+  "changes": ["What changed", "One short line each"]
+}
 ```
 
-It appears on `/updates` and, if it is one of the two newest, on the homepage. Entries are sorted by
-date automatically.
+It appears on `/patch-notes` and, if it is one of the two newest, on the homepage. Entries are sorted
+by date automatically.
 
 ## Legal requirements (Planspiel)
 

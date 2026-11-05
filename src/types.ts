@@ -56,11 +56,14 @@ export interface TeamMember {
   linkedin?: string;
 }
 
-export interface Update {
-  /** ISO date, e.g. "2026-11-05" */
+export interface PatchNote {
+  /** Version label without the "v", e.g. "1.2" */
+  version: string;
+  /** ISO date, e.g. "2026-11-20" */
   date: string;
   title: string;
-  text: string;
-  /** Optional short label, e.g. "Website", "Product", "Team" */
+  /** What changed, one short line each */
+  changes: string[];
+  /** Optional category, e.g. "Website", "Product", "Team", "Pitch" */
   tag?: string;
 }

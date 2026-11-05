@@ -42,7 +42,7 @@
   status = 200
 
 [[redirects]]
-  from = "/updates"
+  from = "/patch-notes"
   to = "/index.html"
   status = 200
 

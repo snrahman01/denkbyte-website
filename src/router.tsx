@@ -6,7 +6,7 @@ import VisionPage from './pages/VisionPage';
 import ServicesPage from './pages/ServicesPage';
 import TeamPage from './pages/TeamPage';
 import ContactPage from './pages/ContactPage';
-import UpdatesPage from './pages/UpdatesPage';
+import PatchNotesPage from './pages/PatchNotesPage';
 import ImpressumPage from './pages/ImpressumPage';
 import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
       { path: 'vision', element: <VisionPage /> },
       { path: 'services', element: <ServicesPage /> },
       { path: 'team', element: <TeamPage /> },
-      { path: 'updates', element: <UpdatesPage /> },
+      { path: 'patch-notes', element: <PatchNotesPage /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'impressum', element: <ImpressumPage /> },
       { path: 'privacy', element: <PrivacyPage /> },

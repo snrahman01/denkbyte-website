@@ -59,7 +59,7 @@ const error = (message: string): Result => out(text(message, 'err'));
 const pad = (value: string, width: number) => value.padEnd(width, ' ');
 const two = (n: number) => String(n + 1).padStart(2, '0');
 /** Pages `goto` can open ("home" = the homepage) */
-const SECTIONS = ['home', 'about', 'vision', 'services', 'team', 'updates', 'contact'] as const;
+const SECTIONS = ['home', 'about', 'vision', 'services', 'team', 'patch-notes', 'contact'] as const;
 const THEMES = ['dark', 'light'] as const;
 const unique = <T>(items: T[]) => [...new Set(items)];
 
