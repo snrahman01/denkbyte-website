@@ -100,7 +100,6 @@ export default function Navbar() {
           { x: 0, opacity: 1, duration: 0.6, stagger: 0.1 },
           0.15,
         )
-        .fromTo(q('.menu-index'), { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.1 }, 0.35)
         .fromTo(
           q('.menu-cta'),
           { y: 16, opacity: 0, scale: 0.96 },
@@ -208,7 +207,7 @@ export default function Navbar() {
 
             <div className="relative mx-auto max-w-300 px-5 pt-4 pb-6 sm:px-6">
               <ul className="flex flex-col">
-                {mainNav.map((item, i) => (
+                {mainNav.map((item) => (
                   <li key={item.to} className="menu-item border-b border-line last:border-b-0">
                     <NavLink
                       to={item.to}
@@ -222,14 +221,6 @@ export default function Navbar() {
                     >
                       {({ isActive }) => (
                         <>
-                          <span
-                            className={cn(
-                              'menu-index font-mono text-xs font-bold',
-                              isActive ? 'text-secondary' : 'text-index',
-                            )}
-                          >
-                            {String(i + 1).padStart(2, '0')}
-                          </span>
                           <span
                             className={cn(
                               'flex-1 text-xl tracking-tight',
