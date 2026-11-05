@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 import gsap from 'gsap';
 import { contactNav, mainNav } from '../data/navigation';
 import { cn } from '../lib/cn';
@@ -9,60 +9,31 @@ import Container from './ui/Container';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 
-/** Orange shine that sweeps across the "Contact us" button on hover */
-const shine =
-  'relative overflow-hidden before:absolute before:inset-y-0 before:-left-3/4 before:w-1/2 before:-skew-x-20 before:bg-linear-to-r before:from-transparent before:via-white/45 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-[350%]';
+/** Desktop links: brand underline that grows from the centre, tinted background on the current page */
+const linkClass = ({ isActive }: { isActive: boolean }) =>
+  cn(
+    'relative block rounded-full px-4 py-2 text-[0.92rem] font-medium text-fg no-underline transition-colors duration-150 hover:bg-tint hover:text-heading',
+    'after:absolute after:inset-x-4 after:bottom-1.5 after:h-0.5 after:scale-x-0 after:rounded-sm after:bg-bar after:transition-transform after:duration-300 hover:after:scale-x-100',
+    isActive &&
+      'bg-tint font-bold text-heading after:scale-x-100 dark:shadow-[inset_0_0_0_1px_rgb(34_211_238/0.18)]',
+  );
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { pathname } = useLocation();
 
   const navRef = useRef<HTMLElement>(null);
-  const desktopListRef = useRef<HTMLUListElement>(null);
-  const pillRef = useRef<HTMLSpanElement>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const close = () => setOpen(false);
 
-  // Scroll: shadow + slimmer bar once scrolled, and the orange reading-progress line
+  // Shadow once the page has been scrolled
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 8);
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progressRef.current)
-        progressRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [pathname]);
-
-  // Desktop: the highlight pill slides to the link of the current page
-  useLayoutEffect(() => {
-    const list = desktopListRef.current;
-    const pill = pillRef.current;
-    if (!list || !pill) return;
-    const place = () => {
-      const active = list.querySelector<HTMLElement>('a[aria-current="page"]');
-      if (!active) {
-        pill.style.opacity = '0';
-        return;
-      }
-      pill.style.opacity = '1';
-      const item = active.parentElement ?? active; // the <li>, measured inside the list
-      pill.style.width = `${item.offsetWidth}px`;
-      pill.style.transform = `translateX(${item.offsetLeft}px)`;
-    };
-    place();
-    window.addEventListener('resize', place);
-    return () => window.removeEventListener('resize', place);
-  }, [pathname]);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Mobile menu: Escape or a click outside closes it; the page behind doesn't scroll
   useEffect(() => {
@@ -165,43 +136,21 @@ export default function Navbar() {
         )}
       >
         <nav ref={navRef} aria-label="Main navigation">
-          <Container
-            className={cn(
-              'relative flex items-center gap-2 transition-[height] duration-300',
-              scrolled ? 'h-16' : 'h-18',
-            )}
-          >
+          <Container className="relative flex h-18 items-center gap-2">
             <Logo onClick={close} />
 
             {/* ---------- Desktop ---------- */}
-            <ul
-              ref={desktopListRef}
-              className="relative ml-auto hidden items-center gap-1 rounded-full border border-line bg-surface/60 p-1 shadow-sm lg:flex dark:bg-white/3"
-            >
-              {/* Sliding highlight behind the current page's link */}
-              <span
-                ref={pillRef}
-                aria-hidden="true"
-                className="absolute top-1 bottom-1 left-0 rounded-full bg-tint opacity-0 shadow-[inset_0_0_0_1px_rgb(232_115_12/0.25)] transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] dark:shadow-[inset_0_0_0_1px_rgb(34_211_238/0.25)]"
-              />
+            <ul className="ml-auto hidden items-center gap-1 lg:flex">
               {mainNav.map((item) => (
-                <li key={item.to} className="relative">
-                  <NavLink
-                    to={item.to}
-                    className={({ isActive }) =>
-                      cn(
-                        'block rounded-full px-4 py-2 text-[0.92rem] font-medium no-underline transition-colors duration-200',
-                        isActive ? 'font-bold text-heading' : 'text-fg hover:text-accent-text',
-                      )
-                    }
-                  >
+                <li key={item.to}>
+                  <NavLink to={item.to} className={linkClass}>
                     {item.label}
                   </NavLink>
                 </li>
               ))}
             </ul>
             <div className="ml-3 hidden lg:block">
-              <Button to={contactNav.to} size="sm" className={shine}>
+              <Button to={contactNav.to} size="sm">
                 Contact us
               </Button>
             </div>
@@ -304,12 +253,7 @@ export default function Navbar() {
                 ))}
               </ul>
 
-              <Button
-                to={contactNav.to}
-                size="lg"
-                onClick={close}
-                className={cn('menu-cta mt-5 w-full', shine)}
-              >
+              <Button to={contactNav.to} size="lg" onClick={close} className="menu-cta mt-5 w-full">
                 Contact us <ArrowRightIcon size={18} strokeWidth={2.5} />
               </Button>
 
@@ -320,13 +264,6 @@ export default function Navbar() {
             </div>
           </div>
         </nav>
-
-        {/* Reading progress */}
-        <span
-          ref={progressRef}
-          aria-hidden="true"
-          className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-brand"
-        />
       </header>
     </>
   );
