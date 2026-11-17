@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useState, type FormEvent, type InputHTMLAttributes, type ReactNode } from 'react';
 import { acceptInvite, login, requestPasswordRecovery, updateUser, type User } from '@netlify/identity';
 import Button from '../ui/Button';
 import { authMessage } from './authMessage';
@@ -16,6 +16,46 @@ function AuthCard({ title, intro, children }: { title: string; intro: ReactNode;
 
 const MIN_PASSWORD = 8;
 
+/** Password input with an eye button to show or hide what was typed */
+function PasswordInput(props: Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'>) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input
+        {...props}
+        type={show ? 'text' : 'password'}
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
+        className={`${input} pr-11 [&::-ms-reveal]:hidden`}
+      />
+      <button
+        type="button"
+        onClick={() => setShow((s) => !s)}
+        aria-label={show ? 'Hide password' : 'Show password'}
+        aria-pressed={show}
+        title={show ? 'Hide password' : 'Show password'}
+        className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-lg text-muted transition-colors hover:text-heading focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-secondary"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="size-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+          <circle cx="12" cy="12" r="3" />
+          {show && <path d="M3 3l18 18" />}
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 /** New password (+ repeat). Used for invites and password resets. */
 function PasswordFields({
   value,
@@ -30,13 +70,11 @@ function PasswordFields({
         <label htmlFor="pw-new" className={label}>
           New password
         </label>
-        <input
+        <PasswordInput
           id="pw-new"
-          type="password"
           autoComplete="new-password"
           minLength={MIN_PASSWORD}
           required
-          className={input}
           value={value[0]}
           onChange={(e) => onChange([e.target.value, value[1]])}
         />
@@ -46,12 +84,10 @@ function PasswordFields({
         <label htmlFor="pw-repeat" className={label}>
           Repeat password
         </label>
-        <input
+        <PasswordInput
           id="pw-repeat"
-          type="password"
           autoComplete="new-password"
           required
-          className={input}
           value={value[1]}
           onChange={(e) => onChange([value[0], e.target.value])}
         />
@@ -133,12 +169,10 @@ export function LoginForm({ onLogin, notice }: { onLogin: (user: User) => void; 
                 <label htmlFor="login-password" className={label}>
                   Password
                 </label>
-                <input
+                <PasswordInput
                   id="login-password"
-                  type="password"
                   autoComplete="current-password"
                   required
-                  className={input}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
