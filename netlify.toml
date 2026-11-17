@@ -5,6 +5,10 @@
   command = "npm run build"
   publish = "dist"
 
+# Serverless functions (the patch notes API): netlify/functions/*.mts
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   NODE_VERSION = "22"
 
@@ -43,6 +47,11 @@
 
 [[redirects]]
   from = "/patch-notes"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
   to = "/index.html"
   status = 200
 

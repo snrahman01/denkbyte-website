@@ -6,7 +6,7 @@ type Variant = 'accent' | 'ghost' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
 
 const base =
-  'inline-flex items-center justify-center gap-2.5 font-bold whitespace-nowrap no-underline transition duration-300';
+  'inline-flex items-center justify-center gap-2.5 font-bold whitespace-nowrap no-underline transition duration-300 disabled:pointer-events-none disabled:opacity-60';
 
 const variants: Record<Variant, string> = {
   // Orange gradient: the main call to action
@@ -37,6 +37,7 @@ interface ButtonProps {
   'aria-haspopup'?: 'dialog';
   onPointerEnter?: () => void;
   onFocus?: () => void;
+  disabled?: boolean;
 }
 
 /** Button or link with the site's button look. Pass `to` for routes, `href` for external links. */

@@ -31,6 +31,8 @@ export const router = createBrowserRouter([
       { path: 'privacy', element: <PrivacyPage /> },
     ],
   },
+  // Team-only patch notes editor (not linked anywhere). Loaded on demand, so visitors never download it.
+  { path: '/admin', lazy: async () => ({ Component: (await import('./pages/AdminPage')).default }) },
   // Anything else: the stand-alone 404 page
   { path: '*', element: <NotFoundPage /> },
 ]);
