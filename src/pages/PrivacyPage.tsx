@@ -25,9 +25,12 @@ export default function PrivacyPage() {
 
       <h2>2. Overview</h2>
       <ul>
-        <li>No user accounts, contact forms, newsletters or comments.</li>
+        <li>
+          No user accounts for visitors, no contact forms, newsletters or comments (only our team logs in, see
+          section 6).
+        </li>
         <li>No analytics, tracking, advertising or social media plugins.</li>
-        <li>No cookies.</li>
+        <li>No cookies for visitors.</li>
         <li>No content, fonts or scripts are loaded from other servers while you browse the site.</li>
       </ul>
 
@@ -71,7 +74,20 @@ export default function PrivacyPage() {
         TDDDG (storage that is strictly necessary for a function you explicitly use).
       </p>
 
-      <h2>6. JavaScript libraries and fonts</h2>
+      <h2>6. Team login (team members only)</h2>
+      <p>
+        Members of the {name} team can log in to an internal editor to publish the patch notes. Visitors are
+        not affected. The login uses Netlify Identity, part of our hosting provider (section 3). For each team
+        account, Netlify stores the email address, an encrypted password and login timestamps; when a team
+        member logs in, the cookies <code>nf_jwt</code> and <code>nf_refresh</code> and a session entry in
+        local storage keep them logged in. With each saved patch note we store which team account last changed
+        it; this is never published. <strong>Legal basis:</strong> Art. 6(1)(f) GDPR (our interest in letting
+        only our team edit the website) and § 25(2) No. 2 TDDDG for the login cookies, which are strictly
+        necessary for the login a team member requests. Team accounts are deleted when a member leaves the
+        team.
+      </p>
+
+      <h2>7. JavaScript libraries and fonts</h2>
       <p>
         The website is built with the open-source libraries React, React Router, GSAP and Tailwind CSS. They
         are bundled into the website&rsquo;s own files and served from the same host (Netlify), not from
@@ -79,14 +95,14 @@ export default function PrivacyPage() {
         (such as Google Fonts) are loaded. No personal data is passed to the authors of these libraries.
       </p>
 
-      <h2>7. Links to other websites</h2>
+      <h2>8. Links to other websites</h2>
       <p>
         The site links to LinkedIn, Instagram, GitHub, the GitLab of TU Chemnitz and Google Maps. These are
         plain links: no data is sent to these services until you click one. After that, the privacy policy of
         the respective provider applies. The QR codes on the Contact page are images stored on our own server.
       </p>
 
-      <h2>8. Your rights</h2>
+      <h2>9. Your rights</h2>
       <p>You have the right to:</p>
       <ul>
         <li>access the personal data we hold about you (Art. 15 GDPR)</li>
@@ -107,7 +123,7 @@ export default function PrivacyPage() {
         .
       </p>
 
-      <h2>9. Changes</h2>
+      <h2>10. Changes</h2>
       <p>We update this policy when the website changes. Last updated: November 2026.</p>
     </LegalPage>
   );

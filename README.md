@@ -108,23 +108,39 @@ stylesheet per component. `src/index.css` only defines the design tokens:
 - Install the VS Code extension **Tailwind CSS IntelliSense** for autocomplete. Prettier sorts the
   classes automatically (`prettier-plugin-tailwindcss`).
 
-## Posting patch notes
+## Patch notes editor (CMS)
 
-The Planspiel rules ask for regular status updates; ours are the **Patch Notes**. Add an entry to
-`src/data/patch-notes.json`:
+Team members publish patch notes themselves at **`/admin`** (not linked on the site, hidden from search
+engines). They log in, fill in date, category, version, heading and points, and the note is live on
+`/patch-notes` and the homepage right away, without a new deploy.
 
-```json
-{
-  "version": "1.2",
-  "date": "2026-11-20",
-  "tag": "Product",
-  "title": "Short headline",
-  "changes": ["What changed", "One short line each"]
-}
-```
+| Part                                                     | Where                                              |
+| -------------------------------------------------------- | -------------------------------------------------- |
+| Admin page (login, invite, password reset, editor)       | `src/pages/AdminPage.tsx`, `src/components/admin/` |
+| API: public `GET`, logged-in `POST` / `PUT` / `DELETE`   | `netlify/functions/patch-notes.mts`                |
+| Shared rules (categories, validation, next version)      | `src/lib/patchNotes.ts`                            |
+| Notes shipped with the site (instant display + fallback) | `src/data/patch-notes.json`                        |
 
-It appears on `/patch-notes` and, if it is one of the two newest, on the homepage. Entries are sorted
-by date automatically.
+- **Storage:** [Netlify Blobs](https://docs.netlify.com/build/data-and-storage/netlify-blobs/) (store
+  `patch-notes`). Until the first save, the API serves `patch-notes.json`.
+- **Login:** [Netlify Identity](https://docs.netlify.com/manage/security/secure-access-to-sites/identity/),
+  invite-only. The API checks the login on every change, so hiding `/admin` is not what protects it.
+- **Deploy previews** use a separate store (`patch-notes-preview`): testing a PR never changes the live notes.
+- **Categories:** edit `CATEGORIES` in `src/lib/patchNotes.ts`.
+- **Locally** (`npm run dev`) the public pages show `patch-notes.json`; login and saving only work on the
+  deployed site or a deploy preview (or with `netlify dev`).
+
+### One-time setup (whoever manages the site on Netlify)
+
+1. In the Netlify dashboard, open the DenkByte project, find **Identity** in its settings and click
+   **Enable Identity**.
+2. **Registration preferences → Invite only.** Important: otherwise anyone could create an account.
+3. On the Identity page, **Invite users** and enter the team members' email addresses.
+4. Done. Netlify Blobs needs no setup.
+
+Each invited member gets an email, opens the link, chooses a password on `/admin` and can start posting.
+Forgotten passwords: "Forgot your password?" on `/admin`. Someone leaves the team: delete their user under
+Identity.
 
 ## Legal requirements (Planspiel)
 

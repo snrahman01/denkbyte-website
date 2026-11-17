@@ -57,6 +57,8 @@ export interface TeamMember {
 }
 
 export interface PatchNote {
+  /** Set by the patch notes API (src/lib/patchNotes.ts); not needed in patch-notes.json */
+  id?: string;
   /** Version label without the "v", e.g. "1.2" */
   version: string;
   /** ISO date, e.g. "2026-11-20" */
@@ -64,6 +66,6 @@ export interface PatchNote {
   title: string;
   /** What changed, one short line each */
   changes: string[];
-  /** Optional category, e.g. "Website", "Product", "Team", "Pitch" */
+  /** Category, one of CATEGORIES in src/lib/patchNotes.ts */
   tag?: string;
 }

@@ -20,6 +20,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@netlify/blobs": "^11.1.6",
+    "@netlify/identity": "^2.0.0",
     "gsap": "^3.13.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@netlify/functions": "^6.0.3",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

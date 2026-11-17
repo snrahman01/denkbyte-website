@@ -8,7 +8,7 @@ import prettier from 'eslint-config-prettier';
 export default tseslint.config(
   { ignores: ['dist', 'node_modules'] },
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,mts}'],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
@@ -32,7 +32,7 @@ export default tseslint.config(
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {
-    files: ['vite.config.ts'],
+    files: ['vite.config.ts', 'netlify/**/*.{ts,mts}'],
     languageOptions: { globals: globals.node },
   },
   // Must be last: disables stylistic rules that conflict with Prettier.
